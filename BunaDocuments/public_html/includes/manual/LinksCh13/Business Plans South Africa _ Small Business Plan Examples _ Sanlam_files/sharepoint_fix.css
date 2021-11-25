@@ -1,0 +1,88 @@
+﻿/*==========================================================================
+  SHAREPOINT FIXES
+  ========================================================================== */
+  
+	/* FIX SHAREPOINT SCROLL BAR ISSUE */  	
+  	body {
+	    height: auto !important;
+	    overflow-y: scroll !important;
+	}
+	.ms-dialog body {
+		background-image:none !important;
+		overflow-y:auto !important;
+		background-color:white;
+	}
+  	body #s4-workspace{
+	    overflow: hidden !important;
+	    height: 100% !important;
+	    margin-bottom: 0px;
+	}
+	.ms-dialog body #s4-workspace{
+	    overflow: auto !important;
+	}
+	
+	/* fix size of edit textarea in sharepoint */
+	.ms-rte-embeddialog-textarea.ms-fullWidth {
+		width: 100% !important;
+		height: 400px !important;
+	}
+
+	/* hide site page title */
+	/* .ms-core-pageTitle{Display:none !Important;} */
+
+  	#s4-bodyContainer { padding-bottom: 0 !important; }
+	#s4-titlerow { display: none !important; }
+	#sideNavBox { display: none !important; }
+	
+	#contentRow { padding-top: 0; min-height: 400px !important; }
+	#contentBox { margin-left: 0; margin-right: 0; min-width: 0; }
+	
+	h1.ms-rteElement-SanlamH1 { 
+		-ms-name: "Sanlam h1";
+  		margin: 0;
+		color: #303030;
+		font-family: 'open_sanslight';
+		font-size: 25px;
+  	}
+  	.ms-rteStyle-SanlamStyle {
+	    -ms-name: "Sanlam style";
+	    font-style: bold;
+	    color: red;
+	}
+	.ms-rtestate-field h1, h1.ms-rteElement-H1 {
+		line-height: 110%;
+		color: #848484;
+	}
+	.ms-rtestate-field h2, h2.ms-rteElement-H2 {
+		line-height: 110%;
+		color: #3e3e3e;
+	}
+	.ms-rtestate-field h4, h4.ms-rteElement-H4 {
+		line-height: 135%;
+		color: #2c2c2c;
+	}
+	.ms-rtestate-field p, p.ms-rteElement-P {
+		margin: 0px 0px 10px 0px;
+		line-height: 150%;
+	}
+	/*div.article, div.welcome { padding: 0; }*/
+	
+	/* remove spacing below web parts */
+	.ms-webpartzone-cell { margin: 0; }
+
+	.ms-webpart-zone, .ms-webpart-cell-vertical, .ms-webpart-chrome-vertical { display: block !important; }
+	.ms-fullWidth, .ms-webpart-chrome-fullWidth { width: auto !important; }
+	
+	/* hide search pop-up box */
+	.ms-srch-hover-outerContainer { display: none !important; }
+	
+	/* remove border from iframe */
+	.fsBody .fsForm { border: none !important; }
+	
+	/* fix webpart on home page to full width */
+	.ms-rte-embedil {display: block;}
+	
+	object {display:none !important;}	
+	/* div.article, div.welcome {
+	    padding: 10px 0;
+	}*/

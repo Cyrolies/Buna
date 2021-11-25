@@ -1,0 +1,114 @@
+@font-face{font-family:'socicon';src:url('../_fonts/socicon.eot');src:url('../_fonts/socicon.eot#iefix') format('embedded-opentype'),
+url('../_fonts/socicon.woff2') format('woff2'),
+url('../_fonts/socicon.ttf') format('truetype'),
+url('../_fonts/socicon.woff') format('woff'),
+url('../_fonts/socicon.svg#Socicon') format('svg');font-weight:normal;font-style:normal;}
+.socialsider{z-index:10;font-size:12px;line-height:22px;width:70px;display:block;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease;-ms-transition:all 0.5s ease;-o-transition:all 0.5s ease;transition:all 0.5s ease;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.socialsider ul{list-style-type:none;margin:0;padding:0;}
+.socialsider li{margin:0;padding:0;}
+.socialsider a{height:41px;display:block;text-decoration:none;-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease;-ms-transition:all 0.3s ease;-o-transition:all 0.3s ease;transition:all 0.3s ease;position:relative;}
+.socialsider a::after{display:block;font-family:'socicon';text-decoration:none;font-size:20px;padding:10px;position:absolute;left:0;top:0;-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease;-ms-transition:all 0.3s ease;-o-transition:all 0.3s ease;transition:all 0.3s ease;}
+.socialsider_fixed{position:fixed;}
+.socialsider_absolute{position:absolute;}
+@media (max-width:640px){.socialsider_mobiledisable{display:none;}}
+.socialsider_radius a::after{border-radius:5px;}
+.socialsider_shadow a::after{-webkit-box-shadow:0 0 2px 2px rgba(0,0,0,0.2);box-shadow:0 0 2px 2px rgba(0,0,0,0.2);}
+.socialsider_opacity a::after{opacity:0.4;}
+.socialsider_opacity a:hover::after{opacity:1;}
+.socialsider_spacer a{height:42px;margin-bottom:1px;}
+.socialsider_blur:hover a:not(:hover){filter:blur(2px);-webkit-filter:blur(2px);}
+.socialsider_left_top{left:-30px;top:50px;}
+.socialsider_left_top.socialsider_hidden{left:-45px;}
+.socialsider_left_top.socialsider_hidden:hover{left:-25px;}
+.socialsider_left_top a{left:0px;}
+.socialsider_left_top a::after{padding-left:40px;}
+.socialsider_left_top a:hover{left:10px;}
+.socialsider_left_middle{left:-30px;top:40%;}
+.socialsider_left_middle.socialsider_hidden{left:-45px;}
+.socialsider_left_middle.socialsider_hidden:hover{left:-25px;}
+.socialsider_left_middle a{left:0px;}
+.socialsider_left_middle a::after{padding-left:40px;}
+.socialsider_left_middle a:hover{left:10px;}
+.socialsider_left_bottom{left:-30px;bottom:50px;}
+.socialsider_left_bottom.socialsider_hidden{left:-45px;}
+.socialsider_left_bottom.socialsider_hidden:hover{left:-25px;}
+.socialsider_left_bottom a{left:0px;}
+.socialsider_left_bottom a::after{padding-left:40px;}
+.socialsider_left_bottom a:hover{left:10px;}
+.socialsider_right_top{right:-30px;top:50px;}
+.socialsider_right_top.socialsider_hidden{right:-45px;}
+.socialsider_right_top.socialsider_hidden:hover{right:-25px;}
+.socialsider_right_top a{right:0px;}
+.socialsider_right_top a::after{padding-right:40px;}
+.socialsider_right_top a:hover{right:10px;}
+.socialsider_right_middle{right:-30px;top:40%;}
+.socialsider_right_middle.socialsider_hidden{right:-45px;}
+.socialsider_right_middle.socialsider_hidden:hover{right:-25px;}
+.socialsider_right_middle a{right:0px;}
+.socialsider_right_middle a::after{padding-right:40px;}
+.socialsider_right_middle a:hover{right:10px;}
+.socialsider_right_bottom{right:-30px;bottom:50px;}
+.socialsider_right_bottom.socialsider_hidden{right:-45px;}
+.socialsider_right_bottom.socialsider_hidden:hover{right:-25px;}
+.socialsider_right_bottom a{right:0px;}
+.socialsider_right_bottom a::after{padding-right:40px;}
+.socialsider_right_bottom a:hover{right:10px;}
+.socialsider a[data-socialsider='twitter']::after{content:"\e08d";}
+.socialsider a[data-socialsider='facebook']::after{content:"\e028";}
+.socialsider a[data-socialsider='google']::after{content:"\e034";}
+.socialsider a[data-socialsider='pinterest']::after{content:"\e063";}
+.socialsider a[data-socialsider='linkedin']::after{content:"\e04c";}
+.socialsider a[data-socialsider='instagram']::after{content:"\e044";}
+.socialsider a[data-socialsider='wordpress']::after{content:"\e09c";}
+.socialsider a[data-socialsider='tumblr']::after{content:"\e08b";}
+.socialsider a[data-socialsider='blogger']::after{content:"\e012";}
+.socialsider a[data-socialsider='reddit']::after{content:"\e06c";}
+.socialsider a[data-socialsider='stumbleupon']::after{content:"\e082";}
+.socialsider a[data-socialsider='digg']::after{content:"\e01c\e01c";}
+.socialsider a[data-socialsider='disqus']::after{content:"\e01e";}
+.socialsider a[data-socialsider='googlescholar']::after{content:"\e035";}
+.socialsider a[data-socialsider='googlegroups']::after{content:"\e036";}
+.socialsider a[data-socialsider='googlephotos']::after{content:"\e037";}
+.socialsider a[data-socialsider='googleplus']::after{content:"\e038";}
+.socialsider a[data-socialsider='mail']::after{content:"\e050";}
+.socialsider a[data-socialsider='medium']::after{content:"\e051";}
+.socialsider a[data-socialsider='patreon']::after{content:"\e05f";}
+.socialsider a[data-socialsider='paypal']::after{content:"\e060";}
+.socialsider a[data-socialsider='sharethis']::after{content:"\e072";}
+.socialsider a[data-socialsider='smugmug']::after{content:"\e075";}
+.socialsider a[data-socialsider='snapchat']::after{content:"\e076";}
+.socialsider a[data-socialsider='telegram']::after{content:"\e087";}
+.socialsider a[data-socialsider='twitch']::after{content:"\e08c";}
+.socialsider a[data-socialsider='wechat']::after{content:"\e097";}
+.socialsider a[data-socialsider='weibo']::after{content:"\e098";}
+.socialsider a[data-socialsider='whatsapp']::after{content:"\e099";}
+.socialsider a[data-socialsider='yandex']::after{content:"\e0a2";}
+.socialsider.socialsider_bgdark_white a::after{background:#333;color:#FFF;}
+.socialsider.socialsider_bgwhite_dark a::after{background:#FFF;color:#333;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='twitter']:hover::after{color:#4da7de;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='facebook']:hover::after{color:#3e5b98;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='google']:hover::after{color:#d93e2d;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='pinterest']:hover::after{color:#c92619;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='yahoo']:hover::after{color:#6E2A85;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='linkedin']:hover::after{color:#3371b7;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='youtube']:hover::after{color:#e02a20;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='instagram']:hover::after{color:#9c7c6e;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='tumblr']:hover::after{color:#45556c;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='blogger']:hover::after{color:#ec661c;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='reddit']:hover::after{color:#e74a1e;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='stumbleupon']:hover::after{color:#e64011;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='digg']:hover::after{color:#1d1d1b;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='disqus']:hover::after{color:#2e9fff;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='googlescholar']:hover::after{color:#4285f4;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='googlegroups']:hover::after{color:#4F8EF5;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='googlephotos']:hover::after{color:#212121;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='googleplus']:hover::after{color:#dd4b39;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='mail']:hover::after{color:#000000;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='medium']:hover::after{color:#000000;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='patreon']:hover::after{color:#E44727;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='paypal']:hover::after{color:#009cde;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='telegram']:hover::after{color:#0088cc;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='twitch']:hover::after{color:#6441a5;}
+.socialsider.socialsider_bgwhite_dark.socialsider_colorize a[data-socialsider='whatsapp']:hover::after{color:#20B038;}
+.socialsider.socialsider_bgcolor_white a::after{color:#FFF;}
+.socialsider.socialsider_bgwhite_color a::after{background:#FFF;}

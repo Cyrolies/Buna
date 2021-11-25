@@ -1,0 +1,93 @@
+﻿@using CyroTechPortal; 
+@model  Models.Export
+
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <button type="button" name="btnClose" id="btnClose" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("Export")), new { @class = "col-md-2 control-label" })</h4>
+            </div>
+            
+            <div class="box-body">
+                <div id="result"></div>
+                @using (Html.BeginForm("ExportData", Model.Controller, FormMethod.Post, new { id = "export-form" }))
+                {
+                    try
+                    {
+                        @Html.HiddenFor(m => m.DatatableParams)
+                        @Html.HiddenFor(m => m.Entity)
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("FileName")))
+                            @Html.CustomTextBoxFor(o => o.Filename)
+                            @Html.CustomValidationMessageFor(o => o.Filename)
+
+                        </div>
+                        <div class="form-group">
+
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("Header")))
+                            @Html.CustomTextBoxFor(o => o.HeaderDetail)
+                            @Html.CustomValidationMessageFor(o => o.HeaderDetail)
+
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("IncludeDetailsInExport")))
+                            @Html.CustomCheckBoxFor(m => m.IncludeDetailsInExport)
+
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("Excel")))
+                            @Html.CustomCheckBoxFor(m => m.Excel)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("Pdf")))
+                            @Html.CustomCheckBoxFor(m => m.Pdf)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("Csv")))
+                            @Html.CustomCheckBoxFor(m => m.Csv)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("ShowDBColumnNames")))
+                            @Html.CustomCheckBoxFor(m => m.ShowDBColumnNames)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("ExportBlank")))
+                            @Html.CustomCheckBoxFor(m => m.ExportBlank)
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-default">@Localizer.Current.GetString("Export")</button>
+                        </div>
+                    }
+                    catch (Exception ex)
+                    {
+                        <script type="text/javascript">
+                               ShowNotification(false,'@ex.Message.Replace("'","\\'").Replace("\r\n","<br/>")');
+                        </script>
+                    }
+                }
+            </div>
+            
+        </div>
+    </div>
+    
+<script>
+     
+    $(document).ready(function () {
+        $('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+        $('#modal1').modal('show');
+        //document.getElementById("btnClose").onclick = function () { $('#tblGrid').DataTable().ajax.reload(); };
+       
+       
+    });
+
+    
+   
+</script>
+    
+</div>
+
+

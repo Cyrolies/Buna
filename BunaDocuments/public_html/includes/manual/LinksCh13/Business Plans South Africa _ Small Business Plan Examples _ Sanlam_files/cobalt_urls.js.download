@@ -1,0 +1,125 @@
+﻿// COBALT PAGE PARAMETERS
+
+// get page url
+var url = window.location.href;
+
+// convert url to lower case
+url = url.toLowerCase();
+
+// regexp get paramaters after "?"
+var paramRegexp = /\?(.*)/;
+
+// regexp check page urls
+var boRegexp = /\/businessowners\//;
+
+var x = location.search;
+
+// The following code must be in a func and only run on Doc ready
+var runUrl = function () {
+
+		// First Clear all existing parameters on URLs
+		$('a[href*="?"]').each(function () {
+		    var href = $(this).attr('href');
+		    $(this).attr('href', href.substring(0, href.indexOf('?')));
+		});		
+		
+		// Then take document URL parameters and add it into html a tags
+		$(".row").find('a[href*="jsp"]').each(function(k,v){
+			var getHref = $(this).attr("href");
+			getHref = getHref.replace('jsp',"jsp"+x);
+			
+			$(this).attr("href",getHref);
+			
+		});	
+
+}; // END runUrl function
+
+$(function(){
+	
+	// IF the page is under the Business Owners subsite
+	if (url.indexOf("/businessowners/") != -1){ 
+	
+		// Creating a Business Plan Page
+		if (document.location.href.indexOf('creating-a-business-plan') > - 1){
+			$(".row").find('a[href*="jsp"]').each(function(k,v){
+				var getHrefUrl = $(this).attr("href");
+				if(getHrefUrl.indexOf('?') == -1){
+					getHrefUrl = getHrefUrl.replace('jsp',"jsp?typeparm=1&sparm=1");
+					$(this).attr('href', getHrefUrl);
+				}
+			});		
+		}
+		
+		// The Business Turnaround Book Page
+		if (document.location.href.indexOf('the-business-turnaround-book') > - 1){
+			$(".row").find('a[href*="jsp"]').each(function(k,v){
+				var getHrefUrl = $(this).attr("href");
+				if(getHrefUrl.indexOf('?') == -1){
+					getHrefUrl = getHrefUrl.replace('jsp',"jsp?typeparm=2&sparm=1");
+					$(this).attr('href', getHrefUrl);
+				}
+			});		
+		}
+		
+		// The Business Turnaround Book Page
+		if (document.location.href.indexOf('the-business-turnaround-book') > - 1){
+			$(".row").find('a[href*="jsp"]').each(function(k,v){
+				var getHrefUrl = $(this).attr("href");
+				if(getHrefUrl.indexOf('?') == -1){
+					getHrefUrl = getHrefUrl.replace('jsp',"jsp?typeparm=2&sparm=1");
+					$(this).attr('href', getHrefUrl);
+				}
+			});		
+		}
+		
+		// Annual Business Game Plan for Success Page
+		if (document.location.href.indexOf('your-annual-business-game-plan-for-success') > - 1){
+			$(".row").find('a[href*="jsp"]').each(function(k,v){
+				var getHrefUrl = $(this).attr("href");
+				if(getHrefUrl.indexOf('?') == -1){
+					getHrefUrl = getHrefUrl.replace('jsp',"jsp?typeparm=3&sparm=1");
+					$(this).attr('href', getHrefUrl);
+				}
+			});		
+		}			
+		
+		// If Parameters Do NOT exist
+		if (document.location.href.indexOf('?tp') === -1){
+			$(".row").find('a[href*="jsp"]').each(function(k,v){
+				var getHrefUrl = $(this).attr("href");
+				if(getHrefUrl.indexOf('?') == -1){
+					getHrefUrl = getHrefUrl.replace('jsp',"jsp?tp=1&sp=1&cp=001&bp=001&op=1");
+					$(this).attr('href', getHrefUrl);
+				}
+			});
+		 
+		}
+		
+		// ELSE......run the function to grab Parameters from Incoming URLS
+		if (document.location.href.indexOf('?') != -1){		
+			runUrl();
+		}
+		
+	} else { 
+		//alert(); 
+	} // end MAIN IF
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

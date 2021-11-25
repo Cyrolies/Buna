@@ -1,0 +1,16 @@
+<?php
+defined('_JEXEC') or die;
+function sourcerer_php_0e729e4a5b70553bdbd08c51e4a31537($src_variables){
+$app = $mainframe = JFactory::getApplication();
+$document = $doc = JFactory::getDocument();
+$database = $db = JFactory::getDbo();
+$user = JFactory::getUser();
+$Itemid = $app->input->getInt('Itemid');
+if (is_array($src_variables)) {foreach ($src_variables as $src_key => $src_value) {${$src_key} = $src_value;}}
+if(!isset($_GET['r'])){ 
+$width = addslashes($_GET['width']); 
+$height = addslashes($_GET['Height']); 
+echo $width; ?>-- width </br><?php 
+echo $height;;
+return get_defined_vars();
+;}

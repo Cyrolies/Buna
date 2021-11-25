@@ -1,0 +1,243 @@
+@using CyroTechPortal;
+@model DALEFModel.Asset
+<script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="content">
+				<div class="box-header">
+					<button type = "button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("Asset")), new { @class = "col-md-2 control-label" })</h4>
+				</div>
+
+				<div id = "result" ></div>
+				@using(Ajax.BeginForm("EditAsset", "Asset", new AjaxOptions
+					{
+						HttpMethod = "POST",
+						InsertionMode = InsertionMode.Replace,
+						UpdateTargetId = "result"
+					}))
+					{
+						try {
+							@* @Html.AntiForgeryToken()*@
+							@Html.ValidationSummary(true)
+
+								<div is="Tabs" role="tabpanel">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="active" ><a href = "#General" aria-controls = "#General" role="tab" data-toggle="tab">General</a></li>
+									<li><a href = "#Costs" aria-controls = "#Costs" role="tab" data-toggle="tab">Costs</a></li>
+								</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" role="tabpanel" id="General">
+										<div class="col-md-12"> 
+												<div class="row">
+													<div class="box-default">
+														<div class="box-header with-border">
+															<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxAsset Details"))</h3>
+
+															<div class="box-body">
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.Code)
+																		@Html.CustomTextBoxFor(o => o.Code)
+																		@Html.CustomValidationMessageFor(o => o.Code)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.Name)
+																		@Html.CustomTextBoxFor(o => o.Name)
+																		@Html.CustomValidationMessageFor(o => o.Name)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.StpAssetCategoryID)
+																		@Html.CustomDropDownListFor(st => st.StpAssetCategoryID)
+																		@Html.CustomValidationMessageFor(o => o.StpAssetCategoryID)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.Description)
+																		@Html.CustomTextBoxAreaFor(o => o.Description)
+																		@Html.CustomValidationMessageFor(o => o.Description)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.ParentAssetID)
+																		@Html.CustomDropDownListFor(st => st.ParentAssetID)
+																		@Html.CustomValidationMessageFor(o => o.ParentAssetID)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.IsActive)
+																		@Html.CustomCheckBoxFor(o => o.IsActive)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.AssignedToID)
+																		@Html.CustomDropDownListFor(st => st.AssignedToID)
+																		@Html.CustomValidationMessageFor(o => o.AssignedToID)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.DateAssigned)
+																		@Html.CustomTextBoxFor(o => o.DateAssigned)
+																		@Html.CustomValidationMessageFor(o => o.DateAssigned)
+																	</div>
+																</div>
+
+																@Html.HiddenFor(o => o.CreatedByID)
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.CreatedByID)
+																		@Html.CustomDropDownListFor(st => st.CreatedByID)
+																		@Html.CustomValidationMessageFor(o => o.CreatedByID)
+																	</div>
+																</div>
+
+																@Html.HiddenFor(o => o.CreateDateTime)
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.CreateDateTime)
+																		@Html.CustomTextBoxFor(o => o.CreateDateTime)
+																		@Html.CustomValidationMessageFor(o => o.CreateDateTime)
+																	</div>
+																</div>
+
+																@Html.HiddenFor(o => o.ChangedByID)
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.ChangedByID)
+																		@Html.CustomDropDownListFor(st => st.ChangedByID)
+																		@Html.CustomValidationMessageFor(o => o.ChangedByID)
+																	</div>
+																</div>
+
+																@Html.HiddenFor(o => o.ChangeDateTime)
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.ChangeDateTime)
+																		@Html.CustomTextBoxFor(o => o.ChangeDateTime)
+																		@Html.CustomValidationMessageFor(o => o.ChangeDateTime)
+																	</div>
+																</div>
+
+																@Html.HiddenFor(o => o.Barcode)
+
+																@Html.HiddenFor(o => o.OrgID)
+
+																@Html.HiddenFor(o => o.StcStatusID)
+
+																@Html.HiddenFor(o => o.VersionNo)
+
+																@Html.HiddenFor(o => o.AssetID)
+
+															</div>
+														</div>
+													</div>
+												</div>
+										</div>
+
+										</div>
+										<div class="tab-pane" role="tabpanel" id="Costs">
+										<div class="col-md-12"> 
+												<div class="row">
+													<div class="box-default">
+														<div class="box-header with-border">
+															<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxAsset Costs"))</h3>
+
+															<div class="box-body">
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.PurchasePrice)
+																		@Html.CustomTextBoxFor(o => o.PurchasePrice)
+																		@Html.CustomValidationMessageFor(o => o.PurchasePrice)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.PurchaseTax)
+																		@Html.CustomTextBoxFor(o => o.PurchaseTax)
+																		@Html.CustomValidationMessageFor(o => o.PurchaseTax)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.PurchaseCosts)
+																		@Html.CustomTextBoxFor(o => o.PurchaseCosts)
+																		@Html.CustomValidationMessageFor(o => o.PurchaseCosts)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.PurchaseDate)
+																		@Html.CustomTextBoxFor(o => o.PurchaseDate)
+																		@Html.CustomValidationMessageFor(o => o.PurchaseDate)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.IsSold)
+																		@Html.CustomCheckBoxFor(o => o.IsSold)
+																	</div>
+																</div>
+
+																<div class="">
+																	<div class="form-group">
+																		@Html.CustomLabelFor(o => o.SellPrice)
+																		@Html.CustomTextBoxFor(o => o.SellPrice)
+																		@Html.CustomValidationMessageFor(o => o.SellPrice)
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													</div>
+												</div>
+										</div>
+
+										</div>
+									</div>
+								</div>
+						<div class="modal-footer">
+						<button type = "submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+						</div>
+						}
+						catch (Exception ex)
+						{
+						<script type = "text/javascript" >
+							ShowNotification(false, '@ex.Message.Replace("'","\'").Replace("\r\n"," <br/> ")');
+						</script>
+						}
+					}
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+		$('#modal1').modal('show');
+		document.getElementById("btnclose").onclick = function () { $('#tblGridAsset').DataTable().ajax.reload(); };
+		$('input[type="datetime"]').datepicker({
+		autoclose: true,
+        dateFormat: 'yy/mm/dd'
+    });
+    
+		});
+	</script>

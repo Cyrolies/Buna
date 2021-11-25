@@ -1,0 +1,132 @@
+@using CyroTechPortal;
+@using DALEFModel;
+@{
+    ViewBag.Title = Localizer.Current.GetString("Home");
+}
+
+
+@{
+
+    if (Session["User"] != null)
+    {
+        User user = (User)Session["User"];
+        if (user.OrgID == 3)//Hitec
+        {
+            if (user.UserRoleID == 4 || user.UserRoleID == 6)//Manager or HitecJob Manager
+            {
+            <div class="row">
+                <div id="table" class="table-responsive">
+                    <div class="col-md-12">
+                        @Html.Partial("Charts/GanttChart")
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="table" class="table-responsive">
+                    <div class="col-md-12">
+                        @Html.Partial("Charts/MultiBarChart")
+                    </div>
+                </div>
+            </div>
+            }
+            if (user.UserRoleID == 5)//Supervisor
+            {
+            <div class="row">
+                <div id="table" class="table-responsive">
+                    <div class="col-md-12">
+                        @Html.Partial("Charts/GanttChart")
+                    </div>
+                </div>
+            </div>
+            }
+        }
+        if (user.OrgID == 4)//Thornfarm
+        {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=117'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>HIGH PERFORMANCE FEED</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=118'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>LOW PERFORMANCE FEED</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=116'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>DIESEL</h5>
+                            @*<i class='icon fa fa-check'></i>*@
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=119'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>FERTILIZER</h5>
+                            @*<i class='icon fa fa-check'></i>*@
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=133'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>WATER READING</h5>
+                            @*<i class='icon fa fa-check'></i>*@
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href='../../Consumable/Consumable?consumableTypeID=134'>
+                    <div class="box box-primary">
+                        <div style="text-align:center;color:darkslategrey">
+                            <h5>SEED</h5>
+                            @*<i class='icon fa fa-check'></i>*@
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        </div>
+        }
+
+    }
+    else
+    {
+    <h2>THIS WEB ADDRESS DOES NOT EXIST</h2>
+    }
+    }
+    <script>
+        $('#btnFeed').on('click', function () {
+
+        });
+    </script>
+
+    @section Header{
+        <h1>
+            @Localizer.Current.GetString("Home")
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
+
+        </ol>
+    }

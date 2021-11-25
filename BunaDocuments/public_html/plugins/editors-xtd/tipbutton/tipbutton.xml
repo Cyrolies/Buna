@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="3.8.0" type="plugin" group="editors-xtd"
+	method="upgrade">
+	<name>PLG_EDITORS-XTD_TIPBUTTON</name>
+	<author>Joachim Schmidt</author>
+	<creationDate>August 2020</creationDate>
+	<copyright>(C) All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>joachim.schmidt@jschmidt-systemberatung.de</authorEmail>
+	<authorUrl>http://www.jschmidt-systemberatung.de</authorUrl>
+	<version>1.2.0.1</version>
+	<description>PLG_TIPBUTTON_XML_DESCRIPTION</description>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_editors-xtd_tipbutton.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_editors-xtd_tipbutton.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_editors-xtd_tipbutton.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_editors-xtd_tipbutton.sys.ini</language>
+	</languages>
+	<files>
+		<filename plugin="tipbutton">tipbutton.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<scriptfile>install_tipbutton.php</scriptfile>
+	<updateservers>
+		<server type="extension" priority="1" name="tipbutton Updates">http://www.jschmidt-systemberatung.de/downloads/tipbutton_updates.xml</server>
+	</updateservers>
+</extension>

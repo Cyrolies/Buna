@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @using CyroTechPortal;
+    @using DALEFModel;
+    @using System.Threading;
+    @using System.Globalization;
+    @using CyroTechPortal.HTMLHelpers;
+
+    @model DALEFModel.User
+
+    <title>@ViewBag.Title</title>
+    @{
+        string theme = "~/Content/css/skin-cyrotech.css";
+        string CurrentURL = Request.Url.AbsoluteUri;
+
+        if (CurrentURL.ToUpper().Contains("HITEC"))
+        {
+            theme = "~/Content/css/Hitec-DarkYellow.css";
+
+            CommonHelper.CacheAdd("DefaultTheme", theme);
+        }
+        User user = null;
+
+        if (CommonHelper.CacheGet("DefaultTheme") != null)
+        {
+            theme = CommonHelper.CacheGet("DefaultTheme").ToString();
+        }
+
+        if (Session["User"] != null)
+        {
+            user = (User)Session["User"];
+            theme = "~/Content/css/" + user.StpData2.DataDescription + ".css";
+
+            //  AdminController adm = new AdminController();
+            //  string lang = adm.GetStpDataByID(user.StpLanguageID).DataCode;
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(user.StpData.DataCode);
+            // LocalizationConfig.RegisterResourceProvider(() => new LocalizationDbResourceProvider());
+            //// register the localizable model providers
+            // LocalizationConfig.RegisterModelProviders();
+        }
+    }
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/Bootstrap-3.3.6/css/bootstrap.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/DataTables-1.10.12/css/dataTables.bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/AutoFill-2.1.2/css/autoFill.bootstrap.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/Buttons-1.2.2/css/buttons.bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/FixedHeader-3.1.2/css/fixedHeader.bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/KeyTable-2.1.3/css/keyTable.bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/Responsive-2.1.0/css/responsive.bootstrap.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/DataTables1.10.12/Scroller-1.4.2/css/scroller.bootstrap.min.css")" />
+
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/jquery-ui.min.css")" />
+    <!--Datatables yadcf AddOn-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables/css/jquery.datatables.yadcf.css")" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2789364c5c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/font-awesome.min.css")">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ionicons.min.css")">
+
+
+    <!-- Thermoroller -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/DataTables/css/jquery.dataTables_themeroller.css")">
+    <!-- Daterangepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/daterangepicker-bs3.css")">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/select2.min.css")">
+    <!-- Alertify -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/Alertify/css/alertify.css")">
+    <!-- MultiSelect -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MultiSelect/jquery.multiselect.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/MultiSelect/jquery.multiselect.filter.css")">
+
+    <!-- AdminLTE -->
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/css/AdminLTE.css")">*@
+
+
+
+    <!-- Custom Skin
+    <link id="pagestyle" rel="stylesheet" href="@Url.Content("~/Content/css/AdminLTE.css")">-->
+    <link id="pagestyle" rel="stylesheet" href="@Url.Content(theme)">
+
+    <!--datatable extras still to verified get files-->
+    @*<script type="text/javascript" src="JSZip-2.5.0/jszip.min.js"></script>
+        <script type="text/javascript" src="pdfmake-0.1.18/build/pdfmake.min.js"></script>
+        <script type="text/javascript" src="pdfmake-0.1.18/build/vfs_fonts.js"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jQuery-2.1.4.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jQuery-ui-1.11.4.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery-ui-1.10.12/jQuery-ui.min.js")"></script>*@
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--DataTables-->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Bootstrap-3.3.6/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/JSZip-2.5.0/jszip.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/pdfmake-0.1.18/build/pdfmake.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/pdfmake-0.1.18/build/vfs_fonts.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/DataTables-1.10.12/js/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/DataTables-1.10.12/js/dataTables.bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/AutoFill-2.1.2/js/dataTables.autoFill.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/AutoFill-2.1.2/js/autoFill.bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Buttons-1.2.2/js/dataTables.buttons.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Buttons-1.2.2/js/buttons.bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Buttons-1.2.2/js/buttons.html5.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Buttons-1.2.2/js/buttons.print.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/FixedHeader-3.1.2/js/dataTables.fixedHeader.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/KeyTable-2.1.3/js/dataTables.keyTable.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Responsive-2.1.0/js/dataTables.responsive.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Responsive-2.1.0/js/responsive.bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables1.10.12/Scroller-1.4.2/js/dataTables.scroller.min.js")"></script>
+
+    <!-- Include Grid Column Filters -->
+    <script src="@Url.Content("~/Scripts/DataTables/jquery.dataTables.yadcf.js")"></script>
+    <!--Validation-->
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+
+    <!-- Alertify -->
+    <script src="@Url.Content("~/Scripts/AddOn/Alertify/alertify.min.js")"></script>
+
+    <!-- Progress Spin -->
+    <script src="@Url.Content("~/Scripts/AddOn/spin.min.js")"></script>
+
+    <!-- Slimscroll -->
+    <script src="@Url.Content("~/Scripts/AddOn/jquery.slimscroll.min.js")"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Scripts/AddOn/fastclick.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/AddOn/app.min.js")"></script>
+    <!--Ajax Forms-->
+    <script src="@Url.Content("~/Scripts/AddOn/jquery.form.js")"></script>
+
+    <!-- Include Required Prerequisites -->
+    <script src="@Url.Content("~/Scripts/AddOn/moment.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/AddOn/datetime.js")"></script>
+
+    <!-- Include Date Range Picker -->
+    <script src="@Url.Content("~/Scripts/AddOn/daterangepicker.js")"></script>
+    <!-- Include Select2 -->
+    <script src="@Url.Content("~/Scripts/select2.full.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.3.0.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")"></script>
+    <!-- MultiSelect -->
+    @*<script src="@Url.Content("~/Scripts/AddOn/MultiSelect/jquery.multiselect.js")"></script>
+        <script src="@Url.Content("~/Scripts/AddOn/MultiSelect/jquery.multiselect.filter.js")"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('#progressIcon').hide();
+             });
+        //$('input[type="datetime"]').daterangepicker({
+        //    singleDatePicker: true,
+        //    showDropdowns: true,
+        //    minYear: 1901
+        //});
+
+        function ShowNotification(success, message) {
+
+            if (success) {
+                $(".modal.in").modal("hide");
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success(message);
+            }
+            else {
+                $(".modal.in").modal("hide");
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(message);
+            }
+
+
+        };
+
+
+
+        //$('input[name="time"]').daterangepicker({
+        //    timePicker: true,
+        //    locale: {
+        //        format: 'hh:mm A'
+        //    }
+        //});
+
+        
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+       
+
+    </script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            
+                <div class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini">
+                       
+                    </span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg">
+                       
+                    </span>
+                </div>
+          
+            <!-- Header Navbar: style can be found in header.less - -->
+            <nav class="navbar navbar-static-top" role="navigation">
+
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar" data-toggle="offcanvas" role="button">
+                    <span class="glyphicon glyphicon-align-justify"></span>
+                    @*<i class="fas fa-bars"></i>*@
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span class="hidden-xs">@User.Identity.Name</span>
+                                }
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+
+                                <li>
+                                    <p>
+                                        @if (User.Identity.IsAuthenticated && Session["User"] != null)
+                                        {
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("Fullname"))):
+                                                @Html.DisplayName(user.FullName != null ? user.FullName : "")
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("Email"))):
+                                                @Html.DisplayName(user.Email != null ? user.Email : "")
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("UserRoleID"))):
+                                                @Html.DisplayName(user.UserRole != null ? user.UserRole.RoleName : "")
+
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("StpThemeID"))):
+                                                @Html.DisplayName(user.StpData2 != null ? user.StpData2.DataDescription : "")
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("StpLanguageID"))):
+                                                @Html.DisplayName(user.StpData != null ? user.StpData.DataDescription : "")
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label(@Html.Encode(Localizer.Current.GetString("StpDepartmentID"))):
+                                                @Html.DisplayName(user.StpData1 != null ? user.StpData1.DataDescription : "")
+                                            </div>
+                                        }
+
+                                    </p>
+                                    <!-- Menu Footer-->
+
+                                    <div class="text-center">
+                                        @Html.ActionLink("LogOff", "LogOff", "Account", new { currentTheme = @theme }, null)
+                                        @*<a href="/Account/LogOff" class="btn btn-default btn-flat">Sign out</a>*@
+                                    </div>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                @Html.Partial("_MenuPartial")
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div id="progressIcon" class="loader" > <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+                @RenderSection("Header")
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+            </section><!-- /.content -->
+        </div>
+    <!-- /.content-wrapper -->
+        @*<footer class="main-footer">
+            <strong><p>&copy; @DateTime.Now.Year - Admin Dashboard</p></strong>
+        </footer>*@
+    </div>
+    <input id="display" type="hidden" value="@Localizer.Current.GetString("Display")" />
+    <input id="records" type="hidden" value="@Localizer.Current.GetString("RecordsPerPage")" />
+
+    <input id="zeroRecords" type="hidden" value="@Localizer.Current.GetString("Nothing found - sorry")" />
+    <input id="showing" type="hidden" value="@Localizer.Current.GetString("Showing")" />
+    <input id="infoEmpty" type="hidden" value="@Localizer.Current.GetString("No records available")" />
+    <input id="filtered" type="hidden" value="@Localizer.Current.GetString("filtered from")" />
+    <input id="totalrecords" type="hidden" value="@Localizer.Current.GetString("total records")" />
+    <input id="loadingRecords" type="hidden" value="@Localizer.Current.GetString("Loading")" />
+    <input id="processing" type="hidden" value="@Localizer.Current.GetString("Processing")" />
+    <input id="first" type="hidden" value="@Localizer.Current.GetString("First")" />
+    <input id="previous" type="hidden" value="@Localizer.Current.GetString("Previous")" />
+    <input id="next" type="hidden" value="@Localizer.Current.GetString("Next")" />
+    <input id="last" type="hidden" value="@Localizer.Current.GetString("Last")" />
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

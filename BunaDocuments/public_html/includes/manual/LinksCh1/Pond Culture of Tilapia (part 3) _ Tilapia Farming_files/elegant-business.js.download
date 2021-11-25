@@ -1,0 +1,13 @@
+jQuery( function( $ ) {
+
+    $( '#wpbdp-listing-tabs' ).tabs( {
+        active: 0,
+        activate: function( event, ui ) {
+            $( window ).trigger( 'resize.reusables.breakpoints' );
+            wpbdp.googlemaps.refresh_all();
+        }
+    } );
+
+    $( '.wpbdp-listings-list .wpbdp-listing:last' ).addClass( 'last' );
+
+} );

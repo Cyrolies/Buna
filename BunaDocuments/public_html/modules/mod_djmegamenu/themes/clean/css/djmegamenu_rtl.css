@@ -1,0 +1,143 @@
+.dj-megamenu-clean li.dj-up {
+  float: right;
+}
+
+.dj-megamenu-clean li a.dj-up_a {
+  float: right;
+}
+
+.dj-megamenu-clean li a.dj-up_a span {
+  float: right;
+}
+
+.dj-megamenu-clean li a.dj-up_a span span.image-title {
+  margin: 0 15px 0 0;
+}
+
+.dj-megamenu-clean li a.dj-up_a span.dj-drop {
+  padding: 0 0 0 20px !important;
+}
+
+.dj-megamenu-clean li a.dj-up_a .arrow {
+  right: auto;
+  left: 16px;
+}
+
+.dj-megamenu-clean li a.dj-up_a.withsubtitle .arrow {
+  right: auto;
+  left: 16px;
+}
+
+.dj-megamenu-clean li div.dj-subwrap {
+  left: auto;
+  right: -9999px;
+}
+
+.dj-megamenu-clean li:hover div.dj-subwrap {
+  left: auto;
+  right: 0;
+}
+
+.dj-megamenu-clean li:hover div.dj-subwrap li div.dj-subwrap {
+  left: auto;
+  right: -9999px;
+}
+
+.dj-megamenu-clean li:hover div.dj-subwrap li:hover > div.dj-subwrap {
+  left: auto;
+  right: 100%;
+  margin: 0 10px 0 0;
+}
+
+.dj-megamenu-clean li div.dj-subcol {
+  float: right;
+}
+
+.dj-megamenu-clean li ul.dj-submenu > li > a .dj-icon {
+  float: right;
+  margin: 0 0 8px 15px;
+}
+
+.dj-megamenu-clean li ul.dj-submenu > li.parent > a .arrow {
+  right: auto;
+  left: 6px;
+}
+
+.dj-megamenu-clean li ul.dj-submenu > li.parent > a .arrow:before {
+  content: '\f104';
+}
+
+.dj-megamenu-clean li ul.dj-submenu > li.parent:not(.subtree) > a:hover .arrow {
+  right: auto;
+  left: 4px;
+}
+
+.dj-megamenu-clean li ul.dj-subtree {
+  margin: 5px 25px 5px 0 !important;
+}
+
+.dj-megamenu-clean li.hover div.dj-subwrap {
+  left: auto;
+  right: 0;
+}
+
+.dj-megamenu-clean li.hover div.dj-subwrap li div.dj-subwrap {
+  left: auto;
+  right: -9999px;
+}
+
+.dj-megamenu-clean li.hover div.dj-subwrap li.hover > div.dj-subwrap {
+  left: auto;
+  right: 100%;
+  margin: 0 10px 0 0;
+}
+
+.dj-megamenu-clean .dj-stickylogo.dj-align-left {
+  left: auto;
+  right: 20px;
+}
+
+.dj-megamenu-clean .dj-stickylogo.dj-align-right {
+  right: auto;
+  left: 20px;
+}
+
+.dj-megamenu-clean.dj-megamenu-sticky {
+  left: auto;
+  right: 0;
+}
+
+.dj-megamenu-clean.verticalMenu li a.dj-up_a .arrow:before {
+  content: '\f104';
+}
+
+.dj-megamenu-clean.verticalMenu li:hover div.dj-subwrap {
+  right: 100% !important;
+  left: auto !important;
+}
+
+.dj-megamenu-clean.verticalMenu li:hover div.dj-subwrap.open-right {
+  right: 100% !important;
+  left: auto !important;
+}
+
+.dj-megamenu-clean.verticalMenu li:hover div.dj-subwrap.open-left {
+  left: 100% !important;
+  right: auto !important;
+}
+
+.dj-megamenu-clean.verticalMenu li.hover div.dj-subwrap {
+  right: 100% !important;
+  left: auto !important;
+}
+
+.dj-megamenu-clean.verticalMenu li.hover div.dj-subwrap.open-right {
+  right: 100% !important;
+  left: auto !important;
+}
+
+.dj-megamenu-clean.verticalMenu li.hover div.dj-subwrap.open-left {
+  left: 100% !important;
+  right: auto !important;
+}
+/*# sourceMappingURL=djmegamenu_rtl.css.map */

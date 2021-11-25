@@ -1,0 +1,190 @@
+// Get URL Param
+var getParameterByName = {
+	init: function(name){
+		var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	}
+}
+function addClass(element, className){
+    element.className += ' ' + className;   
+}
+    
+// Use this script to redirect a page
+var pageRedirects = (function() { 
+	
+    var pageURL = document.URL;
+	
+
+    //123ob page
+    if (pageURL.indexOf('/123ob/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.123ob.co.za');
+    }
+
+    //signsurety page
+    //if (pageURL.indexOf('/signsurety/Pages/default.aspx') != -1) {
+    //	window.location.replace('http://campaigns.sanlam.co.za/wcm/wcm/sanlam_en/sanlam/online/sign_surety_new.htm');
+    //}
+
+    //ffa page
+    if (pageURL.indexOf('/ffa/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/businessowners/business-tools/Pages/financial-fitness-analysis.aspx');
+    }
+
+    //businessfinance page
+    if (pageURL.indexOf('/businessfinance/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/businessowners/small-or-medium-businesses/Pages/business-operations.aspx');
+    }
+
+    //businessplanbook page
+    if (pageURL.indexOf('/businessplanbook/Pages/default.aspx') != -1 || pageURL.indexOf('businessplanbook') != -1) {
+        window.location.replace('http://www.sanlam.co.za/businessowners/business-tools/Pages/creating-a-business-plan.aspx');
+    }
+    
+    //businessplanbook page B
+    if (pageURL.indexOf('/Businessplanbook/Pages/default.aspx') != -1 || pageURL.indexOf('businessplanbook') != -1) {
+        window.location.replace('http://www.sanlam.co.za/businessowners/business-tools/Pages/creating-a-business-plan.aspx');
+    }
+
+    //graduates page
+    if (pageURL.indexOf('https://www.sanlam.co.za/graduates/') != -1) {
+        window.location.replace('https://www.sanlam.co.za/careers/career-opportunities/graduates/Pages/default.aspx');
+    }
+
+    //Online investing page
+    if (pageURL.indexOf('/onlineinvesting/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/personal/investments/Pages/Sanlam-Tax-Free-Investments.aspx');
+    }
+
+    //UASA
+    if (pageURL.indexOf('http://www.sanlam.co.za/UASA/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/campaigns/uasa/Pages/default.aspx');
+    }
+
+    //UASA
+    if (pageURL.indexOf('http://www.sanlam.co.za/uasa/Pages/default.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/campaigns/uasa/Pages/default.aspx');
+
+    }
+
+    //ForGraduates
+    if (pageURL.indexOf('http://www.sanlam.co.za/forgraduates/') != -1) {
+        window.location.replace('http://www.sanlam.co.za/personal/graduatesandprofessionals/Pages/default.aspx');
+
+    }
+
+    //WCM	
+    if (pageURL.indexOf('/wps/wcm/') != -1) {
+        window.location.replace('https://www.sanlam.co.za/Pages/default.aspx');
+
+    }
+
+    //Personal Loan	
+    if (pageURL.indexOf('https://www.sanlam.co.za/personal/Pages/personal-loans.aspx') != -1) {
+        window.location.replace('http://www.sanlam.co.za/personal/personalloans/Pages/default.aspx');
+
+    }
+
+    //Institutional Insights	
+    if (pageURL.indexOf('https://www.sanlam.co.za/campaigns/institutional-insights/') != -1) {
+        window.location.replace('http://www.sanlaminvestments.com/campaigns/institutionalinsights/Pages/default.aspx');
+
+    }
+
+    // i3
+    if (pageURL.indexOf('https://www.sanlam.co.za/campaigns/i3-summit/') != -1) {
+        window.location.replace('http://www.sanlaminvestments.com/campaigns/i3-summit/Pages/default.aspx');
+
+    }
+
+
+    // money saver card
+    if (pageURL.indexOf('https://www.sanlam.co.za/money-saver-card/') != -1) {
+        window.location.replace('https://www.sanlamreality.co.za/money-saver-card');
+
+    }
+    // AiAcademy
+    if (pageURL.indexOf('https://www.sanlam.co.za/campaigns/aiacademy/pages/default.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/campaigns/investmentsacademy/Pages/default.aspx');
+
+    }
+
+    // Retirement
+    if (pageURL.indexOf('https://www.sanlam.co.za/personal/retirement/Pages/retirement.aspx') != -1) {
+        window.location.replace('https://www.glacier.co.za/personal/retirement/Pages/retirement.aspx');
+    }
+    
+    //FAMILY FORTUNE VALUT
+     if (pageURL.indexOf('thefamilyfortunevault') != -1) {
+        window.location.replace('http://www.thefamilyfortune.co.za/');
+    }
+    if (pageURL.indexOf('severeIllness') != -1 || pageURL.indexOf('SevereIllness') != -1) {
+        window.location.replace('/campaigns/impactrange/Pages/default.aspx');
+    }
+    //rfa
+    if (pageURL.indexOf('https://www.sanlam.co.za/rfa') != -1) {
+        window.location.replace('https://www.sanlam.co.za/institutional/retirement/retirementfundadministration/Pages/default.aspx');
+    }
+    //RFA
+    if (pageURL.indexOf('https://www.sanlam.co.za/RFA') != -1) {
+        window.location.replace('https://www.sanlam.co.za/institutional/retirement/retirementfundadministration/Pages/default.aspx');
+    }
+    //SIMEKAHEALTH
+    if (pageURL.indexOf('/completemed/Pages/gapcover.aspx') != -1 || pageURL.indexOf('/completemed/Pages/medical-scheme-options-for-employees.aspx') != -1 || pageURL.indexOf('/completemed/Pages/medical-scheme-options-for-individuals.aspx') != -1) {
+ 		window.location.replace('/completemed/Pages/default.aspx');
+    }
+
+ 	// Retirement annuity
+    if (pageURL.indexOf('https://www.sanlam.co.za/personal/retirement/savingforretirement/pages/sanlam-retirement-annuity.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/personal/retirement/savingforretirement/Pages/sanlam-cumulus-echo-retirement-annuity.aspx');
+    }
+
+//PersonalLoans
+    if (pageURL.indexOf('https://www.sanlam.co.za/personalloans') != -1) {
+        window.location.replace('https://www.sanlam.co.za/onlinesolutions/Pages/default.aspx/personalloans.html#');
+    }
+    
+    //PersonalLoans
+    if (pageURL.indexOf('https://www.sanlam.co.za/personalloans/Pages/default.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/onlinesolutions/Pages/default.aspx/personalloans.html#');
+    }
+    
+     //PersonalLoans
+    if (pageURL.indexOf('https://www.sanlam.co.za/personal/Pages/personal-loans.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/onlinesolutions/Pages/default.aspx/personalloans.html#');
+    }
+    
+    //Bluestar Evagor
+        if (pageURL.indexOf('/bluestar/evagor/Pages/default.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/bluestar/business/Pages/default.aspx?BS=00899510');
+    }
+    
+    //Bluestar Evagor
+        if (pageURL.indexOf('/bluestar/Evagor/Pages/default.aspx') != -1) {
+        window.location.replace('https://www.sanlam.co.za/bluestar/business/Pages/default.aspx?BS=00899510');
+    }
+
+    
+    //Renewal
+        if (pageURL.indexOf('https://www.sanlam.co.za/renewal') != -1) {
+        window.location.replace('https://www.sanlam.co.za/campaigns/renewal');
+    }
+
+//Renewal
+        if (pageURL.indexOf('https://www.sanlam.co.za/Renewal') != -1) {
+        window.location.replace('https://www.sanlam.co.za/campaigns/renewal');
+    }
+
+
+//Online Quote
+        if (pageURL.indexOf('https://www.sanlam.co.za/tools/Pages/online-quote.aspx') != -1) {
+        window.location.replace('https://sanonline.sanlam.co.za/sanonlinequote/startMenu');
+    }
+
+
+
+
+
+
+
+		
+})();

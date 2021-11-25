@@ -1,0 +1,1928 @@
+﻿/*==========================================================================
+  MISC
+  ========================================================================== */
+  	.row { padding: 40px 0; }
+  	.shareBlocks { padding: 40px 0 !important;}
+  	.row.products {padding:0;}
+  	.row.productsLast{padding-bottom: 20px;}
+  	.fixGroup { padding-top: 20px; margin-bottom: 25px; }
+  	.fixGroup .row { padding-top: 0px !important; }
+  	.fixGroup .fix { padding-top: 0px; margin-top: 0px; }
+  	.servicesLogo { padding-top: 0px !important; }
+  	.row.assistanceRow .container { padding-top: 30px; padding-bottom: 30px; }
+  	.rowGroup {margin-top: 34px; margin-bottom: 45px;}
+	.container {margin: 0 auto; width: 93.75%; padding: 0 3.125%;}
+	.mobMarB25 {margin-bottom: 25px !important;}
+	.container h2 {
+		padding: 0 0 13px 0;
+		margin : 0 0 13px 0;bann
+		font-size: 22px;
+	}
+	.container h1 {padding: 0; font-size: 25px;}
+	#fulfillForm2 h1 {font-size: 22px;color: #fff;}
+	.container .person a { font-size: 12px; }
+	.last { text-align: left; }
+	.person a { font-size: 12px; }
+	.lightGray { background: #f2f2f2; }
+	.container a.personSelect .for { display: none; }
+	.container a.personSelect {
+		width: 100%; 
+		font-size: 12px; 
+		font-weight: bold; 
+	}
+	.span1, .span2, .span3, .span4, .span5 {
+		display: block;
+		width: 100%;
+	}
+	.data span { width: auto; }
+	.headingGroup { margin-bottom: 18px; }
+	a.viewDetail,a.iconLink,a.editDetail,a.pdfStatement { float: none;display: inline-block; }
+	a.iconLink { margin: 6px 25px 0 0; }
+	a.editDetail,a.pdfStatement { margin: 0px; }
+	.inlineBreak { display: block; }
+	.hours { font-size: 10px !important; }
+	.container .largeField{
+		color:#838383;
+		font-size:12px;
+	}
+	#dataRow .col1, #dataRow .col2 {display: block !important; width: 100% !important;}
+	#dataRow .data {padding-bottom: 0;}
+	#dataRow .data ul {margin-bottom: 0;}
+	.mobileHide {display: none;}
+	#askSanlam .adSpace {display: none !important;}
+	#askSanlam.row {padding: 40px 0;}
+	#askSanlam .btn.large {margin-bottom: 0;}
+	.borBottom {border:none;}
+	
+	#dataRow .f18 {font-size: 16px;}
+
+	.showOnDesktop {display: none;}
+	.showOnTablet {display: none;}
+	.hideOnMobile {display: none;}
+	.showOnMobile {display: block;}
+
+	.mobileMarB0 {margin-bottom: 0 !important;}
+	.sharePrice.col1 {float: none; width: 100%;}
+	.accordionItem.noBor {border-bottom:none !important;}
+	#banner .productCol3 a.more {display:none;}
+	#banner .productCol3 a.more2 {
+	bottom: 1px;
+    color: #0075C9;
+    font-family: open_sanssemibold;
+    font-size: 12px;
+    position: absolute;
+    display:block;
+    margin-top:10px;
+    	}
+   #banner .productCol3 li:last-child {margin-top: 22px;}
+   .campaignBanner {height:107px !important;}
+   .campaignBanner .bannerImg {
+	   display: block !important;
+	}
+   #boldBanner {
+		height:107px !important;
+	}
+
+   .imgShowOnMbl {display:block;}
+   .imgShowOnDesk,.imgShowOnTab {display:none;}
+   .campaignBanner .bannerImg {margin-left: -302px !important;}
+   .hideImg {display:none;}
+   .campaign .col1,.campaign .pushCol2 {display:block;width:100%;}
+   #dataRow p.bold{font-size:14px;}
+   .financePlans.col1.pushCol1 {
+	   text-align:left;
+	   width:100%;
+	   display:block;
+	   margin-right:0;
+	   padding-top:0;
+	}
+ .financePlans a span.circle {
+	   margin-left: 0 !important;
+	}
+.financePlans a h3 {
+	   color:#0075C9 !important;
+}
+ .financePlans a span.circle img {
+ 	display:none;
+	}
+
+.search td:last-child, thead th:last-child {
+		display: none;
+	}
+.bannerContainer,.bannerLogo, .bannerImg {display: none;}
+.indieBanner, .indieBanner .bannerImg {display:none !important;}
+#bigBannerContainer, #bigBannerContainer .bannerImg {display:block !important;}
+#oqMediumBanner, #oqMediumBanner .bannerImg {display:block;}
+
+.oqIframeSection .oqIframeContent {
+	height: 175px;
+}
+
+.oqIframeSection .oqIframeContent iframe {
+    width: 100%;
+    height: 100%;
+}
+
+#oqMediumBanner .bannerImg {
+	left: auto;
+   right: -100%;
+}
+
+#intraDisclaimer {
+	display: none
+}
+
+#intraDisclaimer-mobile {
+	padding-bottom: 20px;	
+}
+
+#full-width {
+	text-align: center;	
+}
+
+	#full-width h2 {
+		left: 0;
+	}
+
+/*==========================================================================
+  UTILITY ICONS
+  ========================================================================== */
+	.utility-icons .print,
+	.utility-icons .download,
+	.utility-icons .share,
+	.utility-icons .email {display: none;}
+	.utility-icons .callUsMobile,
+	.utility-icons .emailMobile,
+	.utility-icons .callYouMobile {
+		display: inline-block;
+		*display: inline;
+		*zoom: 1;
+	}
+	.utility-icons {margin: 20px 3px 0;}	
+	.utilityShare {display: none; visibility: hidden;}
+
+	
+/*==========================================================================
+  LOADER
+  ========================================================================== */
+	h1.loader {
+		font-size: 22px;
+		padding-left: 0 !important;
+		padding: 50px 0 25px 0 !important;
+		margin: 0;
+		text-align: center;
+		background-position: center 15px;
+	}
+
+
+/*==========================================================================
+  GRID ADJUST
+  ========================================================================== */
+	.container .push { width: 100%; margin-right: 2.368421052631579%; }
+	.container .push2 { width: 100%; }
+	.container .push3 { width: 100%; }
+	.container .push4 { width: 100%; }
+	.container .push5 { width: 100%; }
+
+
+/*==========================================================================
+  BUTTON
+  ========================================================================== */
+  	input.signUpInput { width: 200px; }	
+
+
+/*==========================================================================
+  FOOTER
+  ========================================================================== */
+	footer ul li.first { border-right: 1px solid #FFFFFF; }
+	#footerDesktop { display: none !important; }
+  	#footerDevice { display: block !important; }
+  	footer ul li{
+    display:inline-block;
+    border-right:solid 1px #FFFFFF;
+    padding:0 5px !important;
+  	}
+   footer ul li.last{ border: none; }
+   #footerDevice img { margin-bottom: 20px; }
+   footer .span5{ text-align: center; }
+   ul.socialMedia li {border: 0;padding: 0;margin: 0;}
+   ul.socialMedia {margin: 0 0 30px;padding: 0;}
+   #fulfillForm2{display: block;padding: 40px 0;}
+   .fulfillForm2 ul {margin: 0;}
+   footer.container ul {padding: 0;margin: 0 0 17px;}
+	#footerGlobalDesktop { display: none; }
+
+
+/*==========================================================================
+  HEADER NAVIGATION
+  ========================================================================== */
+	#headerNav {height: 68px;}
+	#headerNav a#navBtn {margin: 15px 0 0 -10px;}
+	#headerNav #sanlamLogo > a, #headerNav #sanlamLogo a.sanlamLogo-logo {
+		margin: 13px 0 0 -69px;
+		width: 142px;
+		height: 42px;
+	}
+	#sanlamFour #headerNav #sanlamLogo {
+		margin: 13px 0 0 -130px;
+		width: 260px;
+	    height: 45px;
+	}
+	#headerNav #sanlamLogo.loginLogo {
+	    left: auto;
+	    margin-left: 0;
+	    float: none;
+	    left: 50%;
+	   	margin: 13px 0 0 -69px;
+	    position: absolute;
+	    float: none;
+	}
+	#headerNav ul#accountLinks { margin: 19px 0 0 0 !important; }
+	.home ul#accountLinks { margin: 23px 0 0 0 !important; }
+	.home.bluestarMaps ul#accountLinks {
+   	 	margin: 30px 15px 0 15px !important;
+	}
+	.home.bluestarMaps ul#accountLinks { margin-top: 19px !important; }
+
+ 	 #headerNav li#account > a {
+  		width: 28px; 
+  		height: 28px; 
+  		padding-right: 0;
+  		background: url('../img/headerNav/account-device.png') no-repeat right 0;
+  	}  
+  	#headerNav li#account span {
+		display:none !important;
+	}
+  	/*#headerNav li#account span {
+    	width: 28px; 
+  		height: 28px;
+    	padding-right: 24px;
+    	background: url('../img/headerNav/account-device.png') no-repeat right 0;
+    	text-align: right;
+    	display: block !important;
+	}*/
+/*==========================================================================
+  FULFILLMENT BLOCK
+  ========================================================================== */
+	#fulfillContainer { display: none !important; }
+	
+	
+/*==========================================================================
+  FULFILLMENT MOBILE ROW
+  ========================================================================== */
+	#fulfillmentMobile {display: block;}
+	#fulfillmentMobile_v2 {display: block;}
+
+
+/*==========================================================================
+  TOOLBAR
+  ========================================================================== */	
+  .toolBar { margin: 0; padding: 0; } 
+
+
+/*==========================================================================
+  ALL SWIPERS
+  ========================================================================== */
+	.swiper-scrollbar {display: none !important;}
+
+
+/*==========================================================================
+  CARD SWIPER
+  ========================================================================== */
+  	.row.cardSwiper {padding:40px 0;}
+   .cardSwiper .swiper-container {width: auto; height: 325px; padding: 0;}
+   .cardSwiper .card {margin-right: auto; margin-left: auto;}
+
+   .cardSwiper .prev, .cardSwiper .next, .cardSwiper .fadeL, .cardSwiper .fadeR {display: none}
+   .cardSwiper .pagination {
+		display: block;
+		width: 100%;
+		height: 20px;
+		text-align: center;
+	}
+	.cardSwiper .pagination .swiper-pagination-switch {
+		width: 16px;
+		height: 16px;
+		margin: 0 5px;
+		background-image: url('../img/darkgraycell-pagination.png');
+		background-repeat: no-repeat;
+		background-position: 0 0; 
+		cursor: pointer;
+		display: inline-block;
+	}
+	.cardSwiper .pagination .swiper-pagination-bullet, .iconSwiper .pagination .swiper-pagination-bullet {
+		width: 16px;
+		height: 16px;
+		margin: 0 5px;
+		background-image: url('../img/darkgraycell-pagination.png');
+		background-repeat: no-repeat;
+		background-position: 0 0; 
+		cursor: pointer;
+		display: inline-block;
+	}
+	.cardSwiper .pagination .swiper-pagination-bullet-active, .iconSwiper .pagination .swiper-pagination-bullet-active {background-position: 0 -32px;}
+	.cardSwiper .pagination .swiper-active-switch, .iconSwiper .pagination .swiper-active-switch  {background-position: 0 -32px;}
+	.cardSwiper .card h2 {font-size: 20px;}
+	
+	/* Products swiper */
+	#swiperProducts {padding: 40px 0 30px 0;}
+	#swiperProducts .container { width: 100%; padding: 0; }
+	#swiperProducts .swiper-container { height: 430px; } /* height: 326px; */
+	#swiperProducts .swiper-wrapper { margin-top: -10px; /* move cards a bit up */ }
+	#swiperProducts .container > h2 { padding: 0 0 0 3.125%; } 
+	#swiperProducts .container .card h2 { padding: 0; }  
+	#swiperProducts .prev, #swiperProducts .next, #swiperProducts .fadeL, #swiperProducts .fadeR { display: none; }
+	#swiperProducts .swiper-container { padding: 0; }
+	#swiperProducts .swiper-slide { width: 287px; height: 320px; }
+	#swiperProducts .swiper-slide .card {
+		height: 374px; /* height: 270px; */
+		margin-right: auto; 
+		margin-left: auto; 
+		position: relative;
+	}
+	#swiperProducts .swiper-slide .data {height: 222px;}
+	#swiperProducts .swiper-slide .features {display: none;}
+	#swiperProducts .moreLink {
+	    display: block;
+	    bottom: auto;
+	    left: auto;
+	    position: relative;
+	    margin-top: 12px;
+	}
+	#swiperProducts .cardButtons {
+	    position: absolute;
+  		width: 82%;
+  		bottom: -100px;
+	}
+	#swiperProducts .swiper-slide .card .field2 {margin-bottom: 0px;}
+	#swiperProducts .swiper-slide .card .field2 h3 {margin-bottom: 0px !important;}
+	#swiperProducts .pagination {
+		display: block;
+		width: 100%;
+		height: 16px;
+		text-align: center;
+	}
+	#swiperProducts .pagination .swiper-pagination-switch {
+		width: 16px;
+		height: 16px;
+		margin: 0 5px;
+		background-image: url('../img/darkgraycell-pagination.png');
+		background-repeat: no-repeat;
+		background-position: 0 0; 
+		cursor: pointer;
+		display: inline-block;
+	}
+	#swiperProducts .pagination .swiper-active-switch  {background-position: 0 -32px;}
+	#swiperProducts .utility-icons {display:none;}
+
+
+	/* Timeline swiper */
+	#swiperTimeline .swiper-container {height: 360px;}
+
+	/* 
+	Report swiper
+	& Intergrated Annual Report swiper 
+	*/
+	#swiperReport .swiper-container,
+	#swiperIntAnnualReport .swiper-container/*,
+	#swiperSustAnnualReport .swiper-container*/ {
+		height: 155px;
+	}
+
+	/* 
+	Sanlam Life Insurance Limited Annual Report swiper 
+	& Archived results swiper
+	& Sustainability Annual Report swiper
+	*/
+	#swiperLifeAnnualReport .swiper-container,
+	#swiperArchivedResults .swiper-container, 
+	#swiperSustAnnualReport .swiper-container {height: 178px;}
+	
+	/* Christian Eedes Reports swiper */
+	#swiperChristianEedesReports .swiper-container {height: 178px;}
+
+	/* Presentations swiper */
+	#swiperPresentations .swiper-container,
+	#swiperReport .swiper-container {
+		height: 178px;
+	}
+
+	/* Results swiper */
+	#swiperResults .swiper-slide {height: 322px;}
+	#swiperResults .card {height: 298px;}
+	
+	/* Judges swiper 	*/
+	#swiperJudges .swiper-container {height: 178px;}
+	
+	
+/*==========================================================================
+  ICON SWIPER
+  ========================================================================== */
+  	.row.iconSwiper {padding:40px 0;}
+   .iconSwiper .swiper-container {width: auto; height: 250px; padding: 0;}
+
+   .iconSwiper .prev, .iconSwiper .next, .iconSwiper .fadeL, .iconSwiper .fadeR {display: none}
+   .iconSwiper .pagination {
+		display: block;
+		width: 100%;
+		height: 20px;
+		text-align: center;
+	}
+	.iconSwiper .pagination .swiper-pagination-switch {
+		width: 16px;
+		height: 16px;
+		margin: 0 5px;
+		background-image: url('../img/darkgraycell-pagination.png');
+		background-repeat: no-repeat;
+		background-position: 0 0; 
+		cursor: pointer;
+		display: inline-block;
+	}
+	.iconSwiper .pagination .swiper-active-switch  {background-position: 0 -32px;}
+
+/*==========================================================================
+  TOOL SWIPER
+  ========================================================================== */
+  	/*
+	.toolSwiper {padding: 40px 0 32px 0; height: auto;}
+	.toolSwiper .container {width: 100%; margin: 0 !important; padding: 0 !important;}
+	.toolSwiper .container > h2 {padding: 0 0 0 3.125%;} 
+
+	.toolSwiper .fadeL {left: 0px;}
+	.toolSwiper .fadeR {right: 0px;}
+	.toolSwiper .swiper-container {width: 100%; height: 180px; padding: 0;}
+	.toolSwiper .swiper-container a.icon {margin: auto;}
+
+	.toolSwiper h1 {font-size: 18px;}
+
+	.toolSwiper .pagination {
+		display: block;
+		width: 100%;
+		height: 16px;
+		margin-top: 16px;
+		text-align: center;
+	}
+	.toolSwiper .pagination .swiper-pagination-switch {
+		width: 16px;
+		height: 16px;
+		margin: 0 5px;
+		background-image: url('../img/graycell-pagination.png');
+		background-repeat: no-repeat;
+		background-position: 0 0; 
+		cursor: pointer;
+		display: inline-block;
+	}
+	.toolSwiper .pagination .swiper-active-switch  {background-position: 0 -32px;}
+	*/
+
+
+ /*==========================================================================
+  BANNER CONTAINER
+  ========================================================================== */
+	.productNavSpan1,.productNavSpan2,.productNavSpan3,.productNavSpan4,.productNavSpan5,.productCol3{
+		width: 100%;
+		height: auto;
+		position: relative;
+		display: block;
+		left: auto;
+		bottom: auto;
+	}
+	.prodNav {
+	    bottom: 18px;
+	}
+	.prodNav {left: 20px;}
+	.graphItem {display:none;}
+	#businessWrapper ul, #personalWrapper ul{margin-bottom: 24px;}
+	.indicatiorContainer {bottom: -34px; left: 20px;}
+	.activeProdNav1 {margin-right: 59px;}
+	#banner.swiper-container {height: auto; position: relative; overflow:hidden;}
+	#businessWrapper, #personalWrapper {
+		padding-top: 45px;
+	}
+	#businessWrapper h1, #personalWrapper h1{
+		margin: 0;
+		background: url('../img/accordianArrowDown.png') no-repeat right;
+		border-top: 1px #e0e0e0 solid;
+		cursor: pointer;
+	}
+	#graphRow .dt-nav-item {
+		margin: 0 !important;
+		background: url('../img/accordianArrowDown.png') no-repeat right;
+		border-top: 1px #e0e0e0 solid;
+		cursor: pointer;
+		display:block;
+		padding: 24px 0;
+	}
+	#graphRow .dt-nav .active {border:none;}
+	#graphRow .dt-nav {margin:0;padding: 0;width: 100%;}
+	#graphRow .dt-nav-item {
+		background: url('../img/accordianArrowUp.png') no-repeat right !important;
+	}
+	#personalWrapper h2 {margin-top: 0 !important; color: #3e3e3e;}
+	#businessWrapper h1 a, #personalWrapper h1 a {display: block; padding: 24px 0;}
+	#businessWrapper h2 a, #personalWrapper h2 a {color: #3e3e3e;}
+	#personalWrapper p, #personalWrapper p, 
+	#personalWrapper b, #personalWrapper b {color: #3e3e3e;}
+
+	#businessWrapper h1.open, #personalWrapper h1.open {
+		background: url('../img/accordianArrowUp.png') no-repeat right;
+	}
+	#businessWrapper ul li, #personalWrapper ul li {margin-bottom: 5px;}
+	#personalWrapper ul li.resultsYear {margin-bottom: 5px;}
+	
+	#personalWrapper .prd1 { left: auto; }
+
+	#banner .swiper-slide .bannerImg { position: absolute;}
+	#banner .bannerTablet {display: none !important;}
+	#banner .bannerMobile {display: block !important;}
+	#banner .swiper-slide .container {margin-top: 20px;}
+	#banner .swiper-slide .bannerCopy {margin: 0;}
+
+	#banner .prev, 
+	#banner .next, 
+	.pagination, 
+	#banner .swiper-slide .container .slidePreview, 
+	.productNavSpan1 p,.productCol3 p {display: none;}
+
+	.productNavSpan1 ul,.productCol3 ul {display: none; padding-bottom: 15px !important;}
+	
+	#banner .prev, 
+#banner .next, 
+.pagination, 
+#banner .swiper-slide .slidePreview, 
+.productNavSpan1 p {display: none;}
+.productNavSpan1 ul {display: none; padding-bottom: 15px !important;}
+#banner .swiper-slide .bannerImg {
+    height: 197px;
+    margin-left: -289px;
+    position: relative;
+    width: 557px;
+    display: block;
+}
+.productNavSpan1,.productNavSpan2,.productNavSpan3,.productNavSpan4,.productNavSpan5{
+	width: 100%;
+	height: auto;
+	position: relative;
+	display: block;
+	left: 0 !important;
+}
+.prodNav {
+    bottom: 18px;
+}
+.prodNav {left: 20px;}
+#businessWrapper ul, #personalWrapper ul{margin-bottom: 24px;}
+.indicatiorContainer {bottom: -34px; left: 20px;}
+.activeProdNav1 {margin-right: 59px;}
+#banner.swiper-container {height: auto; position: relative;}
+#businessWrapper, #personalWrapper {
+	padding-top: 10px;
+}
+#businessWrapper h1, #personalWrapper h1 {
+	margin: 0;
+	background: url('../img/accordianArrowDown.png') no-repeat right;
+	border-top: 1px #e0e0e0 solid;
+	cursor: pointer;
+}
+#businessWrapper h1 a, #personalWrapper h1 a {display: block; padding: 24px 0;}
+#businessWrapper h1.open, #personalWrapper h1.open {
+	background: url('../img/accordianArrowUp.png') no-repeat right;
+}
+
+#businessWrapper ul li, #personalWrapper ul li {margin-bottom: 15px !important;}
+
+#banner .swiper-wrapper, #banner .swiper-slide {height: 197px !important;}
+
+.bannerContainer {display: none;}
+.bannerContainer.campaignBanner {display: block;}
+
+
+/*==========================================================================
+  SWIPER GROUP
+  ========================================================================== */	
+	.swiperGroup {padding: 22px 0 22px 0 !important; height: auto;}
+	.swiperGroup .container {width: 100%; margin: 0 !important; padding: 0 !important;}
+	.swiperGroup .span4 {width: 100%; padding: 0;}
+	.swiperGroup .allSwipers {height: auto; overflow: visible;}
+
+  	.swiperGroup .cardSwiper .swiper-container {height: 319px;}
+
+	/* desktop */
+  	.swiperGroup .dt-nav {display: none;}
+
+	/* mobile */
+  	.swiperGroup .mb-section {border-bottom: 1px solid #e5e5e5;}
+  	.swiperGroup.grayCell .mb-section {border-bottom-color: #ccc;}
+  	.swiperGroup .mb-section.mb-section-last {border-bottom: none;}
+  	.swiperGroup .mb-section .cardSwiper {height: 0; overflow: hidden;}
+  	.swiperGroup .mb-section.active .cardSwiper {height: 365px;}
+  	.swiperGroup .mb-title {display: block;}
+  	
+  	/* Partners and Affiliates swiper group */
+  	#swiperGroupPartAndAffil .allSwipers {height: 548px;}
+
+
+/*==========================================================================
+  MAP
+  ========================================================================== */	
+
+  	#map {padding-bottom:24px;}
+	#world-map {display: none;}
+	.map {display: block;}
+	#map .container .push2 {width: 100%;}
+	#map .container .map h2 {
+		margin: 0;
+		padding: 0;
+		background: url('../img/accordianArrowDown.png') no-repeat right;
+		border-top: 1px #ccc solid;
+		cursor: pointer;
+		color: #2D2D2D;
+    	font-family: open_sanssemibold;
+    	font-size: 19px;
+	}
+	#map .map h2.open {
+		background: url("../img/accordianArrowUp.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+	}
+	#map .map h2 a {
+		display: block;
+    	padding: 24px 0;
+    	color: #303030;
+    	outline: medium none;
+	}
+	#map .map .regionCopy,.mapDefaultCopy {
+		display: none;
+	}
+	#map h2 a {cursor:pointer;}
+
+
+/*==========================================================================
+  ACCORDION
+  ========================================================================== */
+	.accordionTitle h2 {margin: 0; padding: 0; font-size: 20px;}
+
+	.accordionTitle h4 a {
+    	padding-right: 25px;
+    }
+
+
+
+/*==========================================================================
+  BLOCKS
+  ========================================================================== */
+  	.row.blocks { padding: 40px 0 0 0; }
+  	.row.blocks.firstBlock { padding-top: 40px !important; }
+  	.row.blocks.lastBlock { padding-bottom: 40px; }
+	.blocks .col1 {
+	   box-shadow: none;
+    	float: none;
+    	width: 100%;
+    	margin-bottom: 35px;
+    	background: transparent;
+	}
+	.blocks .col1.activePage {background: none;}
+  	.blocks .col1.activePage .more {display: none;}
+	.no-boxshadow .col1 { width: 100%; border: none; } /* ie8 fix */
+	.no-boxshadow .blocks .container .pushCol{ width: 100%; }
+
+	.blocks .blockCopy { padding: 0; }
+	.blocks .blockCopy h2.top { margin-top: 25px; }
+	.blocks .blockCopy h2 { margin: 0; padding: 0; font-size: 20px; }
+	.blocks .blockCopy p { margin: 8px 0px 13px 0px; }
+	.blocks .blockCopy p.btm { margin-bottom: 15px; }
+	
+	.blocks .personalImg img {display:none;}
+
+
+/*==========================================================================
+  ARTICLE PAGE
+  ========================================================================== */
+	.highlightsRow .photo {display: none;}
+	.highlightsRow .col {display: block; width: 100%; margin: 0 0 20px 0; text-align: left;}
+	.highlightsRow .col h1 {float: left; width: 35%; margin: 0; font-size: 33px;}
+	.highlightsRow .col p {float: left; width: 65%; margin: 0;}
+
+
+.article .articleBannerImg {display:none;}
+.article .articleLrgImg {
+    float: none;
+    margin: 0;
+    padding-left: 0;
+    width: 100%;
+    display: block;
+    margin-bottom: 30px;
+}
+.article .pullQuote {
+    display: block;
+    float: none;
+    font-family: 'open_sansregular';
+    font-style: normal;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+
+/*==========================================================================
+  ORGANOGRAM
+  ========================================================================== */
+	.organoBlock, .grayCell .organoBlock, .grow .organoBlock, .grow .organoBlock.twoLines {
+		padding: 10px 24px; 
+		text-align: left;
+	}
+	.grow .organoBlock {padding-top: 17px; padding-bottom: 18px;}
+	.organoBlock .arrowLeft, .organoBlock .arrowRight {
+		width: 17px;
+		background-image: url('../img/organo-arrow-white-mobile.png');
+	}
+	.grayCell .organoBlock .arrowLeft, .grayCell .organoBlock .arrowRight {
+		background-image: url('../img/organo-arrow-gray-mobile.png'); 
+	}
+	.organoBlock .arrowLeft  {left: 0; background-position: 0 0;}
+	.organoBlock .arrowRight {right: 0; background-position: -17px 0;}
+	.grow .organoBlock .arrowLeft  {left: 0; background-position: -34px 0;}
+	.grow .organoBlock .arrowRight {right: 0; background-position: -51px 0;}
+
+	.organoLevel {float: left; width: 86%; margin-top: 15px;}
+	.organoLevel:first-child, .grow .organoLevel:first-child {
+		float: none;
+		width: auto;
+		margin-top: 0; 
+		position: relative; 
+		top: auto;
+	}
+
+	.organoLines, .grow .organoLines {
+		float: left;
+		width: 14%;
+		position: relative;
+		top: auto;
+		left: auto;
+	}
+	.organoLines .lineSection {float: none; width: auto; margin-left: 0;}
+	.organoLines .lineSection:first-child {display: none;}
+
+	.organoLines .corner, .organoLines .corner:first-child, .grow .organoLines .corner {
+		width: 100%;
+		height: 55px;
+		background: url('../img/organo-line-corner-mobile.png') no-repeat 16px bottom;
+	}
+	.grow .organoLines .corner {height: 73px;}
+	.organoLines .corner:first-child {height: 36px !important;}
+	.grow .organoLines .corner:first-child {height: 45px !important;}
+	.organoLines .left {
+		/* background: url('../img/organo-line-left-mobile.png') no-repeat 16px top; */
+
+	}
+
+/*==========================================================================
+  TABLE
+  ========================================================================== */
+table.table_lines.mbl td{border-bottom:none;padding: 0 0 0 6px;}
+#marketIndRow table.table_lines td:first-child {width: auto;}
+table.table_lines td:first-child {width: 6%;}
+table td span.sharePositive, table td span.shareNegative {float: none;}
+/*==========================================================================
+  !!! SHARE INFORMATION GRAPH HACK !!!
+  ========================================================================== */
+  #highcharts-0 {margin-left: -15px;}
+  
+  
+/*==========================================================================
+  SHAREPOINT MEDIA CENTRE LAYOUT
+  ========================================================================== */
+  	#mediaCentreLayout.row { padding-top: 20px; }
+  
+  	#mediaCentreLayout .welcome { padding-top: 0; }
+  	#mediaCentreLayout .welcome-image,
+  	#mediaCentreLayout .welcome-content {
+		display: none;
+	}
+  	 
+	/* SEARCH OPTIONS */
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ4 { 
+		display: none !important;	}
+		
+	/* SEARCH FIELD & SEARCH RESULTS */
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ2,
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ3 {
+		float: none;
+		width: 100% !important;
+	}
+	
+	/* SEARCH FIELD */
+	/* title */
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ2 .ms-webpart-titleText {
+		margin: 0;
+	    font-size: 25px;
+    }
+        
+    /* SEARCH RESULTS */
+	/* title */
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ3 h3.ms-srch-ellipsis {
+
+	    font-size: 22px; 
+	}
+	/* item */
+	#mediaCentreLayout #MSOZoneCell_WebPartWPQ3 .ms-srch-item {
+	    margin-bottom: 20px;	
+	}
+	
+	
+/*==========================================================================
+  DIRECTORS PAGE
+  ========================================================================== */
+
+  .directorImgRight,.directorImgLeft {display: none;}
+  .director-right {height: auto;}
+	
+	
+/*==========================================================================
+  SHAREPOINT SEARCH RESULTS LAYOUT
+  ========================================================================== */			
+	/* SEARCH FIELD */
+	/* title */
+	#searchResultsLayout .ms-webpart-titleText {
+		margin: 0;
+	    font-size: 25px;
+    }
+    
+    /* SEARCH RESULTS */
+	/* title */
+	#searchResultsLayout #MSOZoneCell_WebPartWPQ1 h3.ms-srch-ellipsis,
+	#searchResultsLayout h3.ms-srch-ellipsis {
+	    font-size: 22px; 
+	}
+	/* item */
+	#searchResultsLayout #MSOZoneCell_WebPartWPQ1 .ms-srch-item,
+	#searchResultsLayout .ms-srch-item {
+	    margin-bottom: 20px;	
+	}
+	
+	
+/*==========================================================================
+  CONTACT PAGE
+  ========================================================================== */	
+	/* google maps */
+	#googleMapIframe, #googleMapIframe .mapoverlay, #googleMapIframe iframe {
+		height: 340px; 
+	}
+	
+	
+/*==========================================================================
+  CHARTS
+  ========================================================================== */
+    .row.blocks.charts img {width: auto !important;}
+    .row.blocks.charts .col1 {margin-bottom: 30px;}
+
+	#noAccord h1 {
+		background:none;
+	}
+	#noAccord h1 a {color:#2d2d2d;}
+	#noAccord ul{display:block !important;}
+	#noAccord ul li{color:#2d2d2d;}
+
+
+/*==========================================================================
+  ART
+  ========================================================================== */
+	.art_img { margin-bottom: 20px; }
+	
+	
+/*==========================================================================
+  SPONSORSHIP
+  ========================================================================== */
+  	#sponsorshipsLanding .productNavSpan4 {padding-top: 45px;}
+  	.financialJournalism .productNavSpan4 {margin: 40px 0;}
+	/* #sponsorshipsLanding h1 a, #sponsorshipsLanding h2 a {display: block;} */
+	#sponsorshipsLanding h1, #sponsorshipsLanding h2, #sponsorshipsLanding h4, #sponsorshipsLanding P {color: #3e3e3e;}
+	
+/*==========================================================================
+  INCOME TAX TOOL
+  ========================================================================== */
+  	.col2.pushCol2.resultsList2 {
+		width:100% !important;
+		text-align:left !important;
+	}
+  	.resultsDisplay {
+	  	width:auto;
+	  	float:left;
+	}
+	.resultsList2 {
+		margin-bottom:10px;
+	}
+	.resultsList2 h2 {
+		padding-bottom:0;
+		margin-bottom:0px;
+	}
+	.taxPay {
+		float:right;
+		width:40%;
+		display:block;
+	}
+	.taxSaveResult {
+		float:none !important;
+		display:block !important;
+	}
+	.customSelect dt {
+	height: 40px !important;
+	width: 250px !important;
+	}
+	.customSelect dt a{
+	background: url('https://www.formstack.com/forms/images/user/368239/image_selectArrow.png' ) no-repeat 96% 14px !important;
+}
+.budget-label {
+	margin-top:10px;
+}
+#result2 {
+	font-size:16px !important;
+}
+.taxPay {
+	font-size:16px !important;
+}
+@media (max-width: 325px) {
+   .taxPay {
+		display:inline !important;
+		width:115px !important;
+		}
+}
+/*==========================================================================
+  MARKET INDICATOR
+  ========================================================================== */
+	#marketIndRow.row {
+	    padding: 10px 0 0 0;
+	}
+	/*
+	#marketIndRow .sharesItem {display: none;}
+	#marketIndRow .col1 {display: block; width: 100%;}
+	*/
+	#marketIndRow h4 {
+		cursor: pointer;
+		border-top: 1px #e0e0e0 solid;
+		/* background: url('../img/accordianArrowDown.jpg') no-repeat right; */
+		font-size: 25px;
+	}
+	#marketIndRow h4 a {display: block; padding: 24px 0;}
+	#marketIndRow h4.open {
+		/* background: url('../img/accordianArrowUp.jpg') no-repeat right; */
+	}
+/*==========================================================================
+  NEW BANNER MENU TABS TO ACCORDION
+  ========================================================================== */
+	#bannerContainer .tta_wrapper {position: relative; bottom: auto; width: auto; height: auto;}
+		
+	#bannerContainer .tta_tabs {display: none;}
+	
+	#bannerContainer .tta_accordion {margin: 10px 0;}
+	#bannerContainer .tta_accordion_title {
+		display: block; margin: 0;
+		background: url('../img/accordianArrowDown.png') no-repeat right;
+		font-family: 'open_sanssemibold', helvetica, arial;
+		font-size: 19px; border-top: 1px solid #ccc;
+	}
+	#bannerContainer .active .tta_accordion_title {background: url('../img/accordianArrowUp.png') no-repeat right;	}
+	#bannerContainer .tta_accordion_title a {padding: 24px 0;}
+
+	#bannerContainer .tta_accordion_item {float: none; width: auto; margin-right: 0;}
+	#bannerContainer .tta_accordion_text {display: none; padding-bottom: 25px;}
+	#bannerContainer .tta_accordion_text .content {display: none;}
+	#bannerContainer .tta_accordion_text h2 {
+		margin: 0 0 10px 0; padding: 0;
+		font-family: 'open_sansregular', helvetica, arial;
+		font-size: 13px;
+	}
+	#bannerContainer .tta_accordion_text h2 a {margin: 0;}
+	
+	#bannerContainer .tta_col {float: none; width: auto; margin-right: 0;}
+	#bannerContainer .tta.sponsorship {top:21px; height:230px;}
+	#bannerContainer {
+		height: auto;
+    	position: relative;
+	}
+	
+/*==========================================================================
+  BANNER MENU TABS TO ACCORDION
+  ========================================================================== */
+  	#banner .tta_wrapper {position: relative; bottom: auto; width: auto; height: auto;}
+		
+	#banner .tta_tabs {display: none;}
+	
+	#banner .tta_accordion {margin: 10px 0;}
+	#banner .tta_accordion_title {
+		display: block; margin: 0;
+		background: url('../img/accordianArrowDown.png') no-repeat right;
+		font-family: 'open_sanssemibold', helvetica, arial;
+		font-size: 19px; border-top: 1px solid #ccc;
+	}
+	#banner .active .tta_accordion_title {background: url('../img/accordianArrowUp.png') no-repeat right;	}
+	#banner .tta_accordion_title a {padding: 24px 0;}
+
+	#banner .tta_accordion_item {float: none; width: auto; margin-right: 0;}
+	#banner .tta_accordion_text {display: none; padding-bottom: 25px;}
+	#banner .tta_accordion_text .content {display: none;}
+	#banner .tta_accordion_text h2 {
+		margin: 0 0 10px 0; padding: 0;
+		font-family: 'open_sansregular', helvetica, arial;
+		font-size: 13px;
+	}
+	#banner .tta_accordion_text h2 a {margin: 0;}
+	
+	#banner .tta_col {float: none; width: auto; margin-right: 0;}
+	#banner .tta.sponsorship {top:21px; height:230px;}
+				
+.financialJournalism .productNavSpan4 {
+	height:230px;
+}
+.echoCopy {
+	width:100% !important;
+}
+	ul#ageDropdown-menu {
+		overflow:hidden !important;
+		height: auto !important;
+		max-height: none !important;
+	}
+.bracket02, .bracket03, .bracket04, .bracket05 {
+margin-left: 0 !important;
+}
+a.btn.findBS-btn {
+ color: #ffffff !important;
+}
+span.ui-selectmenu-status {
+  padding: 0;
+}
+.findBS-details b {
+	color:#000000;
+}
+
+.bus-item {
+	height: auto !important;	
+}
+
+
+/*==========================================================================
+  FULFILLMENT BLOCK V2 STYLING
+  ========================================================================== */
+  
+#ff-block-v2 {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 320px;
+	position: relative;
+	left: 12%;
+	top: 18px;
+	padding: 0 !important;
+}
+
+#ff-block-v2 ul {
+	margin-left: 1px;
+	margin-top: 0px;
+	position: relative;
+	width: 320px;
+}
+  
+
+#fulfillmentMobile_v2 {
+	padding-top: 0;
+}
+
+	#fulfillmentMobile_v2 .container {
+		padding: 0;
+		width: 100%;	
+	}
+	
+	#fulfillmentMobile_v2 .span5 {
+		margin: 0;
+		float: none;	
+	}
+
+	#fulfillmentMobile_v2 h1 {
+		font-size: 16px;
+		position: relative;
+		color: #fff;
+	}
+	
+		#contact-frame_mobi h2, #email-frame_mobi h2 {
+			color: #fff;
+			margin-bottom: 2px;
+		}
+		
+		#contact-frame_mobi {
+			position: relative;
+			top: -16px;
+		}
+	
+.tab-headings_mobi {
+	position: relative;
+	z-index: 10;
+	height: auto;
+	overflow: hidden;
+	background-color: #fff;
+	-moz-box-shadow: inset 0 0 2px #444;
+   	-webkit-box-shadow: inset 0 0 2px #444;
+   	box-shadow: inset 0 0 2px #444;	
+}
+
+	.tab-headings_mobi .tab_mobi {
+		display: inline-block;
+		float: left;
+		text-align: center;
+		width: 33%;
+		padding-top: 10px;
+		cursor: pointer;
+	}
+	
+	.tab-headings_mobi .advice-special-tab {
+		width: 33.278% !important;
+	}	
+	
+	.tab-headings_mobi .wide-tab_mobi {
+		width: 49.67% !important;
+		border-right: 0px !important;
+	}	
+		
+	.tab-headings_mobi .on_mobi {
+		background-color: #0076c8;
+		cursor: text !important;
+	}
+	
+		.tab-headings_mobi .on_mobi h2 {
+			color: #fff !important;
+		}
+		
+		/* .on_mobi */
+		.tab-headings_mobi h2 {
+			font-family: 'open_sanssemibold', helvetica, arial;
+			margin: 0 auto 15px auto !important;
+			padding: 0 !important;
+			line-height: 70% !important;
+			color: #0075c9;
+			font-family: 'open_sansregular';
+			font-size: 17px !important;
+			font-weight: normal !important;
+		}
+	
+	.tab-headings_mobi .border-right {
+		border-right: 1px solid #bebebe;
+	}
+	
+	.tab-headings_mobi .border-left {
+		border-left: 1px solid #bebebe;
+	}	
+
+.service-special-tab_mobi {
+	padding-right: 1px;
+}	
+
+.selected-tab_mobi {
+	display: block !important;
+}
+
+a.invest-online-action_mobi {
+	font-size: 14px;
+	margin: 0 0 6px 0;
+	padding-left: 28px;
+	background: url('../img/invest-white-icon.png') no-repeat 4px 5px;
+	display: block;
+	color: #f59a19;
+	font-family: 'open_sanssemibold', helvetica, arial;
+}
+
+#email-frame_mobi {
+	display: none;	
+}
+.disclaimerText {
+	width: 70%;
+}
+
+#invest-content_mobi .fulfillNumber, #advice-content_mobi .fulfillNumber, #service-content_mobi .fulfillNumber {
+	cursor: text;	
+}
+
+	#invest-content_mobi iframe, #advice-content_mobi iframe {
+		height: 195px !important;
+	}
+
+a.go-back_mobi {
+	background: url(/Style Library/img/back_white.png) no-repeat 0 2px;
+	padding-left: 20px;
+	color: #fff;
+	display: none;	
+}
+
+#service-content_mobi li.fulfillNumber_mobi {
+	padding-left: 22px !important;	
+}
+
+	#service-content_mobi iframe {
+		height: 220px !important;
+	}
+
+.fulfillEmail_mobi a {
+	color: #fff;
+}
+
+li.fulfillNumber_mobi, li.fulfillEmail_mobi {
+  padding-left: 24px;
+  margin-bottom: 4px;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+li.fulfillNumber_mobi, li.fulfillEmail_mobi {
+  font-size: 14px;
+}
+
+li.fulfillNumber_mobi {
+	background-image: url('../img/fulfillment-block/number.png');
+}
+
+li.fulfillEmail_mobi {
+	background-image: url('../img/fulfillment-block/email.png');
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+
+li.fulfillCallme_mobi {
+	background-image: url('../img/fulfillment-block/callMe.png');
+}
+
+li.fulfillFax_mobi {
+	display: inline-block;
+	padding-top: 0;
+	padding-left: 24px;
+	right: 19px;
+	cursor: pointer;
+	background: url('../img/fax-icon.png') no-repeat 0 2px #0075c9;
+	position: absolute;
+	z-index: 999;
+}
+
+	li.fulfillFax_mobi a {
+		cursor: text;
+		color: #fff;
+	}
+
+
+.fulfillForm_mobi a {
+	color: #fff; 
+	text-decoration: none;
+}
+
+.fulfillForm_mobi a:hover {
+	color: #d7d7d7;
+}
+
+.fulfillForm_mobi a.prevForm {
+  padding-left: 15px;
+  position: absolute;
+  top: -22px;
+  left: -22px;
+  font-size: 14px;
+  background: url('../img/fulfillment-block/back.png') no-repeat left center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.formSection_mobi li {
+	width: 40%;
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+	font-size: 14px !important;
+	font-family: 'open_sanssemibold', helvetica, arial;	
+}
+
+
+#bstarBusWrapper {
+	bottom: 0px !important;
+	height:auto !important;
+}
+
+/* ----- SAUO Campaign banners ------ */
+
+#sauo-banners {
+	display: block !important;
+	height: 107px !important;
+}
+
+	#sauo-banners .bannerImg {
+		margin-left: 0;
+		position: static;
+		left: 0;
+		display: block;
+		height: 107px;
+		width: 100%;
+		max-width: 555px;
+	}
+	
+	#sauo-banners img {
+		width: 100%;
+	}
+
+/* ----- PERSONAL INSURANCE CARDS  ------ */
+
+.coverBlock {
+	margin-bottom: 10px !important;
+	}
+.coverBlockLast {
+	margin-bottom: 35px !important;
+	}
+#videoContainer {
+	height:144px;
+	display:block;
+}
+#videoContainer .bannerImg {
+	display: block !important;
+    height: 144px;
+    margin-left:0px;
+    left:0px;
+    
+}
+.personalVid {
+    position: absolute;
+    color: #fff;
+    /* top: 5%; */
+    z-index: 10;
+}
+.bannerBtn .vidPlayBtn {
+    margin-right: 11px;
+    width: 80px;
+}
+.personalVid h2 {
+	font-size: 20px;
+}
+.personalVid .container {
+	padding-left: 0 3.125%;
+}
+.bannerBtn {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+#banner_Btn {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+#headerImgCopy h2 {
+	font-size: 20px;
+}
+
+.vidPlayBtn.btn {
+	font-size: 11px !important;
+	padding: 8px 4px !important;
+}
+.videoClose img { 
+	width:25px !important;
+} 
+.custom {
+	margin-top:0;
+}
+#arrowContainer {
+	display:none;
+}
+
+.bluestarMaps .bluestarcol1 {width: 100% !important; text-align:center !important; margin-top: 10px; margin-bottom:25px;}
+.bluestarMaps #investor .icon, .bluestarMaps #planners .icon {margin-bottom: 5px;}
+.bluestarMaps a#investor, .bluestarMaps a#planners {float:none; margin:0 auto;}
+.bluestarMaps .bluestarcol1 .left p {display:none;}
+.bluestarMaps #personalWrapper h1 {font-size:22px; margin-bottom:20px;}
+.bluestarMaps .productNavSpan4{bottom:10px;}
+.bluestarMaps .bluestarcol1 a.smallLink {display:none;}
+.bluestarMaps #fulfillmentMobile .container {max-width: 220px; margin: 0 auto;}
+
+/* BLUESTAR SEARCH */
+#resultsMobile .table_lines td:first-child {
+    width: 40%;
+}
+
+/*====================
+Blog styles
+====================*//*
+
+/* Layout */
+.bannerContainer.blog,
+.bannerContainer.blog .bannerImg {
+	display: block;
+	min-height: 240px;
+}
+.bannerContainer.blog .bannerImg {
+	width: 100%;
+	max-width: 555px;
+	height: auto;
+	left: auto;
+	margin-left: 0;
+}
+.bannerContainer.blog .bannerImg img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+/* .bannerContainer.blog .bannerImg.cover video {
+  display: none;
+} */
+.bannerHolder {
+	height: auto;
+	min-height: 240px;
+	padding-bottom: 0;
+}
+.bannerHeader {
+	position: absolute;
+	padding: 45px 0;
+}
+.bannerHolder .cover + .bannerHeader {
+	position: relative;
+}
+.bannerHeader h2 {
+	font-size: 31px;
+}
+.row.blogRow.fix {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.row.blogRow.padded,
+.padded,
+.media {
+	padding-bottom: 25px;
+	padding-top: 25px;
+}
+.pad-bot {
+	padding-bottom: 0;
+}
+
+.row.blogRow .fluidImg .postInfo {
+	background-position: top left;
+}
+.row.blogRow .fluidImg .postInfo p {
+	padding: 10px;
+	max-width: 50%;
+}
+
+.blog .personalVid {
+	top: 15%;
+}
+.blog .personalVid h2 {
+	width: 90% !important;
+}
+
+.blog .vidPlayBtn.circle {
+	padding: 8px !important;
+}
+
+.blogRow .postLinks {
+	margin: -50px 20px 30px;
+}
+.blogRow .postLinks h2 {
+	margin-bottom: 0;
+	padding-bottom: 10px;
+}
+#blogNav .filter-wrap {
+	display: none;
+	}
+/* Navigation */
+#blogNav ul.search-blog {
+	width: 50px;
+	height: 50px;
+}
+#blogNav ul.search-blog > li {
+	padding: 0 50px;
+}
+#blogNav ul.search-blog > li label {
+	margin-left: -50px;
+}
+#blogNav ul.search-blog > li input {
+	font-size: 17px;
+	text-indent: 10px;
+}
+#blogNav .search-blog > li .close-search {
+	top: 0;
+}
+
+#blogNav ul#blogFilter {
+	float: left;
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	transition: height .45s ease;
+}
+/* Please chenge it depending on container height */
+#blogNav ul#blogFilter.open {
+	height: 356px;
+}
+#blogNav ul#blogFilter > li {
+	display: block;
+	margin: 0;
+	padding: 16px 0;
+	border-bottom: 1px solid #eee;
+}
+#blogNav ul#blogFilter > li:last-child {
+	border: 0;
+}
+#blogNav ul#blogFilter > li.filter-mobile {
+	display: block;
+	position: relative;
+	text-indent: 15px;
+}
+#blogNav ul#blogFilter > li.filter-mobile a {
+	padding-left: 24px;
+}
+#blogNav ul#blogFilter > li.filter-mobile span {
+	position: absolute;
+	top: 8px;
+	left: 0;
+	display: block;
+	width: 34px;
+	height: 34px;
+	background: url('../img/blog/icons/plus-white.png');
+	transition: transform .45s;
+}
+#blogNav ul#blogFilter.open > li.filter-mobile span {
+	transform: rotate(45deg);
+}
+#blogNav ul#blogFilter > li a {
+	display: block;
+	padding: 0;
+}
+
+/* Newsletter form */
+#blogNav .newsletter {
+	width: 100%;
+}
+#blogNav .newsletter label {
+	margin-right: 0;
+}
+#blogNav .newsletter input {
+	width: 100%;
+	margin: 0 0 20px;
+	padding: 12px 0;
+	text-indent: 10px;
+}
+#blogNav .newsletter button {
+	top: 32px;
+}
+
+/* Social Media */
+#blogNav ul.socialMedia {
+	float: left;
+	bottom: auto;
+}
+#blogNav ul.socialMedia.left li {
+	display: inline-block;
+}
+
+.postHeading p.share {
+	margin-top: 20px;
+}
+.heading {
+	margin: 0 10px -60px;
+}
+.heading .postHeading h2 {
+	font-size: 31px;
+}
+/*==========================
+Blog grid 4 Scalable columns mobile
+==========================*/
+
+.blog-col2 {
+	width: 100%;
+	margin-right: 0;
+}
+
+.blog-col4 {
+	width: 48.8%;
+	margin-right: 2.4%;
+}
+.blog-col4:nth-child(odd) {
+	margin-right: 0;
+}
+#blogNav .filter-wrap {
+    display: none;
+}
+.blog-center {
+	width: 90%;
+}
+.half-half {
+	float: left;
+	position: relative;
+	width: 100%;
+	height: auto;
+	margin: 25px 0 -25px;
+	padding-bottom: 50%;
+}
+
+/* Product heading */
+.productHeading {
+	position: relative;
+}
+.productHeading h2 {
+	width: auto;
+	margin-right: 27px;
+}
+.row.blogRow p {
+	font-size: 16px;
+}
+.row.blogRow p.mid {
+	font-size: 17px;
+}
+.row.blogRow p.lrg {
+	font-size: 19px;
+	margin-bottom: 30px;
+}
+.arrow-right-dark::after {
+	content: "";
+	top: auto;
+	bottom: -75px;
+	margin: 0 -30px 0 0;
+	border: 30px solid transparent;
+	border-top: 20px solid #10181f;
+}
+
+/* Blockquotes */
+.blockquote blockquote p {
+	font-size: 21px;
+	text-align: center;
+}
+#taxFreeImgCopy {
+	top:15%;
+}
+.taxFreeBtn {
+	top: 90px;
+}
+#slideToVidButton {
+	padding: 10px 14px !important;
+	margin-left:0;
+	width:auto;
+}
+.bannerContainer.blog .bannerImg video {
+	display:none;
+}
+.heading::after {
+	height:125px;
+}
+#itradeBanner {
+    display: block;
+    height: 107px !important;
+}
+#blueStarConference {
+	height: 155px !important;
+	 display: block;
+}
+#itradeBanner .bannerImg,  #blueStarConference .bannerImg {
+    margin-left: -302px !important;
+    display: block !important;
+}
+#familyInsurance h2 {
+	font-size:17px;
+}
+#banner_Btn_Find .vidPlayBtn {
+	width:105px;
+}
+#recentCampaigns .campaignBlock {
+	float:none;
+	width:100%;
+}
+.adviser-center {
+	width: 90%;
+}
+.iconsCol1 {
+	width:100% !important;
+}
+.facebookBtnWrapper {
+	text-align: left;
+}
+.blogHome .newsContigner .newsletter {
+	width: 100%;
+}	
+#getAdviceSlice.fulfillRow {
+	height:auto;
+}
+#getAdviceSlice .mobH2Advice {
+	font-family:'open_sanslight';
+	font-size:22px;
+}
+#getAdviceSlice .mobSubHeadAdvice {
+	font-size:18px;
+}
+#getAdviceSlice .mobSubHeadAdvice span {
+	font-weight:bold;
+}
+#swiperTaxFree .card {
+	height:auto;
+}
+#swiperTaxFree .card a img {
+	width:100%;
+}
+#swiperTaxFree .swiper-container {
+	height:320px;
+}
+.financialJournalism .pagination {
+	display:none;
+}
+
+#bigBannerContainer,
+#bigBannerContainer .bannerImg {
+    height: 528px;
+}
+
+.lifeInsuranceContainer .container h1 {
+    font-size: 30px;
+}
+
+.lifeInsuranceContainer .container h2 {
+	display: none !important;
+}
+
+.slIframeSection {
+    margin-top: 15px;
+}
+#sliderWealthsmith .slick-prev, #sliderWealthsmith .slick-next {
+		display:none !important;
+	}
+#sliderWealthsmith .wealthBio {
+		width: 100%;
+	}
+#budgetSpeechBanner, #budgetSpeechBanner .bannerImg {
+	display:block;
+	
+}	
+#budgetBannerText {
+	width: 280px;
+    font-size: 16px;
+    font-weight: bold;
+    top: 15px;
+}
+#budgetBannerBtn {
+	top:20px;
+}
+#budgetBannerBtn .btn{
+	padding: 8px 16px;
+}
+#budgetSpeechBanner {
+	height:107px;
+}
+#budgetSpeechBanner .bannerImg {
+	left: 0;
+    margin-left: 0;
+    height: 107px;
+}
+#swiperStartPlans .slick-dots li button:before {
+	    font-size: 20px;
+	    line-height: 0 !important;
+}
+
+#swiperStartPlans .slick-dots li.slick-active button:before {
+    color: #0075c9 !important;
+}
+
+	
+/*==========================================================================
+  REGISTERED FINANCIAL ADVISERS
+  ========================================================================== */
+.contentWrapper.rfa {
+    margin-top: 0;
+}
+
+.bannerContainer.rfa {
+    height: auto;
+    position: relative;
+}
+.registeredAdvisers #advice-content_mobi .fulfillNumber_mobi {
+	display:none !important;
+}
+.registeredAdvisers #swiperProducts .data {
+    height: 130px;
+}
+
+.registeredAdvisers #swiperProducts .swiper-slide .card {
+    height: 295px;
+}
+.registeredAdvisers #swiperProducts .swiper-container {
+    height: 380px;
+}
+#whatsappDrama.bannerContainer, #whatsappDrama.bannerContainer .bannerImg {
+	display:block;
+}
+#whatsappDrama {
+	height:107px !important;
+}
+#whatsappDrama .bannerImg {margin-left: -302px !important;}
+
+.active-bg span.arrow-down-cta, .active-bg span.arrow-down { display: none }
+#familyInsurance {
+	top:14%;
+}
+#banner_Btn_Find {
+    bottom: 9px;
+}
+
+.cancerIllnessContainer {
+    top: 60px !important;
+}
+
+.cancerIllnessContainer .oqIframeSection .oqIframeContent {
+    height: 175px;
+}
+
+.cancerIllnessContainer .oqIframeSection .oqIframeContent {
+    padding: 30px 30px 0 30px;
+}
+
+.cancerIllnessContainer h1 {
+	color: #000 !important;
+	margin-top: 33px;
+    margin-bottom: 20px;
+}
+
+.cancerIllnessContainer h1 strong {
+	color: #000 !important;
+}
+
+.cancerIllnessContainer h2 {
+	display: none;
+    position: relative;
+}
+#coverdetail .container, #faqProduct .container {
+	width: 89.0625%;
+    padding: 0 7.46875% !important;
+}
+.row.videoSource .videoOverlay iframe {width:90%;}
+
+/* Cumulus */
+.newCumulusBanner{
+	height: 490px !important;
+}
+
+/*
+.newCumulusBanner .bannerImg {
+	background: #0075c9 !important;
+	height: 490px !important;
+}
+*/
+
+.newCumulusBanner .cumulusContainer h1 {
+	display: none !important;
+}
+
+.newCumulusBanner .cumulusContainer {
+    top: 25px !important;
+}
+
+#commentsSection {
+		background-image:none !important; 
+		padding:0px !important; 
+		width:100%;
+	}
+	#commentsSection .commentsWrap {
+		padding:10px 0px;
+	}
+#livesofGrace {
+	height:138px;
+	display:block;
+}
+#livesofGrace .bannerImg {
+	display:block;
+	left:0;
+	margin-left:0;
+
+}
+#page.challenges-and-opportunities .bannerContainer.blog .bannerImg video, #page.conversationswithyourself .bannerContainer, #page.conversationswithyourself .bannerContainer .bannerImg {
+    display: block !important;
+}
+#page.conversationswithyourself .bannerContainer .bannerImg {
+	left: 0;
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+}
+#conversations-video {
+	height: auto;
+}
+/* #page.conversationswithyourself .bannerContainer {
+	height:155px;
+}*/
+*/
+.blogContent .bannerContainer.blog .bannerImg video {
+	display:block;
+}
+.col-md-3 {
+    width: 50%;
+}
+
+.col-md-3-for-conversation {
+	width: 50%;
+}
+#africasgold.bannerContainer, #africasgold.bannerContainer .bannerImg {
+	display:block;
+	height:107px;
+}
+#africasgold.bannerContainer .bannerImg {
+	left:0;
+	margin-left: 0;
+}
+@media screen and (max-width: 450px) { 
+	#africasgold.bannerContainer .bannerImg {
+		margin-left: -100px;;
+	}
+
+}

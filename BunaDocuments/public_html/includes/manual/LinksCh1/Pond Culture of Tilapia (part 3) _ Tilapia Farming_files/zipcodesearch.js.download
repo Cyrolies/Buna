@@ -1,0 +1,14 @@
+jQuery( function( $ ) {
+
+    $( '.wpbdp-zipcodesearch-search-unit .mode-radio' ).change( function() {
+        var $unit = $( this ).parents( '.wpbdp-zipcodesearch-search-unit' );
+        var $distance_fields = $unit.find( '.wpbdp-zipcodesearch-distance-fields' );
+        var val = $( this ).val();
+
+        if ( 'distance' == val )
+            $distance_fields.removeClass( 'hidden' );
+        else
+            $distance_fields.addClass( 'hidden' );
+    });
+
+} );

@@ -1,0 +1,227 @@
+@using CyroTechPortal;
+@{
+ ViewBag.Title = Localizer.Current.GetString("UserRoleUser");
+}
+
+<div class="row">
+<div class="col-md-12">
+<div class="box box-primary">
+
+	<div id = "table" class="box-header with-border">
+	<div class="box-tools pull-right">
+		<button type = "button" class="btn btn-box-tool" data-widget="collapse">
+		<i class="fa fa-minus"></i>
+		</button>
+		<button type = "button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+	</div>
+	</div>
+<div id="viewModalUserRoleUser" ></div>
+	<div class="box-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div id="responseMessageUserRoleUser" ></div>
+			</div>
+		</div>
+		<div id="table" class="table-responsive">
+		<table id= "tblGridUserRoleUser" class="table no-margin">
+		<thead>
+			<tr>
+		<th>UserRoleUserID</th>
+		<th>@Localizer.Current.GetString("UserRoleUserID")</th>
+		<th>@Localizer.Current.GetString("IsActive")</th>
+		<th></th>
+		<th></th>
+			</tr>
+		</thead>
+		</table>
+		</div>
+	</div>
+</div>
+</div>
+	@section Header{
+	<h1>
+	@Localizer.Current.GetString("UserRoleUser")
+	</h1>
+	<ol class="breadcrumb">
+	<li><a href = "/" ><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
+	<li><a href = "#" class="active">@Localizer.Current.GetString("UserRoleUser")</a></li>
+	</ol>
+}
+
+@section scripts
+{
+
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+
+			$('#responseMessageUserRoleUser').html("");
+
+			var datatableUserRoleUser = $('#tblGridUserRoleUser').dataTable({
+			"bServerSide": true,
+			"bAutoWidth": true,
+			"sAjaxSource": '@Url.Action("GetUserRoleUserList", "User")',
+			"fnServerData": function(sSource, aoData, fnCallback) {
+			$('#responseMessageUserRoleUser').html("");
+			$.ajax({
+				"dataType": 'json',
+				"contentType": "application/json; charset = utf-8",
+				"type": "GET",
+				"url": sSource,
+				"data": aoData,
+				"success": fnCallback,
+				"error": function(xhr, textStatus, error){
+					$('#responseMessageUserRoleUser').html(xhr.responseText);
+				}
+			});
+			},
+			"bProcessing": true,
+			"dom": 'T<"clear"><Blp>rtip',
+			"lengthMenu": [[10, 100, 500, 1000, -1], [10, 100, 500, 1000, "All"]],
+		"aoColumns": [
+			 { "mDataProp": "UserRoleUserID" },
+			 { "mDataProp": "UserRoleUserID" },
+			 {"mDataProp": "IsActiveCheckBox" },
+			 {"mDataProp": "EditButton" },
+			 {"mDataProp": "DeleteButton" },
+		],
+		"columnDefs": [{ visible: false, targets: [0] },{ orderable: false, targets: [3,4] } ],
+		"buttons": [
+			{
+				text: '<i class="fa fa-plus" aria-hidden="true"></i>',
+					className: 'btn btn-primary',
+				action: function(e, dt, node, config) {
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Action("GetUserRoleUser", "User")',
+					data: { id: '' },
+					dataType: "text",
+					success: function(result) {
+					if (result)
+					{
+						$('#viewModalUserRoleUser').html(result);
+					}
+					else {
+						ShowNotification(false, data.errorMessage)
+					}
+					}
+				});
+				},
+					titleAttr: '@Localizer.Current.GetString("Add")'
+				},
+				{
+					text: '<i class="fa fa-file-excel-o"></i>',
+					className: 'btn btn-primary',
+					action: function(e, dt, node, config)
+				{
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Action("ExportForm", "User")',
+					data: { dataList: JSON.stringify(dt.ajax.params()) },
+					success: function(result) {
+					if (result)
+					{
+						$('#viewModalUserRoleUser').html(result);
+					}
+					else {
+						ShowNotification(false, data.errorMessage)
+					}
+					}
+				});
+				},
+					titleAttr: '@Localizer.Current.GetString("Export")'
+				},
+				{
+					extend: 'copyHtml5',
+					text: '<i class="fa fa-files-o"></i>',
+					className: 'btn btn-primary',
+					titleAttr: 'Copy'
+				},
+				{
+					extend: 'print',
+					text: '<i class="fa fa-print" aria-hidden="true"></i>',
+					titleAttr: '@Localizer.Current.GetString("Print")',
+					className: 'btn btn-primary',
+					customize: function(win)
+					{
+						$(win.document.body)
+						.css('font-size', '10pt')
+						.prepend(
+						 '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+						);
+						$(win.document.body).find('table')
+						.addClass('compact')
+						.css('font-size', 'inherit');
+					}
+				}
+		],
+		"language": {
+			"lengthMenu":"  " + display.value + " _MENU_ " + records.value,
+			"zeroRecords": zeroRecords.value,
+			"info":  showing.value + " _PAGE_ " + " - _PAGES_", 
+			"infoEmpty": infoEmpty.value, 
+			"infoFiltered":  "(" + filtered.value + " _MAX_ " + totalrecords.value + ")", 
+			"loadingRecords": loadingRecords.value, 
+			"processing": processing.value, 
+			"paginate": {
+				"first": first.value, 
+				"last": last.value, 
+				"next": next.vaue, 
+				"previous": previous.value 
+			},
+		}
+		}).yadcf([
+			{
+				 column_number: 1,
+				filter_type: "select",
+				data: ["True", "False"]
+			},
+		], { cumulative_filtering: true });
+
+		$('#tblGridUserRoleUser').on('click', '.btnEdit', function(e)
+		{
+			e.preventDefault();
+			var value = $(this).attr("data-id");
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("GetUserRoleUser", "User")',
+				data: { id: value },
+				dataType: "text",
+				success: function(result)
+				{
+				if (result)
+				{
+				$('#viewModalUserRoleUser').html(result);
+				}
+				else
+				{
+					ShowNotification(false, data.errorMessage)
+				}
+			}
+			});
+		});
+
+		$('#tblGridUserRoleUser').on('click', '.btnDelete', function(e)
+		{
+			if (confirm('Are you sure you want to delete'))
+			{
+			e.preventDefault();
+			var value = $(this).attr("data-id");
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("DeleteUserRoleUser", "User")',
+				data: { id: value },
+				dataType: "text",
+				success: function(result) {
+				$('#viewModalUserRoleUser').html(result);
+				$('#tblGridUserRoleUser').DataTable().ajax.reload();
+				},
+			 });
+			 }
+		 });
+
+
+		 });
+
+	</script>
+	}

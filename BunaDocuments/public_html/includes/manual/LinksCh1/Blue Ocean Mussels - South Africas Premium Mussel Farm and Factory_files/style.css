@@ -1,0 +1,108 @@
+/*
+Theme Name: Flatsome
+Theme URI: http://flatsome.uxthemes.com/
+Author: UX-Themes
+Author URI: http://www.uxthemes.com/
+Description: Multi-Purpose Responsive WooCommerce Theme
+Version: 3.2.0
+Text Domain: flatsome
+License:
+License URI:
+*/
+
+/***************
+All custom CSS should be added to Flatsome > Advanced > Custom CSS,
+or in the style.css of a Child Theme.
+***************/
+/* .nav-dark .nav>li>a .icon-menu {
+    color: #f79523 !important; */
+
+#mc_embed_signup h2 {
+    display: none;
+}
+
+#mc_embed_signup .mc-field-group,
+.mc4wp-form .mc4wp-form-fields > p {
+    clear: none !important;
+    float: left !important;
+    width: 50% !important;
+    padding: 0 !important;
+    margin: 0 0 15px 0 !important;
+}
+
+#mc_embed_signup .mc-field-group.input-group,
+.mc4wp-form .mc4wp-form-fields > p.input-group {
+    width: 100% !important; 
+}
+
+.mc4wp-form .mc4wp-form-fields > p,
+.mc4wp-form .mc4wp-form-fields > p label {
+    text-align: left !important;
+}
+
+.mc4wp-form .mc4wp-form-fields > p:last-of-type {
+    clear: both !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+#mc_embed_signup .mc-field-group:nth-child(odd),
+.mc4wp-form .mc4wp-form-fields > p:nth-child(odd) {
+    clear: both !important;
+    padding-right: 15px !important;
+}
+
+#mc_embed_signup .mc-field-group input[type=text],
+#mc_embed_signup .mc-field-group input[type=email],
+.mc4wp-form .mc4wp-form-fields > p input[type=text],
+.mc4wp-form .mc4wp-form-fields > p input[type=email] {
+    background: #E6EBED !important;
+    border-radius: 7px !important;
+    border: 1px solid #ddd !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+#mc_embed_signup .mc-field-group select,
+.mc4wp-form .mc4wp-form-fields > p select {
+    width: 100% !important;
+}
+
+#mc_embed_signup .mc-field-group.input-group ul li,
+.mc4wp-form .mc4wp-form-fields > p.input-group ul li {
+    display: inline-block !important;
+}
+
+#mc_embed_signup .button {
+    background: #003b49 !important;
+    font-size: 14px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    box-shadow: 0px 4px 18px rgba(0,0,0,0.3) !important;
+}
+
+#mc_embed_signup .button:hover {
+    background: #00728A !important;
+}
+
+.popmake #mc_embed_signup .mc-field-group:nth-child(3) {
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media screen and (max-width: 767px) {
+    #mc_embed_signup .mc-field-group,
+    .mc4wp-form .mc4wp-form-fields > p {
+        width: 100% !important;
+    }
+    #mc_embed_signup .mc-field-group:nth-child(even),
+    .mc4wp-form .mc4wp-form-fields > p:nth-child(odd) {
+        padding-right: 0 !important;
+    }
+    .popmake #mc_embed_signup .mc-field-group:nth-child(odd) {
+        padding-right: 0 !important;
+    }
+    .popmake form {
+        margin-top: 20px;
+    }
+}

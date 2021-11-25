@@ -1,0 +1,24 @@
+{
+	"$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+	"name": "jmootips",
+	"version": "2.5.0",
+	"description": "Jmootips mootools scripts",
+	"license": "GPL-2.0-or-later",
+	"assets": [
+		{
+			"name": "mootools.core",
+			"type": "script",
+			"uri": "media/plg_system_jmootips/js/mootools-core.js"
+		},
+		{
+			"name": "mootools.more",
+			"type": "script",
+			"uri": "media/plg_system_jmootips/js/mootools-more-jmootips.js"
+		},
+		{
+			"name": "jmootips",
+			"type": "script",
+			"uri": "media/plg_system_jmootips/js/jmootips.min.js"
+		}
+	]
+}

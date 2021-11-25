@@ -1,0 +1,18 @@
+/* Print view */
+
+#outer-header,
+#menu-options, 
+#footer-sitemap, 
+#footer, #under-footer, 
+#container .content .sidebar, 
+#container .ad-box-main,
+#donation-form .donation-right-col,
+#donation-form h1,
+#donate-pagination
+{display: none;}
+
+#container .content
+{float: left;}
+
+#container .content .column
+{width: 100% !important;}

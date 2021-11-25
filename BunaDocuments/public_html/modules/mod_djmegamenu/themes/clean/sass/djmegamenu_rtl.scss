@@ -1,0 +1,159 @@
+.dj-megamenu-clean {
+	li.dj-up {
+		float: right;
+	}
+	li {
+		a.dj-up_a {
+			float: right;
+			span {
+				float: right;
+				span.image-title {
+					margin: 0 15px 0 0;
+				}
+			}
+			span.dj-drop {
+				padding: 0 0 0 20px !important;
+			}
+			.arrow {
+				right: auto;
+				left: 16px;
+			}
+		}
+		a.dj-up_a.withsubtitle {
+			.arrow {
+				right: auto;
+				left: 16px;
+			}
+		}
+		div.dj-subwrap {
+			left: auto;
+			right: -9999px;
+		}
+		&:hover {
+			div.dj-subwrap {
+				li {
+					div.dj-subwrap {
+						left: auto;
+						right: -9999px;
+					}
+					&:hover {
+						>div.dj-subwrap {
+							left: auto;
+							right: 100%;
+							margin: 0 10px 0 0;
+						}
+					}
+				}
+				left: auto;
+				right: 0;
+			}
+		}
+		div.dj-subcol {
+			float: right;
+		}
+		ul.dj-submenu {
+			>li {
+				>a {
+					.dj-icon {
+						float: right;
+						margin: 0 0 8px 15px;
+					}
+				}
+			}
+			>li.parent {
+				>a {
+					.arrow {
+						right: auto;
+						left: 6px;
+						&:before {
+							content: '\f104';
+						}
+					}
+				}
+				&:not(.subtree) {
+					>a {
+						&:hover {
+							.arrow {
+								right: auto;
+								left: 4px;
+							}
+						}
+					}
+				}
+			}
+		}
+		ul.dj-subtree {
+			margin: 5px 25px 5px 0 !important;
+		}
+	}
+	li.hover {
+		div.dj-subwrap {
+			li {
+				div.dj-subwrap {
+					left: auto;
+					right: -9999px;
+				}
+			}
+			left: auto;
+			right: 0;
+			li.hover {
+				>div.dj-subwrap {
+					left: auto;
+					right: 100%;
+					margin: 0 10px 0 0;
+				}
+			}
+		}
+	}
+	.dj-stickylogo.dj-align-left {
+		left: auto;
+		right: 20px;
+	}
+	.dj-stickylogo.dj-align-right {
+		right: auto;
+		left: 20px;
+	}
+}
+.dj-megamenu-clean.dj-megamenu-sticky {
+	left: auto;
+	right: 0;
+}
+.dj-megamenu-clean.verticalMenu {
+	li {
+		a.dj-up_a {
+			.arrow {
+				&:before {
+					content: '\f104';
+				}
+			}
+		}
+		&:hover {
+			div.dj-subwrap {
+				right: 100% !important;
+				left: auto !important;
+			}
+			div.dj-subwrap.open-right {
+				right: 100% !important;
+				left: auto !important;
+			}
+			div.dj-subwrap.open-left {
+				left: 100% !important;
+				right: auto !important;
+			}
+		}
+	}
+	li.hover {
+		div.dj-subwrap {
+			right: 100% !important;
+			left: auto !important;
+		}
+		div.dj-subwrap.open-right {
+			right: 100% !important;
+			left: auto !important;
+		}
+		div.dj-subwrap.open-left {
+			left: 100% !important;
+			right: auto !important;
+		}
+	}
+}

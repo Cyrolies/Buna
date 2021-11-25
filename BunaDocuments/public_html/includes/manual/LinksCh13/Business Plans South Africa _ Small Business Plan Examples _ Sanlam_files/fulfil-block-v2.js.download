@@ -1,0 +1,895 @@
+/*==========================================================================
+  FULFILLMENT BLOCK --- V2 TAB SYSTEM
+  ========================================================================== */
+
+// NB: Manipulate DOM FIRST! .... to remove and then RE-INSERT the "advice" tab, to be 3rd instead of 2nd
+$(".advice-special-tab").appendTo(".tab-headings");
+$(".advice-special-tab_mobi").appendTo(".tab-headings_mobi");
+
+var getFirstPageUrl = location.href;
+
+// add default Hash url to "Invest Online" hyperlink
+// console.log(getFirstPageUrl);
+$(".default-invest").attr("href",getFirstPageUrl+"#filfilmentblockinvest");
+$(".default-invest_mobi").attr("href",getFirstPageUrl+"#filfilmentblockinvest");
+ 
+// Add blue border to tab heading...appropriately
+
+$(".tab").eq(0).addClass("border-right");
+$(".tab").eq(1).addClass("border-right");
+$(".tab_mobi").eq(0).addClass("border-right");
+$(".tab_mobi").eq(1).addClass("border-right");
+
+
+$(".tab-headings").find(".tab").eq(1).click();
+$(".tab-headings_mobi").find(".tab").eq(1).click();
+  
+// Hide content tabs initially
+$("#invest-content, #advice-content, #service-content").hide();
+$("#invest-content_mobi, #advice-content_mobi, #service-content_mobi").hide();
+
+function fullfillTabs(indexItem,name){	
+	
+	// Tab 1
+	if($(".tab-headings").find(".tab").eq(0).hasClass("on")){
+		$(".tab").eq(1).removeClass("border-left");
+		$(".tab").eq(1).addClass("border-right");
+		$(".tab").eq(0).addClass("border-right");
+		$(".tab").eq(2).removeClass("border-left");
+	}
+	
+	// Tab 2
+	if($(".tab-headings").find(".tab").eq(1).hasClass("on")){
+		$(".tab").eq(1).addClass("border-left");
+		$(".tab").eq(0).removeClass("border-right");
+		$(".tab").eq(1).addClass("border-right");
+		$(".tab").eq(2).removeClass("border-left");
+	}
+	
+	// Tab 3
+	if($(".tab-headings").find(".tab").eq(2).hasClass("on")){
+		$(".tab").eq(2).addClass("border-left");
+		$(".tab").eq(0).addClass("border-right");
+		$(".tab").eq(1).removeClass("border-right");
+		$(".tab").eq(1).removeClass("border-left");
+	}	
+
+	$(".selected-tab").removeClass("selected-tab");
+	$("#"+name+"-content").addClass("selected-tab");
+	
+	// MOBILE BELOW
+	
+	// Tab 1
+	if($(".tab-headings_mobi").find(".tab_mobi").eq(0).hasClass("on_mobi")){
+		$(".tab_mobi").eq(1).removeClass("border-left");
+		$(".tab_mobi").eq(1).addClass("border-right");
+		$(".tab_mobi").eq(0).addClass("border-right");
+		$(".tab_mobi").eq(2).removeClass("border-left");
+	}
+	
+	// Tab 2
+	if($(".tab-headings_mobi").find(".tab_mobi").eq(1).hasClass("on_mobi")){
+		$(".tab_mobi").eq(1).addClass("border-left");
+		$(".tab_mobi").eq(0).removeClass("border-right");
+		$(".tab_mobi").eq(1).addClass("border-right");
+		$(".tab_mobi").eq(2).removeClass("border-left");
+	}
+	
+	// Tab 3
+	if($(".tab-headings_mobi").find(".tab_mobi").eq(2).hasClass("on_mobi")){
+		$(".tab_mobi").eq(2).addClass("border-left");
+		$(".tab_mobi").eq(0).addClass("border-right");
+		$(".tab_mobi").eq(1).removeClass("border-right");
+		$(".tab_mobi").eq(1).removeClass("border-left");
+	}	
+	
+	$(".selected-tab_mobi").removeClass("selected-tab_mobi");
+	$("#"+name+"-content_mobi").addClass("selected-tab_mobi");
+	
+};
+
+// Click Event
+$(".tab-headings .tab").click(function(){
+	
+	$(".on").removeClass("on");
+	$(this).addClass("on");
+	
+	var getIndex = $(this).index();
+	var getName = $(this).attr("data-name");
+	//var sanitizeName = getName.trim();
+		
+	fullfillTabs(getIndex,getName);
+
+});
+
+
+$(".tab-headings_mobi .tab_mobi").click(function(){
+	
+	$(".on_mobi").removeClass("on_mobi");
+	$(this).addClass("on_mobi");
+	
+	var getIndex = $(this).index();
+	var getName = $(this).attr("data-name");
+	//var sanitizeName = getName.trim();
+	
+	fullfillTabs(getIndex,getName);
+
+});
+
+
+// show Email Form and hide Contact Form
+$(".fulfillEmail").click(function(e){
+
+	e.preventDefault();
+	
+	$(".go-back").show();
+	
+	$(this).parent().parent().parent().find("#contact-frame").hide();
+	$(this).parent().parent().parent().find("#email-frame").show();
+	$(this).parent().parent().parent().find(".default-invest").hide();
+	$(this).parent().parent().parent().find(".fulfillNumber").hide();
+	$(this).parent().parent().parent().find(".fulfillEmail").hide();	
+		
+});
+
+$(".fulfillEmail_mobi").click(function(e){
+
+	e.preventDefault();
+	
+	$(".go-back_mobi").show();
+	
+	$(this).parent().parent().parent().find("#contact-frame_mobi").hide();
+	$(this).parent().parent().parent().find("#email-frame_mobi").show();
+	$(this).parent().parent().parent().find(".default-invest_mobi").hide();
+	$(this).parent().parent().parent().find(".fulfillNumber_mobi").hide();
+	$(this).parent().parent().parent().find(".fulfillEmail_mobi").hide();	
+		
+});
+
+
+// Back btn action on email state
+$("body,html").on("click",".go-back",function(e){
+
+	e.preventDefault();
+	
+	$(".go-back").hide();
+	$(this).parent().parent().find("#contact-frame").show();
+	$(this).parent().parent().find("#email-frame").hide();
+	
+	$(".default-invest").show();
+	$(".fulfillNumber").show();
+	$(".fulfillEmail").show();	
+	
+});
+
+$("body,html").on("click",".go-back_mobi",function(e){
+
+	e.preventDefault();
+	
+	$(".go-back_mobi").hide();
+	$(this).parent().parent().find("#contact-frame_mobi").show();
+	$(this).parent().parent().find("#email-frame_mobi").hide();
+	
+	$(".default-invest_mobi").show();
+	$(".fulfillNumber_mobi").show();
+	$(".fulfillEmail_mobi").show();	
+	
+});
+
+
+function defaultInvestView(){
+	
+	$(".go-back").hide();
+	$(".default-invest").show();
+	
+	$("#invest-content").find("#email-frame").hide();
+	$("#advice-content").find("#email-frame").hide();
+	
+	$("#invest-content").find("#contact-frame").show();
+	$("#advice-content").find("#contact-frame").show();
+	
+	
+	$(".fulfillNumber").show();
+	$(".fulfillEmail").show();	
+}
+
+function defaultInvestView_mobi(){
+	
+	$(".go-back_mobi").hide();
+	$(".default-invest_mobi").show();
+	
+	$("#invest-content_mobi").find("#email-frame_mobi").hide();
+	$("#advice-content_mobi").find("#email-frame_mobi").hide();
+	
+	$("#invest-content_mobi").find("#contact-frame_mobi").show();
+	$("#advice-content_mobi").find("#contact-frame_mobi").show();
+	
+	
+	$(".fulfillNumber_mobi").show();
+	$(".fulfillEmail_mobi").show();	
+}
+
+
+// reset Invest view state
+$("body,html").on("click",".tab-headings .tab",function(){
+	defaultInvestView();
+});
+
+$("body,html").on("click",".tab-headings_mobi .tab_mobi",function(){
+	defaultInvestView_mobi();
+});
+
+
+// Do nothing on fax no click
+$(".fulfillFax_mobi").click(function(e){
+	e.preventDefault();
+});
+
+// Add DATA-NAME attributes to tabs so that it can track....on page load
+$(".invest-special-tab").attr("data-name","invest");
+$(".invest-special-tab_mobi").attr("data-name","invest");
+
+$(".advice-special-tab").attr("data-name","advice");
+$(".advice-special-tab_mobi").attr("data-name","advice");
+
+$(".service-special-tab").attr("data-name","service");
+$(".service-special-tab_mobi").attr("data-name","service");
+
+
+/*==========================================================================
+  GET SHARE POINT LIST WITH CAML QUERY
+  ========================================================================== */
+
+var getPageUrl = window.location.pathname;
+var domainName = location.host;
+
+// Sanitize URL in address bar first, before comparing (remove hash calls)
+var originalCleanUrl = getPageUrl.split("#")[0];
+	
+(function() {
+    function getListItems() {
+        
+        //var origin = "/";
+		var origin = window.location.protocol + 
+                                    "//" + window.location.host + 
+                                    _spPageContextInfo.siteServerRelativeUrl;
+		//console.log('origin' + origin);
+        $().SPServices({
+            operation: 'GetListItems',
+            async: false,
+            listName: 'Fulfillment Block',
+            webURL: origin,
+
+            CAMLViewFields:
+                '<ViewFields>' +
+                '<FieldRef Name="LinkTitle" />' +
+                '<FieldRef Name="InvestForm_x002d_Email" />' +
+                '<FieldRef Name="AdviceForm_x002d_Phone" />' +
+                '<FieldRef Name="AdviceForm_x002d_Email" />' +
+                '<FieldRef Name="ServiceForm_x002d_Email" />' +
+                '<FieldRef Name="Invest_x002d_phoneNo" />' +
+                '<FieldRef Name="Advice_x002d_phoneNo" />' +
+                '<FieldRef Name="Service_x002d_phoneNo" />' +
+                '<FieldRef Name="Service_x002d_faxNo" />' +
+                '<FieldRef Name="FulfilBlock_x002d_pageURL" />' +
+                '<FieldRef Name="InvestForm_x002d_Phone" />' +
+                '<FieldRef Name="Advice_x0020_Tab" />' +
+                '<FieldRef Name="Invest_x0020_Tab" />' +
+                '<FieldRef Name="Service_x0020_Tab" />' +
+                '<FieldRef Name="Invest_x0020_Online" />' +
+                '<FieldRef Name="Fax_x0020_Number" />' +
+                '<FieldRef Name="Invest_x0020_Text" />' + 
+                '<FieldRef Name="Service_x0020_Text" />' + 
+                '<FieldRef Name="Advice_x0020_Text" />' +
+                '<FieldRef Name="Invest_x0020_Online_x0020_Text" />' +
+                '<FieldRef Name="Invest_x0020_Online_x0020_Text_x" />'+ 
+                '<FieldRef Name="Campaign_x0020_Code" />'+                     
+                '</ViewFields>',
+
+            completefunc: function(xData, Status) {
+            	                       	
+                $(xData.responseXML).SPFilterNode('z:row').each(function(k,v) {
+                	
+                	var investOnlineCustText = $(this).attr("ows_Invest_x0020_Online_x0020_Text_x");
+                	var campaignCode = $(this).attr("ows_Campaign_x0020_Code");  
+                                                            
+                	// Clean up URL FIRST before DOM manipulation
+                	function cleanUrl(url){
+						var dirtyUrl = url; 
+						var cleanUp = dirtyUrl.indexOf(',');
+						
+						var finalUrl = dirtyUrl.slice(cleanUp);
+						return dirtyUrl.replace(finalUrl, '');
+                	};
+                	
+					pageUrlFromList = $(this).attr("ows_FulfilBlock_x002d_pageURL");
+					
+					var finalPageUrl = pageUrlFromList.substr(pageUrlFromList.indexOf("za")+2,pageUrlFromList.length);
+					
+					// console.log('pageUrlFromList' + pageUrlFromList);
+					// console.log('finalPageUrl' + finalPageUrl);
+					
+					var FINALSTRING = "";
+					FINALSTRING = originalCleanUrl.replace("pages","Pages");
+	
+					if(FINALSTRING === finalPageUrl){
+						
+	                	if($(investOnlineCustText).length > 1 || typeof investOnlineCustText !== "undefined"){
+	                		$(".invest-online-action").text(investOnlineCustText);
+	                		$(".invest-online-action_mobi").text(investOnlineCustText);
+	                	}
+						
+						// INVEST tab text update
+	                	var InvestTabText = $(this).attr("ows_Invest_x0020_Text");
+						$(".invest-special-tab").attr("data-text",InvestTabText);
+						$(".invest-special-tab_mobi").attr("data-text",InvestTabText);
+						var setIattr = $(".invest-special-tab").attr("data-text");
+						var setIattr_mobi = $(".invest-special-tab_mobi").attr("data-text");
+						$(".invest-special-tab").find("h2").text(setIattr);
+						$(".invest-special-tab_mobi").find("h2").text(setIattr_mobi);
+	                	
+	                	// ADVICE tab text update
+						var AdviceTabText = $(this).attr("ows_Advice_x0020_Text");    	
+						$(".advice-special-tab").attr("data-text",AdviceTabText);
+						$(".advice-special-tab_mobi").attr("data-text",AdviceTabText);
+						var setAattr = $(".advice-special-tab").attr("data-text");
+						var setAattr_mobi = $(".advice-special-tab_mobi").attr("data-text");						
+						$(".advice-special-tab").find("h2").text(setAattr);
+						$(".advice-special-tab_mobi").find("h2").text(setAattr_mobi);
+						
+						// SERVICE tab text update
+						var ServiceTabText = $(this).attr("ows_Service_x0020_Text");
+						$(".service-special-tab").attr("data-text",ServiceTabText);
+						$(".service-special-tab_mobi").attr("data-text",ServiceTabText);
+						var setSattr = $(".service-special-tab").attr("data-text");
+						var setSattr_mobi = $(".service-special-tab_mobi").attr("data-text");
+						$(".service-special-tab").find("h2").text(setSattr);
+						$(".service-special-tab_mobi").find("h2").text(setSattr_mobi);
+						
+	                	// console.log("Invest: "+InvestTabText+"\nAdvice: "+AdviceTabText+"\nService: "+ServiceTabText);
+
+	            		// Invest Tab vars
+		            	var isInvestTabChecked = $(this).attr("ows_Invest_x0020_Tab");
+		            	var isInvestOnlineChecked = $(this).attr("ows_Invest_x0020_Online");
+		            	var getInvestFormEmail = $(this).attr("ows_InvestForm_x002d_Email");
+		            	var getInvestFormPhone = $(this).attr("ows_InvestForm_x002d_Phone");
+		            	var getInvestPhoneNo = $(this).attr("ows_Invest_x002d_phoneNo");
+		            	
+		            	/* -------- DOM manipulation for INVEST TAB ------- */
+						if(isInvestTabChecked === "Yes" || isInvestTabChecked === "Default"){
+						
+							if(typeof getInvestPhoneNo === "undefined"){
+								$("#invest-content").find(".fulfillNumber").remove();
+								$("#invest-content").find(".fulfillEmail").addClass("staticPosition");
+								
+								$("#invest-content_mobi").find(".fulfillNumber_mobi").remove();
+								$("#invest-content_mobi").find(".fulfillEmail_mobi").addClass("staticPosition");								
+							}						
+																			
+			            	$("#invest-content").find(".fulfillNumber").html(getInvestPhoneNo);
+			            	$("#invest-content_mobi").find(".fulfillNumber_mobi").html(getInvestPhoneNo);
+			            	
+			            	if(getInvestFormPhone.indexOf("formstack") <= -1){
+			            		$("#invest-content").find(".fulfillNumber").hide();
+			            		$("#invest-content_mobi").find(".fulfillNumber_mobi").hide();
+			            	} else {
+			            		$("#invest-content").find("#contact-frame").children("iframe").attr("src",cleanUrl(getInvestFormPhone)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+			            		$("#invest-content_mobi").find("#contact-frame_mobi").children("iframe").attr("src",cleanUrl(getInvestFormPhone)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+			            	}
+		                	
+		                	if(getInvestFormEmail.indexOf("formstack") <= -1){
+		                		$("#invest-content").find(".fulfillEmail").hide();
+		                		$("#invest-content_mobi").find(".fulfillEmail_mobi").hide();
+		                	} else {
+		                		$("#invest-content").find("#email-frame").children("iframe").attr("src",cleanUrl(getInvestFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                		$("#invest-content_mobi").find("#email-frame_mobi").children("iframe").attr("src",cleanUrl(getInvestFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                	}
+						} else {
+							$(".invest-special-tab").hide();
+							$(".advice-special-tab").addClass("wide-tab");
+							$(".service-special-tab").addClass("wide-tab");
+							
+							$(".invest-special-tab_mobi").hide();
+							$(".advice-special-tab_mobi").addClass("wide-tab_mobi");
+							$(".service-special-tab_mobi").addClass("wide-tab_mobi");
+							
+						}
+						
+						// Check for Invest Online option
+						if(isInvestOnlineChecked === "No"){
+							$(".default-invest").remove();
+							$(".default-invest_mobi").remove();
+						}
+							                	
+		            	// Advice Tab vars
+		            	var isAdviceTabChecked = $(this).attr("ows_Advice_x0020_Tab");
+		            	var getAdvicePhoneNo = $(this).attr("ows_Advice_x002d_phoneNo");
+		            	var getAdviceFormPhoneNo = $(this).attr("ows_AdviceForm_x002d_Phone");
+		            	var getAdviceFormEmail = $(this).attr("ows_AdviceForm_x002d_Email");
+		            	
+						/* -------- DOM manipulation for ADVICE TAB ------- */
+						if(isAdviceTabChecked === "Yes" || isAdviceTabChecked === "Default"){
+						
+							if(typeof getAdvicePhoneNo === "undefined"){
+								$("#advice-content").find(".fulfillNumber").remove();
+								$("#advice-content").find(".fulfillEmail").addClass("staticPosition");
+								
+								$("#advice-content_mobi").find(".fulfillNumber_mobi").remove();
+								$("#advice-content_mobi").find(".fulfillEmail_mobi").addClass("staticPosition");
+							}
+												
+			            	$("#advice-content").find(".fulfillNumber").html(getAdvicePhoneNo);
+			            	$("#advice-content_mobi").find(".fulfillNumber_mobi").html(getAdvicePhoneNo);
+		                	
+			            	if(getAdviceFormPhoneNo.indexOf("formstack") <= -1){
+			            		$("#advice-content").find(".fulfillNumber").hide();
+			            		$("#advice-content_mobi").find(".fulfillNumber_mobi").hide();
+			            	} else {
+			            		$("#advice-content").find("#contact-frame").children("iframe").attr("src",cleanUrl(getAdviceFormPhoneNo)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+			            		$("#advice-content_mobi").find("#contact-frame_mobi").children("iframe").attr("src",cleanUrl(getAdviceFormPhoneNo)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+			            	}
+		                	
+		                	if(getAdviceFormEmail.indexOf("formstack") <= -1){
+		                		$("#advice-content").find(".fulfillEmail").hide();
+		                		$("#advice-content_mobi").find(".fulfillEmail_mobi").hide();
+		                	} else {
+		                		$("#advice-content").find("#email-frame").children("iframe").attr("src",cleanUrl(getAdviceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                		$("#advice-content_mobi").find("#email-frame_mobi").children("iframe").attr("src",cleanUrl(getAdviceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                	}
+		            	} else {
+							$(".advice-special-tab").hide();
+							$(".invest-special-tab").addClass("wide-tab");
+							$(".service-special-tab").addClass("wide-tab");
+							
+							$(".advice-special-tab_mobi").hide();
+							$(".invest-special-tab_mobi").addClass("wide-tab_mobi");
+							$(".service-special-tab_mobi").addClass("wide-tab_mobi");
+						}
+		            	
+		            	// Service Tab vars
+		            	var isServiceTabChecked = $(this).attr("ows_Service_x0020_Tab");
+		            	var isFaxChecked = $(this).attr("ows_Fax_x0020_Number");
+		            	var getServiceFaxNo = $(this).attr("ows_Service_x002d_faxNo");
+		            	var getServiceFormEmail = $(this).attr("ows_ServiceForm_x002d_Email");
+		            	var getServicePhoneNo = $(this).attr("ows_Service_x002d_phoneNo");
+		            	
+						/* -------- DOM manipulation for SERVICE TAB ------- */
+						if(isServiceTabChecked === "Yes" || isServiceTabChecked === "Default"){			
+						
+			            	$("#service-content").find(".fulfillNumber").html(getServicePhoneNo);
+			            	$("#service-content_mobi").find(".fulfillNumber_mobi").html(getServicePhoneNo);
+		                	
+			            	if(isFaxChecked === "1"){
+			            		$(".fulfillFax").show().find("a").html(getServiceFaxNo);
+			            		$(".fulfillFax_mobi").show().find("a").html(getServiceFaxNo);
+			            	} else {
+			            		$(".fulfillFax").hide();
+			            		$(".fulfillFax_mobi").hide();
+			            	}
+		                	if (typeof campaignCode !== 'undefined') {
+		                		$("#service-content").find("#contact-frame").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                		$("#service-content_mobi").find("#contact-frame_mobi").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                	} else {
+		                		$("#service-content").find("#contact-frame").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                	    $("#service-content_mobi").find("#contact-frame_mobi").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'&campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+
+		                	}
+		                	if(document.URL.indexOf("umbrellafund") != -1){ 
+		                		$("#service-content").find("#contact-frame").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'?campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+		                	    $("#service-content_mobi").find("#contact-frame_mobi").children("iframe").attr("src",cleanUrl(getServiceFormEmail)+'?campaignCode='+campaignCode+'&pageTitle='+document.title+'&section=Advice');
+
+		                	}
+	            		} else {
+							$(".service-special-tab").hide();
+							$(".invest-special-tab").addClass("wide-tab");
+							$(".advice-special-tab").addClass("wide-tab");
+							
+							$(".service-special-tab_mobi").hide();
+							$(".invest-special-tab_mobi").addClass("wide-tab_mobi");
+							$(".advice-special-tab_mobi").addClass("wide-tab_mobi");
+						}
+						
+						/* ======== Do auto clicking of tabs on page load (depending on which ones are activated in SP list) ======== */
+						
+						if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();						
+						} 
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();		
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "No" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");
+							
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");
+							
+							$(".invest-special-tab").attr("id","full-width");	
+							$(".invest-special-tab_mobi").attr("id","full-width");			
+						}
+						
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "No" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();
+							
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");
+							
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");
+							
+							$(".service-special-tab").attr("id","full-width");
+							$(".service-special-tab_mobi").attr("id","full-width");
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(2).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(2).click();
+							
+							// SHIFT advice tab
+							$(".advice-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".advice-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+						}							
+						
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "Default" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(2).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(2).click();
+							
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");
+							
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");
+							
+							$(".advice-special-tab").attr("id","full-width");
+							$(".advice-special-tab_mobi").attr("id","full-width");
+							
+							// SHIFT advice tab
+							$(".advice-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".advice-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+						}	
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "No" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");
+						}
+						
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(2).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(2).click();
+							
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");
+							
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");
+							
+							$(".advice-special-tab").attr("id","full-width");
+							$(".advice-special-tab_mobi").attr("id","full-width");
+						}
+						
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "No" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");					
+						}
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "No" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");
+							
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");	
+							
+							$(".invest-special-tab").attr("id","full-width");
+							$(".invest-special-tab_mobi").attr("id","full-width");				
+						}
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");			
+						}
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();		
+						}
+						
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(2).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(2).click();
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");		
+							
+							// SHIFT advice tab
+							$(".advice-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".advice-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");	
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Default" && isServiceTabChecked === "No"){
+							$(".tab-headings").find(".tab").eq(2).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(2).click();
+							$(".service-special-tab").addClass("force-hide");
+							$(".service-special-tab_mobi").addClass("force-hide");	
+							
+							// SHIFT advice tab
+							$(".advice-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".advice-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");		
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "No" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();
+							$(".advice-special-tab").addClass("force-hide");
+							$(".advice-special-tab_mobi").addClass("force-hide");	
+							
+							// SHIFT service tab
+							$(".service-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".service-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+							$(".invest-special-tab").addClass("border-right");
+							$(".invest-special-tab_mobi").addClass("border-right");
+						}
+
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();
+							
+							// SHIFT service tab
+							$(".service-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".service-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+							$(".invest-special-tab").addClass("border-right");
+							$(".invest-special-tab_mobi").addClass("border-right");				
+						}
+						
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();			
+						}
+
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Yes"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();			
+						}	
+
+						else if(isInvestTabChecked === "Default" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(0).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(0).click();			
+						}
+						
+						else if(isInvestTabChecked === "Yes" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();	
+							
+							// SHIFT service tab
+							$(".service-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".service-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+							$(".invest-special-tab").addClass("border-right");
+							$(".invest-special-tab_mobi").addClass("border-right");			
+						}
+
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "Default" && isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");
+							
+							// SHIFT service tab
+							$(".service-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".service-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+							$(".invest-special-tab").addClass("border-right");
+							$(".invest-special-tab_mobi").addClass("border-right");							
+						}
+						
+						else if(isInvestTabChecked === "No" && isAdviceTabChecked === "Yes" && isServiceTabChecked === "Yes" || isServiceTabChecked === "Default"){
+							$(".tab-headings").find(".tab").eq(1).click();
+							$(".tab-headings_mobi").find(".tab_mobi").eq(1).click();
+							$(".invest-special-tab").addClass("force-hide");
+							$(".invest-special-tab_mobi").addClass("force-hide");	
+							
+							// SHIFT service tab
+							$(".service-special-tab").prependTo(".tab-headings").removeClass("border-left");
+							$(".service-special-tab_mobi").prependTo(".tab-headings_mobi").removeClass("border-left");
+							$(".invest-special-tab").addClass("border-right");
+							$(".invest-special-tab_mobi").addClass("border-right");				
+						} 			
+						
+						else {
+							defaultSettings();
+						}	
+						
+						if (typeof campaignCode !== 'undefined' && $('#getSomeAdvice').length > 0) {
+		            		var getSrc = $('#getSomeAdvice').attr('src');
+					        var getPageTitle = document.title;
+						    getPageTitle = encodeURIComponent(getPageTitle);
+						    $('#getSomeAdvice').attr('src',getSrc+'?campaignCode='+campaignCode+'&pageTitle='+getPageTitle);
+						    
+		            	} else {
+		            		var getSrc = $('#getSomeAdvice').attr('src');
+					        var getPageTitle = document.title;
+						    getPageTitle = encodeURIComponent(getPageTitle);
+		            		$('#getSomeAdvice').attr('src',getSrc+'?pageTitle='+getPageTitle);
+		            	}
+		            	//if (typeof campaignCode !== 'undefined' && $('#life-insurance').length > 0) {
+		            	if ($('#life-insurance').length > 0) {
+		            		var getSrc = $('#life-insurance').attr('src');
+						    $('#life-insurance').attr('src',getSrc+'&campaignCode='+campaignCode);
+						    
+		            	} 				
+														            	
+	            	} // END MAIN IF 
+	            	
+	            	
+	            	
+	            	/*if($('#getSomeAdvice').length > 0) {
+				      var getSrc = $('#getSomeAdvice').attr('src');
+				      var getPageTitle = document.title;
+					  //getPageTitle = encodeURIComponent(getPageTitle);
+					  $('#getSomeAdvice').attr('src',getSrc+'?campaignCode='+campaignCode+'&pageTitle='+getPageTitle);
+					  console.log($('#getSomeAdvice').attr('src'));
+				      //$('#getSomeAdvice').attr('src',getSrc+'&campaignCode='+campaignCode);
+				
+				    }*/
+	            		            	
+                });
+            }
+        });
+    }
+    getListItems();  
+
+})();
+
+// REMOVE Fulfilment block from '/businessowners' and its child directories
+function checkBusOwnerPages(){
+	if(location.href.indexOf("businessowners") > -1){
+	
+		$(".contentWrapper #fulfillContainer #fulfillBlock .fulfillForm").addClass("businessownersForm");
+
+		// Desktop & Tablet
+		// $("#fulfillContainer").remove();
+		
+		// Mobile
+		// $("#fulfillmentMobile_v2").remove();
+		var contactBlockHeading = '<div class="tab advice-special-tab wide-tab on border-left" data-name="advice" data-text="Contact us" id="full-width">'+
+                                  '<h2>Contact us</h2>'+
+                                  '</div>';
+                                  
+		$("#contact-frame h2").empty().text("Email Us");
+		$(".tab-headings").empty().append(contactBlockHeading);
+		$("li.fulfillNumber").empty().text("0860 100 539");
+		$("li.fulfillEmail").remove();		
+		$("iframe.fulfillContactForm").attr("src", "https://sanlam.formstack.com/forms/coza_fulfillblockv3_business_owners?email=sme@sanlam.co.za&pageTitle="+document.title+"&pageURL="+document.URL+"&business=Sanlam");		
+		$("#ff-block-v2 #advice-content .formSection ul").addClass("advice-content-list");
+	}
+}
+
+// DEFAULT "ADVICE" & "SERVICE" Tab display
+function defaultSettings(){
+	
+	$(".tab").removeAttr("style");
+	
+	if(!$(".tab").hasClass("on")){
+	
+		// DESKTOP
+		$(".invest-special-tab").remove();
+		$(".advice-special-tab").addClass("wide-tab");
+		$(".service-special-tab").click().addClass("wide-tab");
+		$("#advice-content .fulfillNumber").html("0860 726 526");
+		$("#service-content .fulfillNumber").html("0860 726 526");
+		$("#advice-content #contact-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_advice_contact?email=online.advice@sanlam.co.za&pageTitle="+document.title+"&section=Advice");
+		$("#advice-content #email-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_advice_email?email=prospects@sanlam.co.za&pageTitle="+document.title+"&section=Advice");
+		$("#service-content #contact-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_service_email_2016?email=life@sanlam.co.za&pageTitle="+document.title+"&section=Service");
+		// https://sanlam.formstack.com/forms/coza_fulfillblockv2_service_email?email=life@sanlam.co.za"
+		
+		// MOBILE
+		$(".invest-special-tab_mobi").remove();
+		$(".advice-special-tab_mobi").addClass("wide-tab_mobi");
+		$(".service-special-tab_mobi").click().addClass("wide-tab_mobi");
+		$("#advice-content_mobi .fulfillNumber_mobi").html("0860 726 526");
+		$("#service-content_mobi .fulfillNumber_mobi").html("0860 726 526");
+		$("#advice-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_advice_contact?email=online.advice@sanlam.co.za&pageTitle="+document.title+"&section=Advice");
+		$("#advice-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_advice_email?email=prospects@sanlam.co.za&pageTitle="+document.title+"&section=Advice");
+		$("#service-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_service_email_2016?email=life@sanlam.co.za&pageTitle="+document.title+"&section=Service");
+		// https://sanlam.formstack.com/forms/coza_fulfillblockv2_service_email?email=life@sanlam.co.za"
+
+		if(document.URL.indexOf("/campaigns/secureservicesregistration/Pages/default.aspx") != -1){
+            $("#fulfillmentMobile").find(".tel").find("a").text("021 916 1500");
+            $("li.fulfillNumber").text("021 916 1500");
+            // $(".advice-special-tab, #advice-content").remove();
+            $("#service-content #contact-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_service_email_2016?email=secure@sanlam.co.za&pageTitle="+document.title+"&section=Service");
+        }		
+	}
+	       
+	setTimeout(function(){
+		if(document.URL.indexOf("/personal/insurance/personal-and-family-insurance/Pages/life-insurance-indie.aspx") != -1){
+        	$(".service-special-tab").remove();
+        	
+        	// DESKTOP
+			$("#invest-content #contact-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_invest_contact?email=online.advice@sanlam.co.za&pageTitle="+document.title+"&section=Invest&Business=Indie");
+			$("#invest-content #email-frame").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_invest_email?email=prospects@sanlam.co.za&pageTitle="+document.title+"&section=Invest&Business=Indie");
+			
+			// MOBILE
+			$("#invest-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_invest_contact?email=online.advice@sanlam.co.za&pageTitle="+document.title+"&section=Advice&Business=Indie");
+			$("#invest-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src","https://sanlam.formstack.com/forms/coza_fulfillblockv2_invest_email?email=prospects@sanlam.co.za&pageTitle="+document.title+"&section=Advice&Business=Indie");				
+		}
+		
+		if(document.URL.indexOf("/institutional/retirement/benchmarksurvey/Pages/default.aspx") != -1 || document.URL.indexOf("/institutional/retirement/benchmarksurvey/researchmethods/Pages/default.aspx") != -1 || document.URL.indexOf("/institutional/retirement/benchmarksurvey/ourhistory/Pages/default.aspx") != -1){
+        	$(".fulfillNumber").remove();				
+		}
+
+	},1300);
+	
+	setTimeout(function(){
+		if(document.URL.indexOf("simeka") != -1){       	
+        	// DESKTOP
+			var simekaDesktopAdviceContact = $("#advice-content #contact-frame").find(".fulfillContactForm").attr("src");
+			$("#advice-content #contact-frame").find(".fulfillContactForm").attr("src", simekaDesktopAdviceContact + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+			
+			var simekaDesktopAdviceEmail = $("#advice-content #email-frame").find(".fulfillContactForm").attr("src");
+			$("#advice-content #email-frame").find(".fulfillContactForm").attr("src", simekaDesktopAdviceEmail + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+			
+			var simekaDesktopServiceContact = $("#advice-content #contact-frame").find(".fulfillContactForm").attr("src");
+			$("#advice-content #contact-frame").find(".fulfillContactForm").attr("src", simekaDesktopServiceContact + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+
+			var simekaDesktopServiceEmail = $("#advice-content #email-frame").find(".fulfillContactForm").attr("src");
+			$("#advice-content #email-frame").find(".fulfillContactForm").attr("src", simekaDesktopServiceEmail + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+
+			// MOBILE
+			var simekaMobileAdviceContact = $("#advice-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src");
+			$("#advice-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src", simekaMobileAdviceContact + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+
+			var simekaMobileAdviceEmail = $("#advice-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src");	
+			$("#advice-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src", simekaMobileAdviceEmail + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+			
+			var simekaMobileServiceContact = $("#service-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src");
+			$("#service-content_mobi #contact-frame_mobi").find(".fulfillContactForm").attr("src", simekaMobileServiceContact + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');
+			
+			var simekaMobileServiceEmail = $("#service-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src");
+			$("#service-content_mobi #email-frame_mobi").find(".fulfillContactForm").attr("src", simekaMobileServiceEmail + '&Page Name=Simeka Health&Electronic Money Transfer Services=Simeka Health&Dropdown List=Simeka Health');	
+
+
+			/*console.log(simekaDesktopAdviceContact);	
+			console.log(simekaDesktopAdviceEmail);
+			console.log(simekaDesktopServiceContact);
+			console.log(simekaDesktopServiceEmail);
+						
+			console.log(simekaMobileAdviceContact);	
+			console.log(simekaMobileAdviceEmail);
+			console.log(simekaMobileServiceContact);
+			console.log(simekaMobileServiceEmail);	*/	
+		}
+	},1300);
+
+}
+
+$(document).ready(function(){
+	setTimeout(function(){
+		// display default FF block
+		defaultSettings();
+		
+		// init business owners removal of FF
+		checkBusOwnerPages();
+	},1300);
+});

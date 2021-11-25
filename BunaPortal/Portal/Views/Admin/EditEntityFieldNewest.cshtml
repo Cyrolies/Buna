@@ -1,0 +1,202 @@
+@using CyroTechPortal;
+@model DALEFModel.EntityField
+<script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="content">
+				<div class="box-header">
+					<button type = "button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("EntityField")), new { @class = "col-md-2 control-label" })</h4>
+				</div>
+
+				
+				<div id = "result" ></div>
+				@using(Ajax.BeginForm("EditEntityField", "Admin", new AjaxOptions
+					{
+						HttpMethod = "POST",
+						InsertionMode = InsertionMode.Replace,
+						UpdateTargetId = "result"
+					}))
+					{
+						@* @Html.AntiForgeryToken()*@
+						@Html.ValidationSummary(true)
+
+				
+				<div id="Tabs" role="tabpanel" >
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active" ><a href = "#General" aria-controls = "#General" role="tab" data-toggle="tab">General</a></li>
+					<li><a href = "#Control" aria-controls = "#Control" role="tab" data-toggle="tab">Control</a></li>
+				</ul>
+					<div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="General">
+                            <div class="col-md-6">
+                                <div class="row">
+
+                                    <div class="box-default">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxGeneral"))</h3>
+
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("EntityFieldName")))
+                                                    @Html.CustomTextBoxFor(o => o.EntityFieldName)
+                                                    @Html.CustomValidationMessageFor(o => o.EntityFieldName)
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("DisplayName")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("EntityID")))
+                                                    @Html.CustomDropDownListFor(st => st.EntityID)
+                                                    @Html.CustomValidationMessageFor(o => o.EntityID)
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("GroupBoxName")))
+                                                    @Html.CustomTextBoxFor(o => o.GroupBoxName)
+                                                    @Html.CustomValidationMessageFor(o => o.GroupBoxName)
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("TabName")))
+                                                    @Html.CustomTextBoxFor(o => o.TabName)
+                                                    @Html.CustomValidationMessageFor(o => o.TabName)
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("TabOrderNo")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("DateCreated")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("CreatedByID")))
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+
+                                    <div class="box-default">
+
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxSetting"))</h3>
+
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsActive")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsCustomField")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsForeignKey")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsHidden")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsInGridDisplay")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsMandatory")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsPrimaryKey")))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("IsToolTip")))
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                            <div class="tab-pane" role="tabpanel" id="Control">
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("ComboBoxDisplayFieldID")))
+                                    @Html.CustomTextBoxFor(o => o.ComboBoxDisplayFieldID)
+                                    @Html.CustomValidationMessageFor(o => o.ComboBoxDisplayFieldID)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("EntityFieldDataTypeID")))
+                                    @Html.CustomDropDownListFor(st => st.EntityFieldDataTypeID)
+                                    @Html.CustomValidationMessageFor(o => o.EntityFieldDataTypeID)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("ComboBoxDefaultText")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("CalendarMinValue")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("CalendarMaxValue")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("AddBoxSpinners")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("Max")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("Min")))
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("ControlOrderNo")))
+                                    @Html.CustomTextBoxFor(o => o.ControlOrderNo)
+                                    @Html.CustomValidationMessageFor(o => o.ControlOrderNo)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("StcControlTypeID")))
+                                    @Html.CustomDropDownListFor(st => st.StcControlTypeID)
+                                    @Html.CustomValidationMessageFor(o => o.StcControlTypeID)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label(@Html.Encode(Localizer.Current.GetString("UploadFileSaveToPath")))
+                                </div>
+
+                            </div>
+                        </div>
+				</div>
+				
+						<div class="modal-footer">
+						<button type = "submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+						</div>
+					}
+			</div>
+		
+	</div>
+	<script>
+		$(document).ready(function () {
+		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+		$('#modal1').modal('show');
+		document.getElementById("btnclose").onclick = function () { $('#tblGridEntityField').DataTable().ajax.reload(); };
+		});
+	</script>
+	</div>

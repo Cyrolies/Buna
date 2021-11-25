@@ -1,0 +1,1145 @@
+﻿/*==========================================================================
+  MISC
+  ========================================================================== */
+  	body { background: #fff; }
+    #page {
+        /*float: left;*/
+        margin: 0;
+        position: relative;
+        width: 100%;
+    }
+    hr { max-width: 97.632%; }
+        /*.container h1 { margin-top: 60px; }*/
+        .container h2{ width: 97.63157894736842%; }
+        .container {
+        margin: 0 auto;
+        width: 92.1875%; 
+        padding: 0 3.90625%;
+    }
+    .address { float: right; }
+    .personalDetails { width: 71.548%; /*width: 43.548%;*/ }
+    .data p.value { font-size: 19px; }
+    .container .largeField {width: 73.921%;}
+    #dataRow .data {width: 97.632%;}
+    .spanDivider {border-right: none; border-bottom: 1px solid #e5e5e5;}
+
+	.showOnDesktop {display: none;}
+	.hideOnDesktop {display: block;}
+    .hideOnMobile {display: block;}
+    .showOnMobile {display: none;}
+    .showOnTablet {display: block;}
+    .hideOnTablet {display: none;}
+    ul.socialMedia li {margin-right: 2px !important;}
+    .campaignBanner {height:269px !important;}
+    #boldBanner {
+		height:269px !important;
+	}
+
+    .imgShowOnTab {display:block;}
+    .imgShowOnDesk,.imgShowOnMbl {display:none;}
+    .dateRow {font-size:18px;}  
+    
+	#searchResultsLayout input[type="text"] {
+		max-width: 200px;
+	} 
+
+/*==========================================================================
+  BUTTON
+  ========================================================================== */
+    .btn.signUp .btnText { display: none; }
+    .btn.signUp {
+      width: 42px;
+      height: 40px;
+      /* background-image: url('../img/arrow-white-right.png'); */
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+    input.signUpInput { width: 350px; }
+    .btn.signUp .fixAlign { display: block; }
+
+
+/*==========================================================================
+  HEADER NAVIGATION
+  ========================================================================== */
+  .home #headerNav {
+      width: auto;
+      padding: 0 3.90625%;
+      position: relative;
+      top: auto;
+      left: auto;
+      background-color: #fff;
+      border-bottom: 1px solid #e5e5e5;
+  }
+  .home #headNavContainer {
+      width: 100%;
+      max-width: 1280px;
+      padding: 0;
+  }
+  #headerNav ul#primaryLinks,
+  #headerNav ul#secondaryLinks,
+  #headerNav ul#utilityLinks/*, 
+  #headerNav ul#accountLinks li#account*/ {
+  	display: none;
+  }
+  #headerNav ul#accountLinks {margin-top: 27px;}
+  /* #headerNav li#account > a {
+  	width: 28px; height: 28px; padding-right: 0;
+  	background: url('../img/headerNav/account-device.png') no-repeat right 0;
+  } */
+  #headerNav li#account span {
+	height: 22px;
+    padding-right: 24px;
+    background: url('../img/headerNav/man_icon.png') no-repeat right 2px; 
+    text-align: right;
+    display:block !important;
+  }
+  #headerNav li#account .loginBtn {
+	padding: 5px 10px 0px 20px;
+  } 
+  #headerNav li#account .loginBtn {
+	margin-bottom:0;
+  }
+
+  #headerNav li#account a span {display: none;/*hide 'Login' text*/} 
+  #headerNav a#navBtn {
+	display: block;
+	float: left;
+	width: 24px;
+	height: 27px;
+    padding: 10px;
+	margin: 17px 0 0 -10px;
+	background: url('../img/nav-icon.png') no-repeat 10px 10px;
+  }
+  
+  #headerNav #sanlamLogo a.sanlamLogo-arrow {display: none;}
+  #headerNav #sanlamLogo > a,
+  #headerNav #sanlamLogo a.sanlamLogo-logo,
+  #headerNav .afBotLogo > a {
+    float: none;
+    position: absolute;
+    left: 50%;
+    margin: 20px -74px 0;
+  }
+  
+  #headerNav .afBotLogo > a {
+    margin: 0 -145px 0 !important;
+  }
+  
+  #headerNav #sanlamLogo.loginLogo {
+     left: auto;
+     margin-left: 0;
+     float: left;
+     position: relative;
+  }
+  #sanlamFour #headerNav #sanlamLogo {
+    float: none;
+    position: absolute;
+    left: 50%;
+    margin: 20px -130px 0;
+  }
+  #headerNav #sanlamLogo > a {padding-left: 0;}
+  
+  #headerNav ul#accountLinks li#notification {display: block;}
+  #headerNav ul#accountLinks li#notification a {margin-right: 10px;}
+  #headNavContainer {z-index: 20;}
+
+ /*==========================================================================
+  TOOL SLICE
+  ========================================================================== */ 
+    .toolSlice,
+    .toolSlice.belowHeading {
+        display:block;
+        width: 100%;
+        text-align: left;
+        margin-top: 0px;
+    } 
+
+
+/*==========================================================================
+  FULFILLMENT BLOCK
+  ========================================================================== */
+    #fulfillBlock {width: 31px; position: absolute; top: -155px; right: 0;}
+    .home #fulfillBlock {top: -530px;}
+    .noBanner #fulfillBlock {top: 0;}
+    #fulfillBlock .control {display: block;}
+    #fulfillBlock .fulfillForm { 
+        display: none; 
+        width: 275px;
+        float: left;
+    }
+    #fulfillBlock.open {width: 306px;}
+    #fulfillBlock.open .control {
+        width: 31px;
+        height: 35px;
+        left: -32px;
+        background-image: url('../img/fulfillment-block/control-close.png');
+    }
+    #fulfillBlock.open .fulfillForm {display: block;}
+    #fulfillBlock #relatedNeeds-swiper {display: none;}
+
+
+/*==========================================================================
+  FULFILLMENT ROW
+  ========================================================================== */  
+    .fulfillRow { display: none; }
+	
+
+/*==========================================================================
+  UTILITY ICONS
+  ========================================================================== */
+    .toolBar .span4 { width: 100%; } 
+    /*.toolBar .utility-icons  { display: none; } */
+    .utility-icons {margin: 20px 45px 0;}
+
+
+  /*==========================================================================
+  PRODUCT NAV ADJUST FOR TABLET
+  ========================================================================== */
+  .productNavSpan1 {width:18.4375%; /*236px / 1280*/}
+  .productNavSpan2 {width:36.875%; /*472px / 1280px*/}
+  .productNavSpan3 {width:55.3125%; /*708px / 1280px*/}
+  .productNavSpan4 {width:92%; /*73.75% 944px / 1280px*/}
+  .productNavSpan5 {width:92.1875%; /*1180px / 1280px*/}
+  .prodNav {left: 3.90625%;}
+  .activeIndicatior {left: 3.90625%;}
+
+  #businessWrapper .prd1, #personalWrapper .prd1 {left:3.90625%;} /*50px / 1280px*/
+  #businessWrapper .prd2, #personalWrapper .prd2 {left: 22.34375%;}
+  #businessWrapper .prd3, #personalWrapper .prd3 {left:40.78125%;}
+  #businessWrapper .prd4, #personalWrapper .prd4 {left:59.21875%;}
+  #businessWrapper .prd5, #personalWrapper .prd5 {left:77.65625%;}
+
+/*==========================================================================
+  GRID ADJUST FOR LAPTOP AND TABLET
+  ========================================================================== */
+  /*The class .push is used to adjust the width of the last three .span1 columns to fit tablet*/
+  .container .push{
+      width:27.54385964912281%;
+      margin-right:2.456140350877193%;
+  }
+  /*The .push2 .push3 .push4 and .push5 classes can be used to force a single column to 
+  assume the width of two, three or four or five columns respectively-----------------------*/
+  .container .push2 { width: 37.6316%; }
+  .container .push3 { width: 57.6316%; }
+  .container .push4 { width: 77.63157894736842%; }
+  .container .push5 { width: 97.63157894736842%; }
+  /* pushHalf forces the span2 class to assume the width of 2.5 spans  */
+  .pushHalf { width: 47.63157894736842%; }
+/*The .pushCol class adjusts the width  of .col1 to fit tablet view, it changes the width from 271px to 354px
+--------------------------------------------------------------------------*/
+  .container .pushCol{ width: 31.05263157894737%; }
+  .container .pushCol2{ width: 62.10526315789474%; }
+  .container .pushCol3 { width: 93.15789473684211%; }
+  .container h2 { width: 97.63157894736842%; }
+  .personalDetails { width: 43.548%; }
+
+
+/*==========================================================================
+  ASSISTANCE ROW
+  ========================================================================== */
+  .assistanceRow { font-size: 26px; }
+  .assistanceRow .assistance { width: 470px; }
+  .assistanceRow .assitanceHours { font-size: 13px; }  
+
+
+/*==========================================================================
+  TOOL TIP
+  ========================================================================== */
+  .signUp .tooltipWrap { width: 370px; }  
+
+
+/*==========================================================================
+  EDIT DETAILS PAGE
+  ========================================================================== */
+  #editForm h3 {font-size: 12px; font-family: open_sansregular;}
+  .editLabel a {font-size: 12px;}
+  .dropZone,.or,.fileUploadCancel,.plAttach,.proofAddr {display:block; display: none !important;}  /* convert inline-block to block to hide*/  
+
+
+/*==========================================================================
+  TERMS & CONDITIONS
+  ========================================================================== */
+  .terms .termsArrow {left: 260px;}
+
+
+/*==========================================================================
+  FOOTER
+  ========================================================================== */
+    ul.footerLogos li {margin-right: 7px !important;}
+
+
+/*==========================================================================
+  ALL SWIPERS
+  ========================================================================== */
+  	.swiper-scrollbar, .swiper-scrollbar-drag {opacity: 1;}
+    .swiper-scrollbar {
+        opacity: 1;
+        width: 85.63157894736842%;
+        margin: 0 7.7%;
+    }
+
+
+/*==========================================================================
+  CARD SWIPER
+  ========================================================================== */
+    .cardSwiper .container {width:100%; margin:0 !important; padding:0 !important;}
+    .cardSwiper .container > h2, .cardSwiper .container > h3, .cardSwiper .container > h4 {padding:0 3.90625%; width:92.1875%}
+    .cardSwiper .span4 {width:100%; margin-right:0;}
+    .cardSwiper .fadeL {left:0px;}
+    .cardSwiper .fadeR {right:0px;}
+    
+   	/* Products swiper */
+	#swiperProducts .container {width: 100%; margin: 0 !important; padding: 0 !important;}
+    #swiperProducts .container > h2 {padding: 0 3.90625%; width: 92.1875%}
+    #swiperProducts .container .span4 {width: 100%; margin-right: 0;}  
+    
+    
+/*==========================================================================
+  ICON SWIPER
+  ========================================================================== */
+    .iconSwiper .container {width:100%; margin:0 !important; padding:0 !important;}
+    .iconSwiper .container > h2, .iconSwiper .container > h3, .iconSwiper .container > h4 {padding:0 3.90625%; width:92.1875%}
+    .iconSwiper .span4 {width:100%; margin-right:0;}
+    .iconSwiper .fadeL {left:0px;}
+    .iconSwiper .fadeR {right:0px;}
+    
+
+/*==========================================================================
+  TOOL SWIPER
+  ========================================================================== */
+  	/*
+    .toolSwiper .container {width: 100%; margin: 0 !important; padding: 0 !important;}
+    .toolSwiper .container > h2 {padding: 0 3.90625%; width: 92.1875%}
+    .toolSwiper .span4 {width: 100%; margin-right: 0;}
+    .toolSwiper .fadeL {left: 0px;}
+    .toolSwiper .fadeR {right: 0px;}
+    .toolSwiper .swiper-container { width: 93%; }
+    */
+
+
+/*==========================================================================
+CAROUSEL BANNER
+  ========================================================================== */
+    #banner.swiper-container {background: #e5e5e5; height: 530px;}
+    #banner .swiper-wrapper, #banner .swiper-slide {height: 530px !important;}
+    #banner .prev, #banner .next {height: 225px; top: 30px;}
+    #banner .swiper-slide .container .slidePreview {display: none}
+    #banner .bannerContainer {height:155px;}
+    #banner .bannerDesktop {display: none !important;}
+    #banner .bannerTablet {display: block;}
+    #banner .swiper-slide .container {margin-top: 60px;}
+    #banner .bannerImg { 
+        width: 1150px;
+        height: 530px;
+        max-width: 1150px;
+        margin-left: -575px;
+    }
+    #banner .swiper-slide .bannerCopy h1 .desktop {display: none;}
+    #banner .swiper-slide .bannerCopy h1 .mobile  {display: block;}
+    #banner .bannerCopy .desktop {display: none}
+    #banner .bannerCopy .device {display: block}
+    .bannerContainer {height: 155px;}
+    #banner .pagination {bottom: 240px;}
+    /*#banner .swiper-wrapper, #banner .swiper-slide {height: 308px !important;}*/
+	#bluestarBanner .bannerLogo img {
+		margin-top: -13px;
+	}
+	#banner .bannerLogo { height: 140px; }
+	.bannerContainer .bannerLogo { height: 95px; }
+	.ourWealthsmiths .bannerContainer .bannerLogo {
+	    height: 226px;
+	}
+	.ourWealthsmiths .bannerContainer .bannerLogo a.logo {
+		margin: 55px 0 10px 10px;
+	}
+	#banner .bannerLogo a.logo { margin-top: 50px; }
+	.bannerContainer .bannerLogo a.logo { margin: 35px 0 0 15px; }
+/*==========================================================================
+  BLUESTAR MAPS
+  ========================================================================== */
+
+	.bluestarMaps #banner .bannerLogo { height: 140px; }
+	.bluestarMaps .bannerContainer .bannerLogo { height: 95px; }
+	.bluestarMaps #banner .bannerLogo a.logo { margin-top: 50px; }
+	.bluestarMaps .bannerContainer .bannerLogo a.logo { margin: 35px 0 0 15px; }
+	.bluestarMaps #banner .bannerLogo img {margin-top: 15px;}
+	.bluestarMaps .bluestarcol1 {text-align:center !important;margin-bottom:25px;}
+    .bluestarMaps #investor .icon, .bluestarMaps #planners .icon {margin-bottom: 5px;}
+    .bluestarMaps a#investor, .bluestarMaps a#planners {float:none; margin:0 auto;}
+	.bluestarMaps .bluestarcol1 .left p {display:none;}
+	.bluestarMaps #actionBar {margin-top:5px;}
+	.bluestarMaps #personalWrapper h1 {font-size:34px;}
+    .bluestarMaps .bluestarcol1 a.smallLink {display:none;}
+
+/*==========================================================================
+  SWIPER GROUP
+  ========================================================================== */
+    .swiperGroup .container {width: 100%; margin: 0 !important; padding: 0 !important;}
+    .swiperGroup .container > h2 {padding: 0 3.90625%; width: 92.1875%}
+    .swiperGroup .span4 {width: 100%; margin-right: 0;}
+
+
+/*==========================================================================
+  HIGHLIGHTS ROW
+  ========================================================================== */
+  .highlightsRow .span3 {width: 63%;}
+  .highlightsRow .photo {right: 7%; left: auto;}
+  .highlightsRow .col h1 {font-size: 40px;}
+
+
+
+/*==========================================================================
+  ARTICLE
+  ========================================================================== */
+
+.article .articleLrgImg {
+    margin: 0 3px 10px 0;
+    max-width: 400px;
+    width: 76%;
+}
+#article .authorImg {
+    display: block;
+    position: relative;
+    float: none;
+    margin: 30px 0 0;
+    padding: 0;
+}
+.authorImg .authorDate {text-align: left;}
+
+.authorImg img {display: none;}
+.authorImg .authorDate {text-align: left;}
+
+
+/*==========================================================================
+  BLOCKS
+  ========================================================================== */
+  .no-boxshadow .blocks .container .pushCol{ width: 30.05263157894737%; }
+  
+  
+/*==========================================================================
+  DIRECTORS PAGE
+  ========================================================================== */
+
+  .directorImgRight {left: 61.632%;}
+  .directorImgLeft {left: -1%;}
+
+
+/*==========================================================================
+  !!! SHARE INFORMATION GRAPH HACK !!!
+  ========================================================================== */
+  #highcharts-0 {margin-left: -40px;}
+  
+  
+/*==========================================================================
+  CONTACT PAGE
+  ========================================================================== */
+  	/* contact page details */
+  	#contactDetails {
+		height: auto;
+		padding-bottom: 45px;
+		margin-bottom: 50px;
+  	}
+  	
+  	/* formstack form */
+  	#contactForm {width: 100%;}
+  	
+  	
+/*==========================================================================
+  CHARTS
+  ========================================================================== */
+    .row.blocks.charts img {width: 100% !important; height: auto !important;}
+
+/*==========================================================================
+  SERVICE ROW
+  ========================================================================== */
+  	.serviceRow .col1, .serviceRow .col2 {margin-right: 4%;}
+    .serviceRow .col1 {width: 30%;}
+    .serviceRow .col2 {width: 66%; margin-right: 0;}
+    
+        
+/*==========================================================================
+  FUND FACT SHEET DETAILS
+  ========================================================================== */
+  	.fundFactItem {margin-bottom: 10px; padding: 5px 8px;}
+  	.fundFactItem .fundDate {float:none; width: auto;}
+	.fundFactItem .fundName {float:none; width: auto; margin-bottom: 3px;}
+	.fundFactItem .engPdf, .fundFactItem .afrPdf {width: auto;}
+	.fundFactItem .engPdf {margin-right: 18px;}
+	.fundFactGroup h2 {padding-bottom: 0;}
+	
+/*==========================================================================
+  NEW BANNER MENU TABS TO ACCORDION
+  ========================================================================== */
+	#bannerContainer .tta_wrapper {bottom: 12px; width: 92%; height: 200px;}
+        
+  	#bannerContainer .tta_tabs {display: none;}
+		
+	#bannerContainer .tta_accordion {margin: 10px 0;}
+	#bannerContainer .tta_accordion_title {
+		display: block; margin: 5px 0 15px 0;
+		font-family: 'open_sanssemibold', helvetica, arial;
+		font-size: 19px;
+	}
+
+	#bannerContainer .tta_accordion_item {float: left; width: 31.33%; margin: 0 1%;}
+	#bannerContainer .tta_accordion_text {display: block; padding-bottom: 25px;}
+	#bannerContainer .tta_accordion_text .content {display: none;}
+	#bannerContainer .tta_accordion_text h2 {
+		margin: 0 0 10px 0; padding: 0;
+		font-family: 'open_sansregular', helvetica, arial;
+		font-size: 13px;
+	}
+	#bannerContainer .tta_accordion_text h2 a {margin: 0;}
+	
+	#bannerContainer .tta_col {float: none; width: 100% !important; margin-right: 0;}
+	#bannerContainer .tta.sponsorship {top:71px;}
+	#bannerContainer  {
+    	background: #e5e5e5;
+    	height: 530px;
+	}
+/*==========================================================================
+  BANNER MENU TABS TO ACCORDION
+  ========================================================================== */
+  	#banner .tta_wrapper {bottom: 12px; width: 92%; height: 200px;}
+    #bstarBusWrapper {
+		height: 220px !important;
+	}
+	#bstarBusWrapper p {
+		font-size: 13px !important;
+	}
+
+  	#banner .tta_tabs {display: none;}
+		
+	#banner .tta_accordion {margin: 10px 0;}
+	#banner .tta_accordion_title {
+		display: block; margin: 5px 0 15px 0;
+		font-family: 'open_sanssemibold', helvetica, arial;
+		font-size: 19px;
+	}
+
+	#banner .tta_accordion_item {float: left; width: 31.33%; margin: 0 1%;}
+	#banner .tta_accordion_text {display: block; padding-bottom: 25px;}
+	#banner .tta_accordion_text .content {display: none;}
+	#banner .tta_accordion_text h2 {
+		margin: 0 0 10px 0; padding: 0;
+		font-family: 'open_sansregular', helvetica, arial;
+		font-size: 13px;
+	}
+	#banner .tta_accordion_text h2 a {margin: 0;}
+	
+	#banner .tta_col {float: none; width: 100% !important; margin-right: 0;}
+	#banner .tta.sponsorship {top:71px;}
+	
+.financialJournalism .productNavSpan4 {
+	height:202px;
+}
+#investBlock .utHeading h2 {
+	display:block !important;
+	}
+#investBlock h2 {
+	display:none;
+}	
+.echoCopy {
+		width:74% !important;}	
+.fsLabel {
+	font-family: 'open_sansregular';
+	font-size: 12px !important;
+	-webkit-text-size-adjust: none;
+}
+
+a.uasa-logo-link {
+	margin: -12px 0 10px 44px !important;
+}
+
+#bstarBusWrapper {
+	bottom: 190px !important;
+}
+
+/* Custom accordion for Business Owner Display template */
+
+.bus-item-name, .bus-item .pdfLink {
+	display: block;
+	float: none !important;
+	margin-bottom: 8px;
+}
+#formDetails .navItems {
+	width: 97.63157894736842% !important;
+	font-size: 20px !important;
+}
+/* TAX FREE SAVINGS GRAPH STYLING */
+@media screen and (max-width:790px) { 
+      .saveCodeTxt { display: block;}
+      .savingGroupCopy {
+        width: 90% !important;
+      } 
+   }
+.customBanner {
+    height: 239px;
+    overflow: visible;
+}
+ .customBanner img {
+    height: 320px;
+    }   
+.custom {
+	margin-top:-40px;
+}
+.personalVid h2, #headerImgCopy h2	{
+	width: 250px;
+    font-size: 28px;    
+	} 
+#personalInsurance h2, #familyInsurance h2 {	
+    width: 260px;	
+}
+#banner_Btn_Find {
+	bottom:0;
+}    
+.personalVid {
+	width:100%;
+}	
+#videoContainer {
+    height: 271px;
+}  
+.bannerBtn {
+    bottom: 60px;
+}
+#banner_Btn {
+	bottom: 22px;
+}
+.videoClose { 
+	right:0px;
+} 
+#videoContainer .bannerImg {
+    width: 1920px;
+    max-width: 1920px;
+    height: 226px;
+    position: absolute;
+    left: 50%;
+    margin-left: -960px;
+}
+#bussinessContainer .bannerBtn {
+	bottom: 2px;
+}
+#bussinessContainer .bannerBtn .vidPlayBtn {
+	    margin-left: 0;
+	}
+#familyInsurance {
+	top:9%;
+}
+#banner_Btn_Find {
+    bottom: 15px;
+}
+.artBannerBtn {
+    bottom: 205px !important;
+}
+
+@media screen and (max-width:571px) { 
+	
+	#videoContainer {
+		height:144px;
+		display:block;
+	}
+	#videoContainer .bannerImg {
+		display: block !important;
+	    height: 144px;
+	    margin-left:0px;
+	    left:0px;
+	    
+	}
+	.personalVid {
+	    position: absolute;
+	    color: #fff;
+	    /* top: 5%; */
+	    z-index: 10;
+	}
+	.bannerBtn .vidPlayBtn {
+	    margin-right: 11px;
+	    width: 80px;
+	}
+	.personalVid h2 {
+		font-size: 20px;
+	}
+	.personalVid .container {
+		padding-left: 0 3.125%;
+	}
+	.bannerBtn {
+	    position: absolute;
+	    bottom: 0px;
+	    width: 100%;
+	}
+	.vidPlayBtn.btn {
+		font-size: 11px !important;
+		padding: 8px 4px !important;
+	}
+	.videoClose img { 
+		width:25px !important;
+	} 
+}
+#arrowsTablet {
+	display:block;
+}
+#gallerythumbContainer, #arrowContainer .lineNext {
+	/* display:none; */
+	visibility:hidden;
+}
+.swiper-button-prev, .swiper-button-next {
+	top:0;
+}
+.swiper-button-next {
+    background: url('../img/banner-arrow-next.png') center right no-repeat;
+    right: 15px;
+    top:0;
+}
+.swiper-button-prev {
+    background: url('../img/banner-arrow-prev.png') center left no-repeat;
+    left: 15px;
+    top:0;
+    right:0;
+}
+#arrowContainer .swiper-button-prev, #arrowContainer .swiper-button-next {
+	display:block;
+	transform: none;
+}
+/* BLUSTAR SEARCH */
+#searchContainer .col1 {
+	width:100%;
+}
+#searchContainer label {
+	float: left;
+    width: 100%;
+}
+#searchContainer input[type="text"] {
+	float: left;
+}
+#adCopy {
+	position:relative;
+	top:0;
+	right:0;
+	padding-bottom: 10px;
+	width: 20px;
+}
+#regCopy {
+	position:relative;
+	top:0;
+	left:0;
+	padding-bottom: 10px;
+	width: 20px;
+}
+#searchContainer {
+	margin-bottom: 40px;
+}
+
+/* Blog */
+.bannerContainer.blog {
+	height: auto;
+}
+
+.blog .personalVid {
+	top: 30%;
+}
+.bannerHolder {
+	padding-bottom: 45%;
+}
+.bannerHeader h2 {
+	width: 80%;
+	font-size: 45px;
+}
+.blog #banner_Btn {
+	bottom: 30px;
+}
+a.youthLitLink {
+    margin: -45px 0 10px 10px !important;
+}
+a.capeMileLink {
+    margin: -45px 0 10px 44px !important;
+}
+a.cancerLink {
+    margin: -25px 0 10px 45px !important;
+}
+
+a.completeMedLink {
+   margin: 5px 0 0 -6px !important;
+}
+a#slideToVidButton {
+	margin-left:0;
+}
+#taxFreeImgCopy h2{
+	width: 42%;
+}
+.heading::after {
+	height:130px;
+}
+/* Prtrait iPad */
+@media screen and (max-width:768px) {
+	.bannerHolder {
+		padding-bottom: 52.6%;
+	}
+	.bannerContainer.blog .bannerImg video {
+		min-width:auto;
+	}
+	
+
+	/* Filters nav */
+	#blogNav ul#blogFilter {
+		padding-bottom: 5px;
+	}
+	#blogNav #blogFilter > li {
+		margin-bottom: 15px;
+	}
+	/* Newsletter form */
+	#blogNav .newsletter label {
+		display: block;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+	#blogNav .newsletter button {
+		top: 32px;
+	}
+	/* Social Media */
+	#blogNav ul.socialMedia {
+		position: relative;
+		margin: 0;
+		bottom: -32px;
+	}
+	#blogNav ul.socialMedia.left {
+		bottom: auto;
+	}
+	#blogNav ul.socialMedia.left li {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.heading .postHeading h2 {
+		font-size: 35px;
+	}			}
+}
+
+@media screen and (max-width: 960px)
+{
+
+	#imagelightbox-close
+	{
+		top: 1.25em; /* 20 */
+		right: 1.25em; /* 20 */
+	}
+	#imagelightbox-nav
+	{
+		bottom: 1.25em; /* 20 */
+	}
+
+	.imagelightbox-arrow
+	{
+		width: 2.5em; /* 40 */
+		height: 3.75em; /* 60 */
+		margin-top: -2.75em; /* 30 */
+	}
+	.imagelightbox-arrow.show {
+		display: none;
+	}
+	.imagelightbox-arrow-left
+	{
+		left: 0;
+	}
+	.imagelightbox-arrow-right
+	{
+		right: 0;
+	}
+}
+#itradeBanner, #blueStarConference {
+	height:270px;
+}
+.bannerOverlayWrapper {
+	display:none;
+}
+.handmadeContemporary .bannerContainer {
+	overflow:hidden;
+}
+.bursary .bannerContainer {
+	overflow:hidden;
+}
+.bursary .bannerContainer .bannerImg {
+    bottom: -26px;
+}
+#getAdviceSlice.fulfillRow {
+	display:block;
+}
+.bannerCopy .col-fixed-left {
+        width: 150px;
+}
+.bannerCopy .col-fluid-right {
+	width: 76%;
+}
+.home #banner .swiper-slide .container {
+    margin-top: 0;
+    left: 0;
+    padding-left: 3.90625%;
+}
+.home #banner .swiper-slide .bannerCopy {
+	margin: 0 0 0 80px;
+}
+.bannerCopy img.phone {
+	padding-top:25px;
+}
+.bannerCopy .col-fluid-right {
+	padding-top:60px;
+}
+.home #banner .swiper-slide .bannerCopy h1 {
+	 width: calc(100% - 240px);
+}
+#appContainer li:last-child {
+	padding-right:0;
+}
+#appContainer {
+    margin-top: 15px;
+}
+.financialJournalism .span2 {
+    width: 47.631579%;
+}
+.financialJournalism .noBorder {
+	display:none;
+}
+@media only screen and (max-width: 900px) { 
+	.bannerCopy img.phone {
+		display:none;
+	}
+	.home #banner .swiper-slide .bannerCopy h3 {
+		width:auto;
+	}
+	.bannerCopy .col-fluid-right {
+	    width: 65%;
+	}
+	.home #banner .swiper-slide .bannerCopy h1 {
+	 	width: auto;
+	}
+	#appContainer {
+		left:0;
+		padding-left:0;
+	}
+
+}
+@media only screen and (max-width: 830px) { 
+	.financialJournalism .span2 {
+	    width: 100%;
+	}
+	.financialJournalism .span2:last-child {
+		display:none;
+	}
+}
+@media only screen and (max-width: 712px) {  
+	.home .bannerCopy .col-fluid-right {
+		padding-top:30px;
+	}
+	#appContainer {
+	    margin-top: 10px;
+	}
+	.bannerCopy .col-fluid-right {
+		width:70%;
+	}
+}
+
+@media screen and (max-width: 1043px) { 
+	.slIconContent {
+	    width: 40%;
+	}
+
+	.slIconContent ul li h3 {
+    	line-height: 260%;
+    }
+
+	.slIconContent ul li {
+    	padding-bottom: 22px;
+    }
+
+	.slIconContent ul li span {
+		display: none;	
+	}
+}
+
+@media screen and (max-width: 640px) {
+	#bigBannerContainer .bannerImg {
+		left: auto;
+		right: -70%;
+	}
+
+	.slIframeSection,
+	.slIframeSection .slIframeContent {
+	    width: 100%;
+	    box-sizing: border-box;
+	}
+ 
+	.slIframeSection .slIframeContent iframe {
+	    width: 100%;
+	    height: 390px;
+	}
+	
+	.slIconContent {
+		display: none;
+	}
+
+	.lifeInsuranceContainer h2 {
+	    font-size: 18px !important;
+	    line-height: 26px;
+	}
+}
+#sliderWealthsmith .slick-next {
+	    right: 0 !important;
+}
+@media screen and (max-width: 730px) { 
+	.wealthImage {
+		display:none;
+	}
+	#sliderWealthsmith .wealthBio {
+		width: 350px;
+    	margin: 0 auto !important;
+    	float:none;
+	}
+	#sliderWealthsmith .slick-prev {
+	    left: 0 !important;
+	}
+		
+}
+#budgetSpeechBanner {
+    height: 269px;
+}
+#budgetBannerText {
+	top:80px;
+}
+#budgetBannerBtn {
+    position: relative;
+    top: 100px;
+}
+@media screen and (max-width: 980px) {  
+	#budgetBannerText, #budgetBannerBtn {
+		left: 80px;
+	}
+
+}
+@media screen and (max-width: 660px) {  
+	#budgetBannerText, #budgetBannerBtn {
+		left: 0;
+	}
+}
+
+/*==========================================================================
+  REGISTERED FINANCIAL ADVISERS
+  ========================================================================== */
+.contentWrapper.rfa {
+    margin-top: 360px;
+}
+
+.bannerContainer.rfa {
+    height: 426px;
+    position: absolute;
+    top:auto;
+}
+#whatsappDrama {
+	height:269px;
+}
+#livesofGrace {
+	height:339px;
+}
+.ebPortalContent #headerNav ul#accountLinks {
+    position: relative;
+    right: 0;
+}
+#videoBannerContainer .personalVid h2 {
+	width:50%;
+}
+#videoBannerContainer  .bannerBtn {
+	bottom: 220px;
+}
+#lifestageRetirement {
+	left:0;
+	top: 20%;
+}
+#videoBannerContainer .personalVid, #videoBannerInsurance .personalVid {
+    top: 32%;
+}
+#videoBannerProfs .personalVid {
+    top: 22%;
+}
+#videoBannerContainer .bannerBtn {
+    bottom: 188px;
+}
+#videoBannerContainer .personalVid h2, #videoBannerInsurance .personalVid h2 {
+    width: 450px;
+    font-size: 28px;
+}
+#videoBannerProfs .personalVid h2 {
+	width: 55%;
+    font-size: 28px;
+}
+#videoBannerContainer .bannerBtn .vidPlayBtn, #videoBannerInsurance .bannerBtn .vidPlayBtn, #videoBannerProfs .bannerBtn .vidPlayBtn {
+    max-width: 175px;
+    border: none;
+    margin-right: 25px;
+    padding: 12px 16px;
+}
+
+#videoBannerProfs {
+    height: 460px;
+}
+
+@media (max-width: 866px) { 
+	#videoBannerProfs .bannerBtn {
+	    /* bottom: 127px; */
+	    bottom: 60px;
+	}
+}
+
+@media (max-width: 590px) { 
+	#videoBannerProfs .bannerBtn {
+	    bottom: 92px;
+	}
+}
+.umbrellaFund .bannerContainer .bannerLogo {
+	padding: 30px;
+}
+.umbrellaFund .bannerContainer .bannerLogo a img {
+	position: relative;
+    top: -17px;
+}
+#coverdetail .container, #faqProduct .container {
+	width: 89.0625%;
+    padding: 0 5.46875%;
+}
+.row.videoSource .videoOverlay iframe {
+    left: 6%;
+    width: 90%;
+    height: 60%;
+}
+@media (max-width: 765px) { 
+	#videoBannerInvest .bannerBtn {
+	    bottom: 70px;
+	}
+}
+
+.indieBanner {
+	height: 270px !important;	
+}
+
+.indieBanner .bannerImg {
+    height: 270px !important;
+	background: url(/CoZaBannerImages/IndieFin-Banner_tablet.jpg) right top no-repeat !important;
+}
+
+.soi-overbanner-text {
+	
+	top: 100px !important;
+}
+@media screen and (max-width: 700px) {
+	#footerDesktop .col1.marL50:nth-child(2) {
+		margin-left:50px;
+	}
+}
+}
+@media screen and (max-width: 980px) {
+.col-md-3 {
+    width: 33.30%;
+	}
+}
+#africasgold.bannerContainer, #africasgold.bannerContainer .bannerImg {
+	height:264px;
+}
+#conversationsHolder {
+	bottom:5%;
+}
+	

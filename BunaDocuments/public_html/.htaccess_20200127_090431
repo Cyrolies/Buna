@@ -1,0 +1,2 @@
+DirectoryIndex index.html
+Redirect temp /index.php http://buna.africa/index.html

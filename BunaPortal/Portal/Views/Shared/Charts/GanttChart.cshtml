@@ -1,0 +1,176 @@
+﻿@using CyroTechPortal;
+
+@*@{
+        ViewBag.Title = Localizer.Current.GetString("WorkOrder") + " - " + Localizer.Current.GetString("WorkOrderCode");
+    }*@
+
+<link rel="stylesheet" href="~/Scripts/AddOn/jquery-gantt-1.0.0/dist/jquery-gantt.css">
+@*<style>
+    .loader {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 50px;
+        height: 50px;
+        margin: auto;
+    }
+</style>*@
+<div class="col-md-12">
+   
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">@Localizer.Current.GetString("GanttHeader")</h3>
+                <div>
+                    <span class="badge" style="background-color:pink;float:right">Fort Hare</span>
+                    <span class="badge" style="background-color:darkgrey;float:right">Port Alfred</span>
+                    <span class="badge" style="background-color:brown;float:right">Grahamstown</span>
+               </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+           
+            <div id="viewModal"></div>
+            <div class="row">
+                <div id="responseMessage"></div>
+            </div>
+            
+            <div class="box-body">
+                <div>
+                    <div>
+                        <button col type="button" class="btn btn-default" id="add" name="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <span class="badge" style="background-color:green">Open</span>
+                        <span class="badge" style="background-color:red">Complete</span>
+                        <span class="badge" style="background-color:blue">Not Started</span>
+                        <span class="badge" style="background-color:yellow;color:black">Invoiced</span>
+                    </div>
+                    
+                    <div id="gantt"></div>
+                </div>
+           
+        </div>
+       
+    
+</div>
+
+    <script>
+        //edit click
+        function edit(id) {
+            $('#progressIcon').show();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetHitecJob", "HitecJob")',
+                    data: { id: id },
+                    dataType: "text",
+                    success: function (result) {
+                        if (result) {
+                            $('#progressIcon').hide();
+                            $('#viewModal').html(result);
+                        }
+                        else {
+                            ShowNotification(false, data.errorMessage);
+
+                        }
+                    }
+                });
+            };
+    </script>
+    <script src="~/Scripts/AddOn/jquery-gantt-1.0.0/dist/jquery-gantt.js"></script>
+    @*<script src="~/Scripts/AddOn/jquery-gantt-1.0.0/examples/js/demo-events.js"></script>*@
+<script>
+    $(document).ready(function () {
+
+       var dataItems;
+            $('#progressIcon').show();
+        $.ajax({
+            //type: 'Get',
+            url: '@Url.Action("GetHitecJobGanttData", "Report")',
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+
+                dataItems = data.result;
+              //  alert(JSON.stringify(dataItems));
+                $('#progressIcon').hide();
+            },
+            error: function (data) {
+                alert("SomethingWrong" + data.result);
+
+            }
+        });
+
+
+        var earliestDate = dataItems.reduce((a, b) => (a.startdate < b.startdate ? a : b));//Get earliest startdate from list
+        var oldestDate = dataItems.reduce((a, b) => (a.enddate > b.enddate ? a : b));//Get highest enddate from list
+        var startDt = new Date(new Date(earliestDate.startdate).getTime() - (3 * 24 * 60 * 60 * 1000)); //add 3 day buffer before earliest startdate
+        var endDt = new Date(new Date(oldestDate.enddate).getTime() + (30 * 24 * 60 * 60 * 1000));//add 3 day buffer after highest enddate
+
+     //   alert('Start : ' + JSON.stringify(startDt) + ' End : ' + oldestDate.enddate);
+        $('#gantt').gantt({
+            data: dataItems,
+            startDate: startDt,
+            endDate: endDt,
+            stickyHeader: true
+            //onInit: function () {
+            //    console.log('onInit');
+            //},
+            //onDestroy: function () {
+            //    console.log('onDestroy');
+            //}
+        });
+
+            //$('#gantt').find('.gantt-grid-col').eq(gcIndex).addClass('currentdate');
+            //$('#gantt').find('.gantt-header-days').find('.gantt-header-day').eq(gcIndex).addClass('currentdate');
+            //$('#gantt').find('.gantt-header').find('.gantt-header-days-min').find('.gantt-header-day-min').eq(gcIndex).addClass('currentdate');
+        //  click
+            @*$('#gantt').on('dblclick', function () {
+                $('#progressIcon').show();
+            $.ajax({
+					type: 'POST',
+					url: '@Url.Action("GetHitecJob", "HitecJob")',
+					data: { id: '' },
+					dataType: "text",
+					success: function(result) {
+					if (result)
+                    {
+                        $('#progressIcon').hide();
+						$('#viewModal').html(result);
+					}
+					else {
+                        ShowNotification(false, data.errorMessage);
+
+					}
+					}
+				});
+        });*@
+
+         $('#add').on('click', function () {
+                $('#progressIcon').show();
+             $.ajax({
+					type: 'POST',
+					url: '@Url.Action("GetHitecJob", "HitecJob")',
+					data: { id: '' },
+					dataType: "text",
+					success: function(result) {
+					if (result)
+                    {
+                        $('#progressIcon').hide();
+						$('#viewModal').html(result);
+					}
+					else {
+                        ShowNotification(false, data.errorMessage);
+
+					}
+					}
+				});
+        });
+
+    });
+
+</script>
+

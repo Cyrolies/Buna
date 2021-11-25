@@ -1,0 +1,107 @@
+﻿@using CyroTechPortal;
+@model DALEFModel.EntityMenu
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <button type="button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("Menu")), new { @class = "control-label" })</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <div id="result"></div>
+                @using (Ajax.BeginForm("EditMenu", "Admin", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "result"
+                }))
+                {
+
+                    @*@Html.AntiForgeryToken()*@
+
+                    @Html.HiddenFor(m => m.EntityMenuID);
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("MenuDisplayName")))
+                        @Html.CustomTextBoxFor(o => o.MenuDisplayName)
+                        @Html.CustomValidationMessageFor(o => o.MenuDisplayName)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("Url")))
+                        @Html.CustomTextBoxFor(o => o.Url)
+                        @Html.CustomValidationMessageFor(o => o.Url)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("Param2Value")))
+                        @Html.CustomTextBoxFor(o => o.Param2Value)
+                        @Html.CustomValidationMessageFor(o => o.Param2Value)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("Sequence")))
+                        @Html.CustomTextBoxFor(o => o.Sequence)
+                        @Html.CustomValidationMessageFor(o => o.Sequence)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("ParentSequence")))
+                        @Html.CustomTextBoxFor(o => o.ParentSequence)
+                        @Html.CustomValidationMessageFor(o => o.ParentSequence)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("IsActive")))
+                        @Html.CustomCheckBoxFor(m => m.IsActive)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("EntityMenuParentID")))
+                        @Html.CustomDropDownListFor(o => o.EntityMenuParentID)
+                        @Html.CustomValidationMessageFor(o => o.EntityMenuParentID)
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(@Html.Encode(Localizer.Current.GetString("EntityID")))
+                        @Html.CustomDropDownListFor(o => o.EntityID)
+                        @Html.CustomValidationMessageFor(o => o.EntityID)
+                    </div>
+
+                    @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-default" value="Save" />
+                </div>
+            </div>*@
+
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+                    </div>
+
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+            $('#modal1').modal('show');
+            document.getElementById("btnclose").onclick = function () { $('#tblGrid').DataTable().ajax.reload(); };
+
+        });
+
+
+
+    </script>
+
+</div>
+
+

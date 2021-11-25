@@ -1,0 +1,48 @@
+/* exit URL wrapper */
+
+window.onload = function() {
+    wrapExitLinks();
+}
+
+function wrapExitLinks() {
+    var whiteList = ["gov","mil"]; /* changed to array */
+    var exitURL = document.location.protocol + "//" + document.location.host + "/goodbye.html";      // Default exit is /exit.html from referring site
+    var currentHostname = document.location.hostname; /* get current website FQDN */
+    var currentBaseURL = document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+    var links = document.getElementsByTagName("a");
+
+    var linkDest;
+    var linkTLD;
+
+    /* Do not wrap links on intersitial exit page */
+    if  (currentBaseURL != exitURL) {
+        for (var i in links) {
+            if (links[i].host) {
+                if (links[i].hostname != currentHostname) { /*ignore link if link hostname matches website hostname*/
+                    linkTLD = links[i].hostname.substr(links[i].hostname.lastIndexOf(".") + 1);     // Extract top level domain from target link
+                    linkDest = links[i].href;
+                    if (whiteList.indexOf(linkTLD.toLowerCase()) < 0) { /*search whitelist array for TLD in LOWERCASE*/
+                        linkDest = exitURL + "?url=" + encodeURIComponent(linkDest);
+                        links[i].href = linkDest;
+                    }
+                }
+            }
+        } 
+    } 
+    else {
+        confirmExit();    
+    }    
+}
+
+function confirmExit() {
+    var queryString = decodeURIComponent(document.location.search.substr(1));
+    var linkDest = queryString.substr(queryString.indexOf("url=")  + 4);
+    var exitLink = document.getElementById("exitLink");    
+
+    /* Assume http:// if no protocol provided */
+    if (linkDest.indexOf("://")  == -1) {
+        linkDest = "http://" + linkDest;
+    }
+    exitLink.href = linkDest;
+    exitLink.textContent = linkDest; /*used content instead of innerhtml */
+}

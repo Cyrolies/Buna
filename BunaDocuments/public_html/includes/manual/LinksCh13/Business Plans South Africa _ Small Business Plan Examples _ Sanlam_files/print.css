@@ -1,0 +1,21 @@
+/*==========================================================================
+  PRINT STYLE
+  ========================================================================== */
+#headerNav #primaryLinks,
+#headerNav #secondaryLinks,
+#headerNav #utilityLinks,
+.bannerContainer,
+.toolBar,
+.toolSlice,
+#fulfillContainer,
+#footerDesktop,
+#slideNav,
+#fulfillContainer,
+#utilityRow,
+#accordionPresentation,
+#footerDevice {display: none;}
+.container {width: 100%; padding: 0;}
+#headerNav {padding: 0; border-bottom: none;}
+#headerNav #sanlamLogo {margin: 0;}
+#headerNav #headerPrint {display: block; color: #ccc; text-align: right;}
+#footerPrint {display: block; padding-top: 20px; border-top: 1px solid #ccc; color: #ccc; text-align: center;}

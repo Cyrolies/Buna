@@ -1,0 +1,184 @@
+// GLOBAL VARIABLES
+var origin = window.location.protocol + "//" + window.location.host + '/careers/ourwealthsmiths'; 
+var winWidth = $(window).width();
+function getWealthsmiths(){		
+
+	var returnInfo = '';
+						                                                            
+	$().SPServices({
+	    operation: 'GetListItems',
+	    async: false,
+	    listName: 'Wealthsmiths testimonials',
+	    webURL: origin,
+	
+	    CAMLViewFields:
+	        '<ViewFields>' +
+	        '<FieldRef Name="Title" />' +
+	        '<FieldRef Name="WS_x0020_Intro_x0020_Copy" />' +
+			'<FieldRef Name="WS_x0020_Image_x0020_URL" />' +
+			'<FieldRef Name="WS_x0020_Bio" />' +
+			'<FieldRef Name="WS_x0020_HREF_x0020_URL" />' +
+			'<FieldRef Name="CardsSortOrder" />' +
+	        '</ViewFields>',
+			 
+			 CAMLQuery:
+                    '<Query>' +
+                        '<OrderBy>' +
+                            '<FieldRef Name="CardsSortOrder" Ascending="True" />' +
+                        '</OrderBy>' +
+                    '</Query>',
+
+		
+	    completefunc: function(xData, Status) {
+	    
+	        $(xData.responseXML).SPFilterNode('z:row').each(function() {			
+				var wealthTitle =	$(this).attr('ows_Title'),
+					wealthIntro = 	$(this).attr('ows_WS_x0020_Intro_x0020_Copy'),
+					wealthImage =	$(this).attr('ows_WS_x0020_Image_x0020_URL'),
+					wealthBio =		$(this).attr('ows_WS_x0020_Bio'),
+					wealthUrl = 	$(this).attr('ows_WS_x0020_HREF_x0020_URL');
+				
+				if(typeof wealthImage != 'undefined'){
+					wealthImage = wealthImage.split(',')[0];            	
+				}else {
+					var wealthImage = null;
+				}
+				if(typeof wealthUrl != 'undefined'){
+					wealthUrl = wealthUrl.split(',')[0];            	
+				}else {
+					var wealthUrl = null;
+				}
+
+				
+				returnInfo = '<div class="wealthBlock">'+
+                	'<div class="wealthBio">'+
+                		'<img src="'+wealthImage+'" border="0" />'+
+                		'<h2 class="aboutMeText">'+wealthTitle+'</h2>'+
+                	 	'<div class="wealthBioText">'+wealthBio+'</div>'+
+                	'</div>'+
+                '</div>';
+               $('#sliderWealthsmith').append(returnInfo); 	
+               
+               setTimeout(function() {
+					$("#sliderWealthsmith").not('.slick-initialized').slick({
+						infinite: false,
+						variableWidth: false,
+						adaptiveHeight: true,
+						slidesToShow: 1,
+						arrows: true,
+						dots: false
+					});
+				},300);
+				/* var winWidth = $(window).width();
+				$(window).resize(function () {
+			     if (winWidth < 730) {
+			        $('#sliderWealthsmith').css('visibility','hidden');
+			    } else {
+			        $('#sliderWealthsmith').show();
+			    }
+			    }); */
+			    $(document).on('change', '#succesStories', function() {
+			       // $('#sliderWealthsmith').fadeIn(800);       
+			        //$('#sliderWealthsmith').css('visibility','visible');             
+			        var getIndexVal = $('#succesStories').find('option:selected').attr('data-index');
+			        var slider = $( '#sliderWealthsmith' );
+			            slider[0].slick.slickGoTo( parseInt(getIndexVal) );
+			        
+			    });
+			});
+	    }
+	});
+}
+function goToSlider() {
+  var testurl = window.location.search;
+	$("#sliderWealthsmith")
+    .slick()
+    .each(function(){
+        
+        //if( window.location.search ) {
+        if( testurl ) {
+            
+            var $slider = $(this),
+                sliderid = $slider.slick("getSlick").instanceUid,
+                //queries = window.location.search.slice(1).split("&"),
+                queries = testurl.slice(1).split("&"),
+                checkQuery;
+                
+                //console.log(sliderid);
+            
+            for( query in queries ) {
+                checkQuery = queries[query].split("=");
+                //console.log(checkQuery)
+                if( checkQuery[0] === "slick" + ( sliderid + 1 ) ) {
+                    $slider.slick( "slickGoTo", parseInt( checkQuery[1], 10 ) - 1, true );
+                }
+            }
+        }
+
+    });
+
+}
+function appendBannerOverlay() {
+ var overlayBanner = '<div class="bannerLogo">'+
+	                    		'<a class="logo" href="#">'+
+	                    			'<img src="/Style%20Library/img/wealthsmiths.png" alt="Wealthsmiths" />'+
+	                    		'</a>'+
+	                    	'</div>';
+	               $('.bannerContainer').append(overlayBanner);     	
+				   $('.bannerContainer').wrapInner('<div class="container"></div>');	
+}
+function cleanHtmlText() {
+var getHtml = $('.adviserBlock').find('.adviserName').next();
+ $.each(getHtml, function(k,v) {
+		 var getInner = $(v).html();
+		var cleanHtml = getInner.replace(/\u200B/g,'');
+		$(v).html(cleanHtml);
+
+	 });
+
+}
+$(document).ready(function() { 
+	getWealthsmiths();
+	goToSlider();
+	if (document.URL.indexOf('/careers/ourwealthsmiths/') != -1){
+
+		$('#page').addClass('ourWealthsmiths');
+		appendBannerOverlay();
+		 
+		setTimeout(function() {
+		cleanHtmlText(); 
+			//if (winWidth < 1103) {
+		$("#stackAdvisers").not('.slick-initialized').slick({
+						slidesToShow: 3,
+						variableWidth: false,
+						arrows: true,
+						infinite: false,						
+						responsive: [
+						{
+							breakpoint: 2000,
+							settings: "unslick"						
+						},
+						{
+							breakpoint: 1150,
+							settings: {
+								slidesToShow: 2,
+								slidesToScroll: 1,
+								dots: false
+							}
+						},
+						{
+							breakpoint: 800,
+							settings: {
+								slidesToShow: 1,
+								slidesToScroll: 1,
+								dots: false								
+							}
+						}]
+					});
+		//}				
+		},500);
+				
+	}
+	
+
+});

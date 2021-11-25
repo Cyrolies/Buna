@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14F4E847-078F-4F54-BB46-E4F74054A898}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DALEFModel</RootNamespace>
+    <AssemblyName>DALEFModel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\DSDWebApi\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\DSDWebApi\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\API\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Application.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asset.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Attendance.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttendanceBiometric.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Audit.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseClass.cs" />
+    <Compile Include="Biometric.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Consumable.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Depreciation.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityField.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFieldDataType.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFieldValue.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityMenu.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityResource.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityValues.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EzFloManagerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GraphModel\MultiBarItem.cs" />
+    <Compile Include="GraphModel\GanttItem.cs" />
+    <Compile Include="HitecJob.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessageModel\PasswordResetList.cs" />
+    <Compile Include="MessageModel\SubmitCheckList.cs" />
+    <Compile Include="MetaData\Asset.cs" />
+    <Compile Include="MetaData\Attendance.cs" />
+    <Compile Include="MetaData\Biometric.cs" />
+    <Compile Include="MetaData\CashHeader.cs" />
+    <Compile Include="MetaData\CashLine.cs" />
+    <Compile Include="MetaData\CheckOut.cs" />
+    <Compile Include="MetaData\Consumable.cs" />
+    <Compile Include="MetaData\Delivery.cs" />
+    <Compile Include="MetaData\Entity.cs" />
+    <Compile Include="MetaData\EntityField.cs" />
+    <Compile Include="MetaData\ExportDataControl.cs" />
+    <Compile Include="MetaData\HitecJob.cs" />
+    <Compile Include="MetaData\InCheckList.cs" />
+    <Compile Include="MetaData\InHelper.cs" />
+    <Compile Include="MetaData\InSurvey.cs" />
+    <Compile Include="MetaData\MobileConfig.cs" />
+    <Compile Include="MetaData\Part.cs" />
+    <Compile Include="MetaData\Person.cs" />
+    <Compile Include="MetaData\PersonBiometric.cs" />
+    <Compile Include="MetaData\SalesOrder.cs" />
+    <Compile Include="MetaData\Shipment.cs" />
+    <Compile Include="MetaData\StockTake.cs" />
+    <Compile Include="MetaData\StpData.cs" />
+    <Compile Include="MetaData\MobileCheckList.cs" />
+    <Compile Include="MetaData\MobileMessage.cs" />
+    <Compile Include="MetaData\MobileUser.cs" />
+    <Compile Include="MetaData\StcDataType.cs" />
+    <Compile Include="MetaData\Student.cs" />
+    <Compile Include="MetaData\StudentBiometric.cs" />
+    <Compile Include="MetaData\StudentMeal.cs" />
+    <Compile Include="MetaData\sysUser.cs" />
+    <Compile Include="MetaData\VisitList.cs" />
+    <Compile Include="MetaData\VisitListCustomer.cs" />
+    <Compile Include="MetaData\VisitListMobileUser.cs" />
+    <Compile Include="MetaData\WorkOrder.cs" />
+    <Compile Include="MetaData\WorkOrderPart.cs" />
+    <Compile Include="NotificationLevel.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organization.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Page.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Part.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Partial\Asset.cs" />
+    <Compile Include="Partial\Attendance.cs" />
+    <Compile Include="Partial\Biometric.cs" />
+    <Compile Include="Partial\Consumable.cs" />
+    <Compile Include="Partial\HitecJob.cs" />
+    <Compile Include="Partial\Person.cs" />
+    <Compile Include="Partial\PersonBiometric.cs" />
+    <Compile Include="Partial\PriceListDiscount.cs" />
+    <Compile Include="Partial\Discount.cs" />
+    <Compile Include="Partial\InCustomerUpdate.cs" />
+    <Compile Include="Partial\SalesOrder.cs" />
+    <Compile Include="Partial\CustomerSurvey.cs" />
+    <Compile Include="Partial\MobileUser.cs" />
+    <Compile Include="Partial\Student.cs" />
+    <Compile Include="Partial\StudentBiometric.cs" />
+    <Compile Include="Partial\StudentMeal.cs" />
+    <Compile Include="Partial\Survey.cs" />
+    <Compile Include="Partial\SurveyQuestion.cs" />
+    <Compile Include="Partial\Customer.cs" />
+    <Compile Include="Partial\Plant.cs" />
+    <Compile Include="Partial\ProductPriceList.cs" />
+    <Compile Include="Partial\Part.cs" />
+    <Compile Include="Partial\StockTake.cs" />
+    <Compile Include="Partial\WorkOrderPart.cs" />
+    <Compile Include="Partial\WorkOrder.cs" />
+    <Compile Include="Partial\VisitListCustomer.cs" />
+    <Compile Include="Partial\VisitListMobileUser.cs" />
+    <Compile Include="Partial\VisitList.cs" />
+    <Compile Include="Partial\Entity.cs" />
+    <Compile Include="Partial\StpData.cs" />
+    <Compile Include="Partial\Activity.cs" />
+    <Compile Include="Partial\ExportDataControl.cs" />
+    <Compile Include="Partial\MobileCheckList.cs" />
+    <Compile Include="Partial\RunningSales.cs" />
+    <Compile Include="Partial\RunningSalesDetail.cs" />
+    <Compile Include="Partial\sapInImage.cs" />
+    <Compile Include="Partial\SelectResult.cs" />
+    <Compile Include="Partial\Task.cs" />
+    <Compile Include="Partial\UserRole.cs" />
+    <Compile Include="Partial\User.cs" />
+    <Compile Include="Partial\UserRoleActivity.cs" />
+    <Compile Include="Partial\viewRunningSales.cs" />
+    <Compile Include="MetaData\Activity.cs" />
+    <Compile Include="MetaData\EntityMenu.cs" />
+    <Compile Include="MetaData\EntityResource.cs" />
+    <Compile Include="MetaData\StcData.cs" />
+    <Compile Include="MetaData\User.cs" />
+    <Compile Include="MetaData\UserRole.cs" />
+    <Compile Include="MetaData\UserRoleActivity.cs" />
+    <Compile Include="MetaData\UserRoleUser.cs" />
+    <Compile Include="Partial\EntityField.cs" />
+    <Compile Include="Person.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonBiometric.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StcData.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StcDataType.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockTake.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StpData.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StpDataType.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Student.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentBiometric.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentMeal.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleActivity.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleNotificationLevel.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BaseVM.cs" />
+    <Compile Include="ViewModel\EntityFieldVM.cs" />
+    <Compile Include="ViewModel\EntityVM.cs" />
+    <Compile Include="ViewModel\SelectQuery.cs" />
+    <Compile Include="vwStockReport.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkOrder.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkOrderPart.cs">
+      <DependentUpon>EzFloManagerModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="EzFloManagerModel.edmx" />
+    <None Include="EzFloManagerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EzFloManagerModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.csproj">
+      <Project>{ddee6877-8df2-457e-838a-f9ae0e2c945e}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,85 @@
+@using CyroTechPortal;
+@model DALEFModel.UserRoleUser
+<script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type = "button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("UserRoleUser")), new { @class = "control-label" })</h4>
+				</div>
+
+                <div class="modal-body">
+                    <div id="result"></div>
+                    @using (Ajax.BeginForm("EditUserRoleUser", "User", new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "result"
+                    }))
+                    {
+                        try
+                        {
+                            @* @Html.AntiForgeryToken()*@
+                            @Html.ValidationSummary(true)
+
+                            <div id="GeneralGroupbox" dir="ltr" style="text-align:left;">
+                                <fieldset>
+                                    <legend>@Html.Encode(Localizer.Current.GetString("GroupBoxGeneral"))</legend>
+
+                                    <div style="width: 45%;height:100%; float: left; top: 5px;">
+                                        @Html.HiddenFor(o => o.UserRoleID)
+
+                                        <div class="form-group">
+                                            @Html.Label(@Html.Encode(Localizer.Current.GetString("UserID")))
+                                            @Html.CustomDropDownListFor(st => st.UserID)
+                                            @Html.CustomValidationMessageFor(o => o.UserID)
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.Label(@Html.Encode(Localizer.Current.GetString("IsActive")))
+                                            @Html.CustomCheckBoxFor(o => o.IsActive)
+                                        </div>
+
+                                    </div>
+                                    <div id="Divider1" style="width: 30px;height:100%;float: right;  top: 5px; "></div>
+                                </fieldset>
+                            </div>
+
+                            <div id="UserRoleUserIDGroupbox" dir="ltr" style="text-align:left;">
+                                <fieldset>
+                                    <legend>@Html.Encode(Localizer.Current.GetString("GroupBoxUserRoleUserID"))</legend>
+
+                                    <div style="width: 45%;height:100%; float: left; top: 5px;">
+                                        <div class="form-group">
+                                            @Html.HiddenFor(o => o.UserRoleUserID)
+                                        </div>
+
+                                    </div>
+                                    <div id="Divider1" style="width: 30px;height:100%;float: right;  top: 5px; "></div>
+                                </fieldset>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+                            </div>
+                        }
+                        catch (Exception ex)
+                        {
+                            <script type="text/javascript">
+                               ShowNotification(false,'@ex.Message.Replace("'","\\'").Replace("\r\n","<br/>")');
+                            </script>
+                        }
+
+                    }
+                </div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+		$('#modal1').modal('show');
+		document.getElementById("btnclose").onclick = function () { $('#tblGridUserRoleUser').DataTable().ajax.reload(); };
+		});
+	</script>
+	</div>

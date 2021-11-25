@@ -1,0 +1,337 @@
+/* Custom CSS for Smartapp website 	*/
+/* January 2019						*/
+/* Anton - Midnightcoder			*/
+
+#footer {
+	overflow: hidden;
+	background-color: transparent; 
+	background-repeat: repeat-x;
+	
+}
+
+#uddeim-module {
+	font-size: 14px !important; 
+}
+
+#main-content {
+	margin-bottom: 20px;
+}
+
+/* fix link colour */
+a { 
+color: #7d3f19; 
+}
+
+/* fix button colour */
+input.btl-buttonsubmit, button.btl-buttonsubmit {
+	background: #7d3f19 !important;
+}
+
+/* fix for footer */
+div.last:nth-child(1) {
+	width: 100%;
+}
+
+/* fix for menu margin */
+.p-t-1 {
+	padding-top: 0px !important;
+}
+
+/* fix span margins */
+[class*="span"] {
+	margin-left: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* Set footer background colour*/ 
+#footer > div > div > div {
+	background-color: #ddc7b0;
+}
+
+/* set navbar */
+.navbar-inverse .navbar-inner {
+    background-color: #1110;
+}
+
+/* Set page background */
+body {
+		background-image: url(http://buna.africa/images/templatebackground.jpg) !important;
+}
+
+/* article background */
+.article-bg {
+background-color: #dcc7b0;
+}
+
+#main-content {
+	background-color: #dcc7b0;
+}
+
+div.row:nth-child(1) {
+	/* background-color: #B9C2C1;*/
+}
+
+/* Hide autocomplete div */
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.m-b-1 {
+	margin-bottom: 0px !important;
+}
+
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+
+.ui-autocomplete > li > div {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.ui-state-hover,
+.ui-state-active,
+.ui-state-focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* set iframe alignment */
+iframe {
+	max-width: 100%;
+	display: block !important;
+	margin: auto !important;
+}
+
+/* Custom position for dashboard menu */
+.dj-megamenu-select-light .dj-mobile-open-btn, .dj-megamenu-offcanvas-light .dj-mobile-open-btn, .dj-megamenu-accordion-light .dj-mobile-open-btn {
+	background: #6D850A !important;
+	color: #FFFFFF !important;
+	width: 20px;
+	height: 28px;
+}
+
+.dj-megamenu-offcanvas-light .dj-mobile-open-btn{
+	font-size: unset !important;
+	line-height: unset !important;
+	}
+
+.dj-megamenu-select-light .dj-mobile-open-btn, .dj-megamenu-offcanvas-light .dj-mobile-open-btn, .dj-megamenu-accordion-light .dj-mobile-open-btn {
+	font-size: 25px !important;
+}
+
+#menu > div:nth-child(1) {
+margin-left: -30px;
+
+}
+
+/* Classes to hid divs on forms */
+.hide {
+	visibility: hidden;
+}
+
+.show {
+	visibility: visible;
+}
+
+/* Custom buttons for site */
+.btn-light-green {
+background-color: #7d3f19;
+color: #FFFFFF;
+}
+.btn-dark-green {
+background-color: #CF6829;
+color: #FFFFFF;
+}
+
+/* Custom buttons for icons */
+.btn-manual {
+background-color: #b4b8a9;
+color: #9999;
+box-shadow: 3px 3px black;
+display: inline;
+}
+
+/* Fix the grue menu background issue */
+.navbar-inner {
+	 padding-left: 0px; 
+	 padding-right: 0px;
+	 z-index: 10;
+	 border: none;
+	 -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0.0) !important;
+	 
+	}
+	
+/* Styling for logo in selected pages */
+.logo{
+	display:none;
+}
+
+/* Styling for rounded end elements */
+.rounded-corners {
+  border-radius: 25px;
+  border: none;
+  padding: 5px; 
+  width: 200px;
+  height: 25px; 
+}
+
+/* Styling for divs in js use */
+#loaderdiv {
+  position: absolute;
+  z-index: 1;
+}
+
+#btl-panel-login {
+background-color: #a57457 !important;
+}
+
+#btl-panel-registration {
+	background-color: #a57457 !important;
+}
+
+#btl .btl-panel > #btl-panel-profile {
+	background-color: #a57457 !important;
+}
+
+.article-index {
+	display: none;
+}
+
+
+
+.loadertext {
+  position: relative;
+  padding: 10px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+/* Styling for warning text */
+.red-text {
+	color: #CC0000;
+}
+
+/* Styling for columns and rows in flex format */
+.btn-white {
+color: #FFFFFF;
+}
+
+.btn-grey {
+background-color: #C0C0C0;
+color: #808080;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+/* Styling for buttons according to function on home page */
+
+.btn-training {
+    background-color: #0075B4;
+	width: 75%;
+	text-decoration: none;
+	}
+	
+.btn-buyers {
+    background-color: #FF4500;
+	color: #FFFFFF;
+	width: 75%;
+	}
+
+.btn-supplies {
+    background-color: #FFA726;
+	color: #FFFFFF;
+	width: 75%;
+	}
+
+.btn-valueadded {
+    background-color: #607D8B;
+	color: #FFFFFF;
+	width: 75%;;
+	}
+
+.btn-produce {
+    background-color: #259B24;
+	color: #FFFFFF;
+	width: 75%;
+	}
+
+.btn-sell {
+    background-color: #8BC34A;
+	color: #FFFFFF;
+	width: 75%;
+	}
+
+.jmootips .title {
+	background-color: #0075b4;
+	color: #ffffff;
+}
+
+/* table styling */
+.table-celltext-centred {
+	text-align: center;
+}
+
+
+/* Styling for handheld devices */
+@media (max-width: 767px) {
+.navbar {
+	display: none;
+}
+
+
+
+
+}

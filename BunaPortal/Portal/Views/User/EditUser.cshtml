@@ -1,0 +1,189 @@
+@using CyroTechPortal;
+@model DALEFModel.User
+<script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="content">
+				<div class="box-header">
+					<button type = "button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("User")), new { @class = "col-md-2 control-label" })</h4>
+				</div>
+
+				<div id = "result" ></div>
+				@using(Ajax.BeginForm("EditUser", "User", new AjaxOptions
+					{
+						HttpMethod = "POST",
+						InsertionMode = InsertionMode.Replace,
+						UpdateTargetId = "result"
+					}))
+					{
+						try {
+						@* @Html.AntiForgeryToken()*@
+						@Html.ValidationSummary(true)
+
+						<div class="col-md-12"> 
+				<div class="row">
+				<div class="box-default">
+				<div class="box-header with-border">
+						<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxUser Detail"))</h3>
+
+                        <div class="box-body">
+                            @Html.HiddenFor(o => o.ConfirmPassword)
+
+                            @Html.HiddenFor(o => o.OrgID)
+
+                            @Html.HiddenFor(o => o.SupervisorID)
+
+                            @Html.HiddenFor(o => o.UserID)
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.UserName)
+                                    @Html.CustomTextBoxFor(o => o.UserName)
+                                    @Html.CustomValidationMessageFor(o => o.UserName)
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(o => o.UserPWDHash)
+
+                            @Html.HiddenFor(o => o.VersionNo)
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.UserRoleID)
+                                    @Html.CustomDropDownListFor(st => st.UserRoleID)
+                                    @Html.CustomValidationMessageFor(o => o.UserRoleID)
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.FullName)
+                                    @Html.CustomTextBoxFor(o => o.FullName)
+                                    @Html.CustomValidationMessageFor(o => o.FullName)
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.Email)
+                                    @Html.CustomTextBoxFor(o => o.Email)
+                                    @Html.CustomValidationMessageFor(o => o.Email)
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.StpDepartmentID)
+                                    @Html.CustomDropDownListFor(st => st.StpDepartmentID)
+                                    @Html.CustomValidationMessageFor(o => o.StpDepartmentID)
+                                </div>
+                            </div>
+                            @Html.HiddenFor(o => o.StpLanguageID)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.StpLanguageID)
+                                    @Html.CustomDropDownListFor(st => st.StpLanguageID)
+                                    @Html.CustomValidationMessageFor(o => o.StpLanguageID)
+                                </div>
+                            </div>
+                            @Html.HiddenFor(o => o.StpThemeID)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.StpThemeID)
+                                    @Html.CustomDropDownListFor(st => st.StpThemeID)
+                                    @Html.CustomValidationMessageFor(o => o.StpThemeID)
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(o => o.CreatedByID)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.CreatedByID)
+                                    @Html.CustomDropDownListFor(st => st.CreatedByID)
+                                    @Html.CustomValidationMessageFor(o => o.CreatedByID)
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(o => o.ChangedByID)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.ChangedByID)
+                                    @Html.CustomDropDownListFor(st => st.ChangedByID)
+                                    @Html.CustomValidationMessageFor(o => o.ChangedByID)
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(o => o.CreateDateTime)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.CreateDateTime)
+                                    @Html.CustomTextBoxFor(o => o.CreateDateTime)
+                                    @Html.CustomValidationMessageFor(o => o.CreateDateTime)
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(o => o.ChangeDateTime)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.CustomLabelFor(o => o.ChangeDateTime)
+                                @Html.CustomTextBoxFor(o => o.ChangeDateTime)
+                                @Html.CustomValidationMessageFor(o => o.ChangeDateTime)
+                            </div>
+
+                        </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.CustomLabelFor(o => o.IsActive)
+                                    @Html.CustomCheckBoxFor(o => o.IsActive)
+                                    <span></span>
+                                </div>
+                            </div>
+
+                        </div>
+						</div>
+						</div>
+						</div>
+						</div>
+
+						<div class="modal-footer">
+						<button type = "submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+						</div>
+						}
+						catch (Exception ex)
+						{
+						<script type = "text/javascript" >
+							ShowNotification(false, '@ex.Message.Replace("'","\'").Replace("\r\n"," <br/> ")');
+						</script>
+						}
+					}
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+		$('#modal1').modal('show');
+		document.getElementById("btnclose").onclick = function () { $('#tblGridUser').DataTable().ajax.reload(); };
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		});
+	</script>

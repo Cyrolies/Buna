@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{18A85F67-9D16-4785-A94D-4C26BF848A6A}"
+	ProjectSection(SolutionItems) = preProject
+		jQuery.DataTables.vsmdi = jQuery.DataTables.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BunaPortal", "Portal\BunaPortal.csproj", "{7D1BBDC6-0298-4DC9-8353-C09FA5509B6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{DDEE6877-8DF2-457E-838A-F9AE0E2C945E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D1BBDC6-0298-4DC9-8353-C09FA5509B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1BBDC6-0298-4DC9-8353-C09FA5509B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1BBDC6-0298-4DC9-8353-C09FA5509B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1BBDC6-0298-4DC9-8353-C09FA5509B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDEE6877-8DF2-457E-838A-F9AE0E2C945E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDEE6877-8DF2-457E-838A-F9AE0E2C945E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDEE6877-8DF2-457E-838A-F9AE0E2C945E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDEE6877-8DF2-457E-838A-F9AE0E2C945E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B164F0B-1E94-4D9B-81BD-229280C53A4F}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = jQuery.DataTables.vsmdi
+	EndGlobalSection
+EndGlobal

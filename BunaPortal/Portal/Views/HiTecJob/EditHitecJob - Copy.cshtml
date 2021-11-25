@@ -1,0 +1,347 @@
+@using CyroTechPortal;
+@model DALEFModel.HitecJob
+<script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="content">
+				<div class="box-header">
+					<button type = "button" name="btnclose" id="btnclose" class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">@Html.Label(@Html.Encode(Localizer.Current.GetString("HitecJob")), new { @class = "col-md-2 control-label" })</h4>
+				</div>
+
+				<div id = "result" ></div>
+				@using(Ajax.BeginForm("EditHitecJob", "HitecJob", new AjaxOptions
+					{
+						HttpMethod = "POST",
+						InsertionMode = InsertionMode.Replace,
+						UpdateTargetId = "result"
+					}))
+					{
+						try {
+						@* @Html.AntiForgeryToken()*@
+						@Html.ValidationSummary(true)
+
+						<div class="col-md-12"> 
+				<div class="row">
+				<div class="box-default">
+				<div class="box-header with-border">
+						<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxJob Card Detail"))</h3>
+
+				<div class="box-body">
+							@Html.HiddenFor(o => o.OrgID)
+
+							@Html.HiddenFor(o => o.VersionNo)
+
+							@Html.HiddenFor(o => o.HitecJobID)
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.Fullname)
+							@Html.CustomTextBoxFor(o => o.Fullname)
+							@Html.CustomValidationMessageFor(o => o.Fullname)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.Client)
+							@Html.CustomTextBoxFor(o => o.Client)
+							@Html.CustomValidationMessageFor(o => o.Client)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.ContactNumber)
+							@Html.CustomTextBoxFor(o => o.ContactNumber)
+							@Html.CustomValidationMessageFor(o => o.ContactNumber)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.Email)
+							@Html.CustomTextBoxFor(o => o.Email)
+							@Html.CustomValidationMessageFor(o => o.Email)
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.PhysicalAddressGuardPost)
+							@Html.CustomTextBoxAreaFor(o => o.PhysicalAddressGuardPost)
+							@Html.CustomValidationMessageFor(o => o.PhysicalAddressGuardPost)
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+							@Html.Label(@Html.Encode(Localizer.Current.GetString("Billing address the same")))
+							@Html.CheckBox("BillingAddressTheSame",false,new { @id = "BillingAddressTheSame"})
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.BillingAddress)
+							@Html.CustomTextBoxAreaFor(o => o.BillingAddress)
+							@Html.CustomValidationMessageFor(o => o.BillingAddress)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.NumberOfGuardsDaytime)
+							@Html.CustomTextBoxFor(o => o.NumberOfGuardsDaytime)
+							@Html.CustomValidationMessageFor(o => o.NumberOfGuardsDaytime)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.NumberOfGuardsNighttime)
+							@Html.CustomTextBoxFor(o => o.NumberOfGuardsNighttime)
+							@Html.CustomValidationMessageFor(o => o.NumberOfGuardsNighttime)
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.StartDate)
+							@Html.CustomTextBoxFor(o => o.StartDate)
+							@Html.CustomValidationMessageFor(o => o.StartDate)
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.StartTime)
+							@Html.CustomTextBoxFor(o => o.StartTime)
+							@Html.CustomValidationMessageFor(o => o.StartTime)
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.EndDate)
+							@Html.CustomTextBoxFor(o => o.EndDate)
+							@Html.CustomValidationMessageFor(o => o.EndDate)
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.EndTime)
+							@Html.CustomTextBoxFor(o => o.EndTime)
+							@Html.CustomValidationMessageFor(o => o.EndTime)
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.Comment)
+							@Html.CustomTextBoxAreaFor(o => o.Comment)
+							@Html.CustomValidationMessageFor(o => o.Comment)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.OrderNumber)
+							@Html.CustomTextBoxFor(o => o.OrderNumber)
+							@Html.CustomValidationMessageFor(o => o.OrderNumber)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.Total)
+							@Html.CustomTextBoxFor(o => o.Total)
+							@Html.CustomValidationMessageFor(o => o.Total)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.InvoiceNo)
+							@Html.CustomTextBoxFor(o => o.InvoiceNo)
+							@Html.CustomValidationMessageFor(o => o.InvoiceNo)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.InvoicedDate)
+							@Html.CustomTextBoxFor(o => o.InvoicedDate)
+							@Html.CustomValidationMessageFor(o => o.InvoicedDate)
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.InvoiceComment)
+							@Html.CustomTextBoxAreaFor(o => o.InvoiceComment)
+							@Html.CustomValidationMessageFor(o => o.InvoiceComment)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.IsInvoiced)
+							@Html.CustomCheckBoxFor(o => o.IsInvoiced)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.IsJobCardSend)
+							@Html.CustomCheckBoxFor(o => o.IsJobCardSend)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.IsComplete)
+							@Html.CustomCheckBoxFor(o => o.IsComplete)
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.IsActive)
+							@Html.CustomCheckBoxFor(o => o.IsActive)
+							</div>
+						</div>
+
+							@Html.HiddenFor(o => o.CreateDateTime)
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.CreateDateTime)
+							@Html.CustomTextBoxFor(o => o.CreateDateTime)
+							@Html.CustomValidationMessageFor(o => o.CreateDateTime)
+							</div>
+						</div>
+
+							@Html.HiddenFor(o => o.ChangeDateTime)
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.ChangeDateTime)
+							@Html.CustomTextBoxFor(o => o.ChangeDateTime)
+							@Html.CustomValidationMessageFor(o => o.ChangeDateTime)
+							</div>
+						</div>
+
+							@Html.HiddenFor(o => o.CreatedByID)
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.CreatedByID)
+							@Html.CustomDropDownListFor(st => st.CreatedByID)
+							@Html.CustomValidationMessageFor(o => o.CreatedByID)
+							</div>
+						</div>
+
+							@Html.HiddenFor(o => o.ChangedByID)
+						<div class="col-md-6">
+							<div class="form-group">
+							@Html.CustomLabelFor(o => o.ChangedByID)
+							@Html.CustomDropDownListFor(st => st.ChangedByID)
+							@Html.CustomValidationMessageFor(o => o.ChangedByID)
+							</div>
+						</div>
+
+				</div>
+						</div>
+						</div>
+						</div>
+						</div>
+
+						<div class="modal-footer">
+						<button type = "submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
+						</div>
+						}
+						catch (Exception ex)
+						{
+						<script type = "text/javascript" >
+							ShowNotification(false, '@ex.Message.Replace("'","\'").Replace("\r\n"," <br/> ")');
+						</script>
+						}
+					}
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+		$('#modal1').modal('show');
+           
+		document.getElementById("btnclose").onclick = function () { $('#tblGridHitecJob').DataTable().ajax.reload(); };
+		
+
+
+
+$(function () {
+					 $('#Client').autocomplete({
+								source: function (request, response) {
+									$.ajax({
+										type: 'POST',
+										url: '@Url.Action("PrePopulateInput", "Base")',
+										data: {
+											field: 'Client as Description',
+											table: 'HitecJob',
+                                            where: ' Client like \'' + request.term + '%\'',
+                                            orderby: 'Client',
+										},
+										dataType: 'json',
+										async: false,
+										success: function (data) {
+                                            response($.map(data.result, function (val, item) {
+                                              //  alert(JSON.stringify(val.Description));
+                                                return {
+                                                   label: val.Description,
+                                                   value: val.Description,
+												}
+											}))
+										},
+										error: function (data) {
+											alert("SomethingWrong" + data.result);
+
+										}
+									});
+								},
+								minLength: 3,
+								delay: 300
+
+					 });
+            });
+
+
+
+document.getElementById("BillingAddressTheSame").onclick = function (){$('#BillingAddress').val($('#PhysicalAddressGuardPost').val());
+			};
+
+
+
+$('input[type="datetime"]').datepicker({
+		autoclose: true,
+        dateFormat: 'yy/mm/dd'
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		});
+	</script>

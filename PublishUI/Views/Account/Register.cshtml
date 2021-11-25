@@ -1,0 +1,70 @@
+﻿@using CyroTechPortal;
+@model DALEFModel.User
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="box box-primary">
+            <div class="callout callout-info">
+                @*<button id="btnclose" class="btn-lg close pull-right" a href="#" data-dismiss="modal" style="color:#ffffff;"><i class="fa fa fa-times"></i></button>*@
+                <h4><i class="icon fa fa-pencil"></i> @Html.Label(@Html.Encode(Localizer.Current.GetString("RegisterExplanation")), new { @class = "control-label" })</h4>
+            </div><!-- /.info-box -->
+            <div class="box-body">
+                <div id="result"></div>
+                @using (Ajax.BeginForm("RegisterRequest", "Account", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "result",
+
+
+                }))
+                {
+                    @* @Html.AntiForgeryToken()*@
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(o => o.UserID)
+
+                   
+                        <div class="form-group has-feedback">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("UserName")))
+                            @Html.CustomTextBoxFor(o => o.UserName)
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            @Html.CustomValidationMessageFor(o => o.UserName)
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            @Html.Label(@Html.Encode(Localizer.Current.GetString("Email")))
+                            @Html.CustomTextBoxFor(st => st.Email)
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            @Html.CustomValidationMessageFor(o => o.Email)
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default">@Localizer.Current.GetString("Register")</button>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Header{
+
+}
+<script>
+    function OnSuccess() {
+        alert('You have been added succcesfully please login with default password of 1111');
+        window.location.href = '@Url.Action("Home", "Home")';       // The function returns the product of p1 and p2
+    }
+
+    $(document).ready(function () {
+    $('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
+    $('#modal1').modal('show');
+   
+    });
+</script>
+
+
+
+
+
+
+

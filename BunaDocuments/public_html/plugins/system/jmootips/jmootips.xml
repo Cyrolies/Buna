@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="3.8" type="plugin" group="system"
+	method="upgrade">
+	<name>System - jmootips</name>
+	<author>Joachim Schmidt</author>
+	<creationDate>June 2021</creationDate>
+	<copyright>(C) Joachim Schmidt All Rights Reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>joachim.schmidt@jschmidt-systemberatung.de</authorEmail>
+	<authorUrl>www.jschmidt-systemberatung.de</authorUrl>
+	<version>1.2.5.4</version>
+	<description>PLG_JMOOTIPS_XML_DESCRIPTION</description>
+	<languages folder="language">
+		<language tag="de-DE">de-DE/de-DE.plg_system_jmootips.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_system_jmootips.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_jmootips.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_jmootips.sys.ini</language>
+	</languages>
+	<files>
+		<filename plugin="jmootips">jmootips.php</filename>
+		<filename>helper.php</filename>
+		<filename>joomla.asset.json</filename>
+		<filename>index.html</filename>
+		<filename>readme.txt</filename>
+	</files>
+	<media folder="plg_system_jmootips"
+		destination="plg_system_jmootips">
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>images</folder>
+	</media>
+	<scriptfile>install_jmootips.php</scriptfile>
+	<updateservers>
+		<server type="extension" priority="1" name="jmootips1.2 Updates">http://www.jschmidt-systemberatung.de/downloads/jmootips12_updates.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic"
+				label="PLG_JMOOTIPS_LBL_PLUGIN_PARAMETERS">
+				<field type="spacer" name="spacer1"
+					label="PLG_JMOOTIPS_LBL_BASIC_PARAMETERS" hr="false" />
+				<field name="css_class" type="text" default="jmootips"
+					size="8" maxlength="64" label="PLG_JMOOTIPS_LBL_DEFAULT_CSS"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_CSS">
+				</field>
+				<field name="jmootips_cssfile" type="list" default="1"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_CSSFILE"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_CSSFILE">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+				<field name="sticky" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_STICKY"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_STICKY">
+					<option value="1">NO_NO</option>
+					<option value="0">YES_YES</option>
+				</field>
+				<field name="openonclick" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_OPEN"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_OPEN">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+				<field name="position" type="list" default="-1"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_POSITION"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_POSITION">
+					<option value="-1">POSITION_TOP</option>
+					<option value="1">POSITION_BOTTOM</option>
+					<option value="-2">POSITION_RIGHT</option>
+					<option value="2">POSITION_LEFT</option>
+				</field>
+				<field name="autoposition" type="list" default="1"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_AUTO"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_AUTO">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+				<field name="ajax4id" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_AJAX4ID"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_AJAX4ID">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+				<field name="bootstrap" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_DEFAULT_FRAMEWORK"
+					description="PLG_JMOOTIPS_DESC_DEFAULT_FRAMEWORK">
+					<option value="0">Mootools</option>
+					<option value="1">Bootstrap</option>
+				</field>
+				<field name="allow_url" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_ALLOW_URL"
+					description="PLG_JMOOTIPS_DESC_ALLOW_URL">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+				<field name="remote_host" type="list" default="0"
+					label="PLG_JMOOTIPS_LBL_ALLOW_HOST"
+					description="PLG_JMOOTIPS_DESC_ALLOW_HOST">
+					<option value="0">NO_NO</option>
+					<option value="1">YES_YES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
