@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class CustomerModel
     {

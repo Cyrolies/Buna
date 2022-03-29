@@ -25,8 +25,6 @@ namespace DALEFModel
     		
             this.Audit = new HashSet<Audit>();
     		
-            this.Biometric = new HashSet<Biometric>();
-    		
             this.Consumable = new HashSet<Consumable>();
     		
             this.Consumable1 = new HashSet<Consumable>();
@@ -45,13 +43,9 @@ namespace DALEFModel
     		
             this.Contact5 = new HashSet<Contact>();
     		
+            this.Document = new HashSet<Document>();
+    		
             this.EntityFieldValue = new HashSet<EntityFieldValue>();
-    		
-            this.HitecJob = new HashSet<HitecJob>();
-    		
-            this.Part = new HashSet<Part>();
-    		
-            this.Part1 = new HashSet<Part>();
     		
             this.Person = new HashSet<Person>();
     		
@@ -61,7 +55,23 @@ namespace DALEFModel
     		
             this.Person3 = new HashSet<Person>();
     		
-            this.Student = new HashSet<Student>();
+            this.Person4 = new HashSet<Person>();
+    		
+            this.Person5 = new HashSet<Person>();
+    		
+            this.Person6 = new HashSet<Person>();
+    		
+            this.Person7 = new HashSet<Person>();
+    		
+            this.Person8 = new HashSet<Person>();
+    		
+            this.Product = new HashSet<Product>();
+    		
+            this.Production = new HashSet<Production>();
+    		
+            this.Production1 = new HashSet<Production>();
+    		
+            this.Production2 = new HashSet<Production>();
     		
             this.User = new HashSet<User>();
     		
@@ -72,10 +82,6 @@ namespace DALEFModel
             this.UserRoleNotificationLevel = new HashSet<UserRoleNotificationLevel>();
     		
             this.UserRoleNotificationLevel1 = new HashSet<UserRoleNotificationLevel>();
-    		
-            this.WorkOrder = new HashSet<WorkOrder>();
-    		
-            this.WorkOrder1 = new HashSet<WorkOrder>();
     		
         }
     
@@ -107,10 +113,6 @@ namespace DALEFModel
     	    
     	
     		public ICollection<Audit> Audit { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Biometric> Biometric { get; set; }
     	
     	    
     	
@@ -150,24 +152,16 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<EntityFieldValue> EntityFieldValue { get; set; }
+    		public ICollection<Document> Document { get; set; }
     	
     	    
     	
-    		public ICollection<HitecJob> HitecJob { get; set; }
+    		public ICollection<EntityFieldValue> EntityFieldValue { get; set; }
     	
     		
     		
         
     		public Organization Organization { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Part> Part { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Part> Part1 { get; set; }
     	
     	    
     	
@@ -185,6 +179,42 @@ namespace DALEFModel
     	
     		public ICollection<Person> Person3 { get; set; }
     	
+    	    
+    	
+    		public ICollection<Person> Person4 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Person> Person5 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Person> Person6 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Person> Person7 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Person> Person8 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Product> Product { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Production> Production { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Production> Production1 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Production> Production2 { get; set; }
+    	
     		
     		
         
@@ -194,10 +224,6 @@ namespace DALEFModel
     		
         
     		public StpDataType StpDataType { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Student> Student { get; set; }
     	
     	    
     	
@@ -218,14 +244,6 @@ namespace DALEFModel
     	    
     	
     		public ICollection<UserRoleNotificationLevel> UserRoleNotificationLevel1 { get; set; }
-    	
-    	    
-    	
-    		public ICollection<WorkOrder> WorkOrder { get; set; }
-    	
-    	    
-    	
-    		public ICollection<WorkOrder> WorkOrder1 { get; set; }
     	
     	}
 }

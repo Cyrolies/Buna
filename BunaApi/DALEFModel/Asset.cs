@@ -25,6 +25,8 @@ namespace DALEFModel
     		
             this.Consumable1 = new HashSet<Consumable>();
     		
+            this.Production = new HashSet<Production>();
+    		
         }
     
         // Primitive properties
@@ -50,7 +52,7 @@ namespace DALEFModel
     	
     	public Nullable<int> ParentAssetID { get; set; }
     	
-    	public Nullable<int> AssignedToID { get; set; }
+    	public Nullable<int> PersonID { get; set; }
     	
     	public Nullable<System.DateTime> DateAssigned { get; set; }
     	
@@ -59,6 +61,12 @@ namespace DALEFModel
     	public Nullable<decimal> SellPrice { get; set; }
     	
     	public bool IsSold { get; set; }
+    	
+    	public Nullable<decimal> Longitude { get; set; }
+    	
+    	public Nullable<decimal> Latitude { get; set; }
+    	
+    	public Nullable<int> Size { get; set; }
     	
     	public Nullable<int> CreatedByID { get; set; }
     	
@@ -112,6 +120,10 @@ namespace DALEFModel
     	    
     	
     		public ICollection<Consumable> Consumable1 { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Production> Production { get; set; }
     	
     	}
 }

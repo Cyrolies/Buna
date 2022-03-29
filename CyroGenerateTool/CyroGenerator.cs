@@ -2861,7 +2861,7 @@ namespace CyroGenerateTool
 
                         //TODO - can exclude certain system fields with this:
                         //[Display(AutoGenerateField = false)]
-                        if (dataType.ToLower().Trim() == "nvarchar" || dataType.ToLower().Trim() == "nchar")
+                        if (dataType.ToLower().Trim() == "nvarchar" || dataType.ToLower().Trim() == "nchar" || dataType.ToLower().Trim() == "ConcatField")
                         {
                             sb.AppendLine(Tab(3) + "public string " + col.EntityFieldName + " { get; set; }");
                         }

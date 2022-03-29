@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class Localizer
     {

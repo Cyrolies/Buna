@@ -1,26 +1,16 @@
 using System;
-using System.IO;
 using System.Text;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.ComponentModel;
-using System.Web.Routing;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Caching;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using DALEFModel;
 using Common;
 using Models;
-using CyroTechPortal.HTMLHelpers;
-using System.Globalization;
+using BunaPortal.HTMLHelpers;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
 
 	public class ConsumableController : BaseController
@@ -98,12 +88,12 @@ namespace CyroTechPortal
 							}
 							if (item.User != null)
 							{
-							item.CreatedByDesc = item.User.FullName;
+							item.CreatedByDesc = item.User.Fullname;
 							item.User = null;
 							}
 							if (item.User1 != null)
 							{
-							item.ChangedByDesc = item.User1.FullName;
+							item.ChangedByDesc = item.User1.Fullname;
 							item.User1= null;
 							}
 							item.Organization = null;

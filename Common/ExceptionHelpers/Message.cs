@@ -30,8 +30,8 @@ namespace Common
         public string InnerInnerExceptionStackTrace { get; set; }
         [DataMember]
         public string StackTrace { get; set; }
-        [DataMember]
-        public string UserMessage { get; set; }
+        //[DataMember]
+        //public string UserMessage { get; set; }
         [DataMember]
         public bool ShowErrorDetail { get; set; }
         [DataMember]
@@ -55,9 +55,9 @@ namespace Common
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("----------------------------</br>");
-            sb.AppendLine("<b><u>User Message Displayed </u></b></br>");
-            sb.AppendLine(this.UserMessage + "</br>");
-            sb.AppendLine("----------------------------</br>");
+            //sb.AppendLine("<b><u>User Message Displayed </u></b></br>");
+            //sb.AppendLine(this.UserMessage + "</br>");
+            //sb.AppendLine("----------------------------</br>");
             sb.AppendLine("<b><u>Exception Message</u></b></br>");
             sb.AppendLine(this.ExceptionMessage + "</br>");
             sb.AppendLine("----------------------------</br>");
@@ -77,7 +77,7 @@ namespace Common
         public string CreateDetailNoHtml()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(this.UserMessage);
+            //sb.AppendLine(this.UserMessage);
             sb.AppendLine(this.ExceptionMessage);
             sb.AppendLine(this.InnerExceptionMessage);
             sb.AppendLine(this.InnerInnerExceptionMessage);

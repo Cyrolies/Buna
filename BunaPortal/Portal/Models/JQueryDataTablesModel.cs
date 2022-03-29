@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Common;
 using System.Text.RegularExpressions;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     /// <summary>
     /// Represents the jQuery DataTables request that is sent for server

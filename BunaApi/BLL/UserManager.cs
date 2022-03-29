@@ -71,7 +71,7 @@ namespace DSDBLL
             }
         }
 
-        public User GetUser(string username, bool includeRelations)
+        public User GetUser(string username,bool active, bool includeRelations)
         {
             try
             {
@@ -88,10 +88,12 @@ namespace DSDBLL
 					includepaths.Add(p => p.Organization1);
 					includepaths.Add(p => p.User2);
 					includepaths.Add(p => p.User3);
-					//includepaths.Add(p => p.StcData);
+                    includepaths.Add(p => p.Person2);
+                    includepaths.Add(p => p.Supplier2);
 
-					// Add includepaths into method here if used and not null
-					returnUser = Repository.Get<User>(includepaths, p => p.UserName == username);
+
+                    // Add includepaths into method here if used and not null
+                    returnUser = Repository.Get<User>(includepaths, p => p.UserName == username && p.IsActive == active);
                     //Get Permissions for this userrole
                     returnUser.UserRoleActivity = Repository.GetList<UserRoleActivity>(p => p.UserRoleID == returnUser.UserRoleID).ToList();
 
@@ -99,8 +101,7 @@ namespace DSDBLL
                 else
                 {
 
-                    returnUser = Repository.Get<User>(null, p => p.UserName == username);
-
+                    returnUser = Repository.Get<User>(null, p => p.UserName == username && p.IsActive == active);
                 }
                 
                 return returnUser;

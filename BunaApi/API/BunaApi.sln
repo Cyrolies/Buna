@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALBase", "..\DALBase\DALBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALEFBase", "..\DALEFBase\DALEFBase.csproj", "{9C3576D7-2AB7-4BF6-9111-243854499075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyroCommon", "..\..\..\CyroCommon\CyroCommon.csproj", "{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "..\BLL\BLL.csproj", "{B7EB9637-1B60-4641-883A-DE18F74B4071}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BunaApi", "WebApi\BunaApi.csproj", "{110745E8-6004-46CA-8499-6977998C0408}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyroGenerateTool", "..\..\CyroGenerateTool\CyroGenerateTool.csproj", "{DE7911B4-073D-4A29-BBF8-A58CCA7A660B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyroCommon", "..\..\..\..\..\CyroTech\CyroCommon\CyroCommon.csproj", "{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,14 +59,6 @@ Global
 		{9C3576D7-2AB7-4BF6-9111-243854499075}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C3576D7-2AB7-4BF6-9111-243854499075}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C3576D7-2AB7-4BF6-9111-243854499075}.Release|x86.Build.0 = Release|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|x86.Build.0 = Debug|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|x86.ActiveCfg = Release|Any CPU
-		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|x86.Build.0 = Release|Any CPU
 		{B7EB9637-1B60-4641-883A-DE18F74B4071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7EB9637-1B60-4641-883A-DE18F74B4071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7EB9637-1B60-4641-883A-DE18F74B4071}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -89,6 +81,14 @@ Global
 		{DE7911B4-073D-4A29-BBF8-A58CCA7A660B}.Release|Any CPU.ActiveCfg = Release|x86
 		{DE7911B4-073D-4A29-BBF8-A58CCA7A660B}.Release|x86.ActiveCfg = Release|x86
 		{DE7911B4-073D-4A29-BBF8-A58CCA7A660B}.Release|x86.Build.0 = Release|x86
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Debug|x86.Build.0 = Debug|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|x86.ActiveCfg = Release|Any CPU
+		{6FE3299E-9DDB-4B24-B57A-FDE7B9340897}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,45 +25,37 @@ namespace DALEFModel
     		
             this.Asset = new HashSet<Asset>();
     		
-            this.Attendance = new HashSet<Attendance>();
-    		
             this.Audit = new HashSet<Audit>();
-    		
-            this.Biometric = new HashSet<Biometric>();
     		
             this.Consumable = new HashSet<Consumable>();
     		
             this.Contact = new HashSet<Contact>();
     		
+            this.Document = new HashSet<Document>();
+    		
             this.Entity = new HashSet<Entity>();
     		
             this.EntityResource = new HashSet<EntityResource>();
     		
-            this.HitecJob = new HashSet<HitecJob>();
-    		
-            this.Part = new HashSet<Part>();
+            this.Message = new HashSet<Message>();
     		
             this.Person = new HashSet<Person>();
+    		
+            this.Product = new HashSet<Product>();
+    		
+            this.Production = new HashSet<Production>();
     		
             this.StcData = new HashSet<StcData>();
     		
             this.StcDataType = new HashSet<StcDataType>();
     		
-            this.StockTake = new HashSet<StockTake>();
-    		
             this.StpData = new HashSet<StpData>();
     		
             this.StpDataType = new HashSet<StpDataType>();
     		
-            this.Student = new HashSet<Student>();
-    		
-            this.StudentMeal = new HashSet<StudentMeal>();
+            this.Supplier = new HashSet<Supplier>();
     		
             this.User1 = new HashSet<User>();
-    		
-            this.WorkOrder = new HashSet<WorkOrder>();
-    		
-            this.WorkOrderPart = new HashSet<WorkOrderPart>();
     		
         }
     
@@ -92,15 +84,7 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<Attendance> Attendance { get; set; }
-    	
-    	    
-    	
     		public ICollection<Audit> Audit { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Biometric> Biometric { get; set; }
     	
     	    
     	
@@ -112,6 +96,10 @@ namespace DALEFModel
     	
     	    
     	
+    		public ICollection<Document> Document { get; set; }
+    	
+    	    
+    	
     		public ICollection<Entity> Entity { get; set; }
     	
     	    
@@ -120,7 +108,7 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<HitecJob> HitecJob { get; set; }
+    		public ICollection<Message> Message { get; set; }
     	
     		
     		
@@ -129,11 +117,15 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<Part> Part { get; set; }
+    		public ICollection<Person> Person { get; set; }
     	
     	    
     	
-    		public ICollection<Person> Person { get; set; }
+    		public ICollection<Product> Product { get; set; }
+    	
+    	    
+    	
+    		public ICollection<Production> Production { get; set; }
     	
     	    
     	
@@ -145,10 +137,6 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<StockTake> StockTake { get; set; }
-    	
-    	    
-    	
     		public ICollection<StpData> StpData { get; set; }
     	
     	    
@@ -157,23 +145,11 @@ namespace DALEFModel
     	
     	    
     	
-    		public ICollection<Student> Student { get; set; }
-    	
-    	    
-    	
-    		public ICollection<StudentMeal> StudentMeal { get; set; }
+    		public ICollection<Supplier> Supplier { get; set; }
     	
     	    
     	
     		public ICollection<User> User1 { get; set; }
-    	
-    	    
-    	
-    		public ICollection<WorkOrder> WorkOrder { get; set; }
-    	
-    	    
-    	
-    		public ICollection<WorkOrderPart> WorkOrderPart { get; set; }
     	
     	}
 }

@@ -88,9 +88,9 @@ namespace DALEFModel
     	
     	public bool IsDisabled { get; set; }
     	
-    	public int Max { get; set; }
+    	public Nullable<int> Max { get; set; }
     	
-    	public Nullable<int> Min { get; set; }
+    	public int Min { get; set; }
     	
     	public string ControlLength { get; set; }
     	
@@ -122,6 +122,16 @@ namespace DALEFModel
     		
         
     		public EntityField EntityField2 { get; set; }
+    	
+    		
+    		
+        
+    		public EntityField EntityField11 { get; set; }
+    	
+    		
+    		
+        
+    		public EntityField EntityField3 { get; set; }
     	
     		
     		

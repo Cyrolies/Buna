@@ -21,11 +21,7 @@ namespace DALEFModel
         {
             this.Asset = new HashSet<Asset>();
     		
-            this.Attendance = new HashSet<Attendance>();
-    		
             this.Person1 = new HashSet<Person>();
-    		
-            this.PersonBiometric = new HashSet<PersonBiometric>();
     		
         }
     
@@ -46,9 +42,19 @@ namespace DALEFModel
     	
     	public Nullable<int> StpGenderID { get; set; }
     	
+    	public Nullable<int> StpProvinceID { get; set; }
+    	
+    	public Nullable<int> StpDistrictID { get; set; }
+    	
+    	public Nullable<int> StpConstituencyID { get; set; }
+    	
+    	public Nullable<int> StpWardID { get; set; }
+    	
+    	public Nullable<int> StpCorrespondenceTypeID { get; set; }
+    	
     	public string Email { get; set; }
     	
-    	public string Comment { get; set; }
+    	public Nullable<int> Age { get; set; }
     	
     	public string HomePhone { get; set; }
     	
@@ -62,6 +68,12 @@ namespace DALEFModel
     	
     	public Nullable<int> ParentPersonID { get; set; }
     	
+    	public Nullable<int> UserID { get; set; }
+    	
+    	public bool hasSmartDevice { get; set; }
+    	
+    	public bool hasFinance { get; set; }
+    	
     	public Nullable<int> CreatedByID { get; set; }
     	
     	public Nullable<int> ChangedByID { get; set; }
@@ -71,10 +83,6 @@ namespace DALEFModel
     	    
     	
     		public ICollection<Asset> Asset { get; set; }
-    	
-    	    
-    	
-    		public ICollection<Attendance> Attendance { get; set; }
     	
     		
     		
@@ -118,6 +126,31 @@ namespace DALEFModel
     		
     		
         
+    		public StpData StpData4 { get; set; }
+    	
+    		
+    		
+        
+    		public StpData StpData5 { get; set; }
+    	
+    		
+    		
+        
+    		public StpData StpData6 { get; set; }
+    	
+    		
+    		
+        
+    		public StpData StpData7 { get; set; }
+    	
+    		
+    		
+        
+    		public StpData StpData8 { get; set; }
+    	
+    		
+    		
+        
     		public User User { get; set; }
     	
     		
@@ -125,9 +158,10 @@ namespace DALEFModel
         
     		public User User1 { get; set; }
     	
-    	    
-    	
-    		public ICollection<PersonBiometric> PersonBiometric { get; set; }
+    		
+    		
+        
+    		public User User2 { get; set; }
     	
     	}
 }

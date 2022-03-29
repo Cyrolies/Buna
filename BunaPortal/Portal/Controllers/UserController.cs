@@ -9,9 +9,10 @@ using Newtonsoft.Json;
 using DALEFModel;
 using Common;
 using Models;
-using CyroTechPortal.HTMLHelpers;
+using BunaPortal.HTMLHelpers;
+using BunaPortal.Repository;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
 	public class UserController : BaseController
 	{
@@ -35,8 +36,9 @@ namespace CyroTechPortal
 		/// <returns></returns>
 		public ActionResult GetUserList(JQueryDataTablesModel jQueryDataTablesModel)
 		{
-			string uri = CommonHelper.BaseUri + "UserController/GetUsers";
-			jQueryDataTablesModel.uri = uri;
+			//string uri = CommonHelper.BaseUri + "UserController/GetUsers";
+			//jQueryDataTablesModel.uri = uri;
+			User user = null;
 			try
 			{
 
@@ -52,71 +54,93 @@ namespace CyroTechPortal
 				//	gridParams.ListFilterBy = jQueryDataTablesModel.GetColumnsFilters().ToList().Count > 0 ? jQueryDataTablesModel.GetColumnsFilters().ToList() : null;
 				//	StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
 				//	HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
-				
-					HttpResponseMessage response = GetGridData(jQueryDataTablesModel,false);
-					if (response.IsSuccessStatusCode)
+
+				//HttpResponseMessage response = GetGridData(jQueryDataTablesModel,true);
+				//if (response.IsSuccessStatusCode)
+				//{
+
+				//	var jsonString = response.Content.ReadAsStringAsync();
+				//	jsonString.Wait();
+				//	GridResult<User> result = JsonConvert.DeserializeObject<GridResult<User>>(jsonString.Result);
+				GridParam gridParams = new GridParam();
+				gridParams.PageNo = jQueryDataTablesModel.iDisplayStart;
+				gridParams.PageSize = jQueryDataTablesModel.iDisplayLength == 0 ? 10 : jQueryDataTablesModel.iDisplayLength;
+				gridParams.ListOrderBy = jQueryDataTablesModel.GetSortedColumns().ToList().Count > 0 ? jQueryDataTablesModel.GetSortedColumns().ToList() : null;
+				gridParams.ListFilterBy = jQueryDataTablesModel.GetColumnsFilters().ToList().Count > 0 ? jQueryDataTablesModel.GetColumnsFilters().ToList() : null;
+				if (Session != null && Session["User"] != null)
+				{
+					if (gridParams.ListFilterBy == null)
 					{
-                        
-						var jsonString = response.Content.ReadAsStringAsync();
-						jsonString.Wait();
-						GridResult<User> result = JsonConvert.DeserializeObject<GridResult<User>>(jsonString.Result);
-						List<User> retList = new List<DALEFModel.User>();
+						gridParams.ListFilterBy = new List<FilterField>();
+					}
+					user = (User)Session["User"];
+
+					//Always filter by orgid
+					gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+				}
+				else
+				{
+					RedirectToAction("Login", "Account");
+				}
+				UserRepository repo = new UserRepository();
+				GridResult<User> result = repo.GetUserList(gridParams);
+					List <User> retList = new List<DALEFModel.User>();
 						foreach (User item in result.Items)
 						{
-							if (item.StpData != null)
-							{
-								item.StpData = null;
-							}
-							if (item.StpData1 != null)
-							{
-								item.StpData1 = null;
-							}
-							if (item.StpData2 != null)
-							{
-								item.StpData2 = null;
-							}
+							//if (item.StpData != null)
+							//{
+							//	item.StpData = null;
+							//}
+							//if (item.StpData1 != null)
+							//{
+							//	item.StpData1 = null;
+							//}
+							//if (item.StpData2 != null)
+							//{
+							//	item.StpData2 = null;
+							//}
 							
-							if (item.User1 != null)
-							{
-								item.User1 = null;
-							}
-							if (item.User2 != null)
-							{
-								item.User2 = null;
-							}
-							if (item.User3 != null)
-							{
-								item.User3 = null;
-							}
-							if (item.User4 != null)
-							{
-								item.User4 = null;
-							}
-							if (item.User11 != null)
-							{
-								item.User11 = null;
-							}
-							if (item.User12 != null)
-							{
-								item.User12 = null;
-							}
-							if (item.UserRole != null)
-							{
-								item.UserRoleName = item.UserRole.RoleName;
-								item.UserRole = null;
-							}
-							if (item.Organization1 != null)
-							{
-								item.Organization1 = null;
-							}
-							if (item.StcData != null)
-							{
-								item.StcData = null;
-							}
-							if (item.Contact != null)
-							{
-								item.Contact = null;
-							}
+							//if (item.User1 != null)
+							//{
+							//	item.User1 = null;
+							//}
+							//if (item.User2 != null)
+							//{
+							//	item.User2 = null;
+							//}
+							//if (item.User3 != null)
+							//{
+							//	item.User3 = null;
+							//}
+							//if (item.User4 != null)
+							//{
+							//	item.User4 = null;
+							//}
+							//if (item.User11 != null)
+							//{
+							//	item.User11 = null;
+							//}
+							//if (item.User12 != null)
+							//{
+							//	item.User12 = null;
+							//}
+							//if (item.UserRole != null)
+							//{
+							//	item.UserRoleDesc = item.UserRole.RoleName;
+							//	item.UserRole = null;
+							//}
+							//if (item.Organization1 != null)
+							//{
+							//	item.Organization1 = null;
+							//}
+							//if (item.StcData != null)
+							//{
+							//	item.StcData = null;
+							//}
+							//if (item.Contact != null)
+							//{
+							//	item.Contact = null;
+							//}
 							item.IsActiveCheckBox = item.IsActive == true ? " <span class='label label-success'>" + Localizer.Current.GetString("True") + "</span></td>" : "<span class='label label-danger'>" + Localizer.Current.GetString("False") + "</span></td>";
 							item.EditButton = "<div class='btn-group-xs'><a href='#' class='btn btnEdit'  data-id='" + item.UserID +"' ><i class='fa fa-pencil' aria-hidden='true'></i></a></div>";
 							item.DeleteButton = "<div class='btn-group-xs'><a href='#' class='btn btnDelete'  data-id='" + item.UserID +"' ><i class='fa fa-times - square - o' aria-hidden='true'></i></a></div>";
@@ -131,12 +155,12 @@ namespace CyroTechPortal
 							aaData = retList
 						},
 						JsonRequestBehavior.AllowGet);
-					}
-					else
-					{
-						var readAsStringAsync = response.Content.ReadAsStringAsync();
-						return Content( readAsStringAsync.Result);
-					}
+					//}
+					//else
+					//{
+					//	var readAsStringAsync = response.Content.ReadAsStringAsync();
+					//	return Content( readAsStringAsync.Result);
+					//}
 
 				//}
 			}
@@ -167,36 +191,43 @@ namespace CyroTechPortal
 							StpThemeID = ((User)Session["User"]).StpThemeID,
 							StpLanguageID = ((User)Session["User"]).StpLanguageID,
 							OrgID = ((User)Session["User"]).OrgID,
-							IsActive = true,
+							
 						});
 					}
-                        using (HttpClient httpClient = new HttpClient())
-                        {
-                            httpClient.DefaultRequestHeaders.Accept.Clear();
-                            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				UserRepository repo = new UserRepository();
+				User item = repo.GetUser(id.ToString());
+				item.ChangeDateTime = SATime;
+				item.ChangedByID = ((User)Session["User"]).UserID;
 
-							HttpResponseMessage response = httpClient.GetAsync(uri + "/" + id + "/false").Result;
-                            var content = response.Content.ReadAsStringAsync();
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var settings = new JsonSerializerSettings
-                                {
-                                    NullValueHandling = NullValueHandling.Ignore,
-                                    MissingMemberHandling = MissingMemberHandling.Ignore
-                                };
-                                User item = JsonConvert.DeserializeObject<User>(content.Result, settings);
-								item.ChangeDateTime = SATime;
-								item.ChangedByID = ((User)Session["User"]).UserID;
-								
-								return PartialView("EditUser", item);
-                            }
-                            else
-                            {
-                                  return Content(content.Result);
-                            }
-                        }
-				}
-				catch (System.Exception ex)
+				return PartialView("EditUser", item);
+
+				//                 using (HttpClient httpClient = new HttpClient())
+				//                 {
+				//                     httpClient.DefaultRequestHeaders.Accept.Clear();
+				//                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+				//HttpResponseMessage response = httpClient.GetAsync(uri + "/" + id + "/false").Result;
+				//                     var content = response.Content.ReadAsStringAsync();
+				//                     if (response.IsSuccessStatusCode)
+				//                     {
+				//                         var settings = new JsonSerializerSettings
+				//                         {
+				//                             NullValueHandling = NullValueHandling.Ignore,
+				//                             MissingMemberHandling = MissingMemberHandling.Ignore
+				//                         };
+				//                         User item = JsonConvert.DeserializeObject<User>(content.Result, settings);
+				//	item.ChangeDateTime = SATime;
+				//	item.ChangedByID = ((User)Session["User"]).UserID;
+
+				//	return PartialView("EditUser", item);
+				//                     }
+				//                     else
+				//                     {
+				//                           return Content(content.Result);
+				//                     }
+				//                 }
+			}
+			catch (System.Exception ex)
 				{
 					return Content( ExceptionHandler.Handle(ex).CreateDetailNoHtml());
 				}
@@ -213,61 +244,96 @@ namespace CyroTechPortal
 
 			try
 				{
-
-				string uri = CommonHelper.BaseUri + "UserController/GetUser";
-				string uriAdd = CommonHelper.BaseUri + "UserController/User/add";
-				string uriUpdate = CommonHelper.BaseUri + "UserController/User/update";
-				User itemExists = null;
-				using (HttpClient httpClient = new HttpClient())
+				
+				UserRepository repo = new UserRepository();
+				
+				if (newItem.UserID == 0)
 				{
-
-					httpClient.DefaultRequestHeaders.Accept.Clear();
-					httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-					//Check exists
-					HttpResponseMessage response = httpClient.GetAsync(uri + "/" + newItem.UserID+ "/false").Result;
-					var content = response.Content.ReadAsStringAsync();
-					if (response.IsSuccessStatusCode)
+					if (newItem.UserRoleID == 9 && newItem.IsActive == newItem.Registered == false) //Ext officer
 					{
-							var settings = new JsonSerializerSettings
-							{
-							NullValueHandling = NullValueHandling.Ignore,
-							MissingMemberHandling = MissingMemberHandling.Ignore
-							};
-						itemExists = JsonConvert.DeserializeObject<User>(content.Result,settings);
+						newItem.Registered = true;
+						Common.Common.SendEmail("", newItem.Email, "Your Buna registration has been approved", "Your login credentials have been created for you " + Environment.NewLine + " Please login using the following Username : " + newItem.UserName + " and Password  1111  " + Environment.NewLine + " You will then be asked to create your own password.");
 					}
+					repo.Add(newItem);
 					
-					
-					//Insert
-					if (itemExists == null)
-					{
-						StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
-						HttpResponseMessage responseAdd = httpClient.PostAsync(uriAdd, content1).Result;
-						var resultAdd = responseAdd.Content.ReadAsStringAsync();
-						if (responseAdd.IsSuccessStatusCode)
-						{
-							return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Added")));
-						}
-						else
-						{
-							return Content(CommonHelper.ShowNotification(false, resultAdd.Result));
-						}
-					}
-					else//Update
-					{
-						newItem.UserPWDHash = itemExists.UserPWDHash;
-						StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
-						HttpResponseMessage responseOut = httpClient.PostAsync(uriUpdate, content1).Result;
-						var resultOut = responseOut.Content.ReadAsStringAsync();
-						if (responseOut.IsSuccessStatusCode)
-						{
-							return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Updated")));
-						}
-						else
-						{
-							return Content(CommonHelper.ShowNotification(false, resultOut.Result));
-						}
-					}
+					return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Added")));
 				}
+				else
+				{
+					if (newItem.UserRoleID == 9 && newItem.IsActive && newItem.Registered == false) //Ext officer
+					{
+						newItem.Registered = true;
+						Common.Common.SendEmail("", newItem.Email, "Your Buna registration has been approved", "Your login credentials have been created for you " + Environment.NewLine + " Please login using the following Username : " + newItem.UserName + " and Password  1111  " + Environment.NewLine + " You will then be asked to create your own password.");
+
+					}
+					repo.Update(newItem);
+					
+					return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Updated")));
+				}
+				//string uri = CommonHelper.BaseUri + "UserController/GetUser";
+				//string uriAdd = CommonHelper.BaseUri + "UserController/User/add";
+				//string uriUpdate = CommonHelper.BaseUri + "UserController/User/update";
+				//User itemExists = null;
+				//using (HttpClient httpClient = new HttpClient())
+				//{
+
+				//	httpClient.DefaultRequestHeaders.Accept.Clear();
+				//	httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				//	//Check exists
+				//	HttpResponseMessage response = httpClient.GetAsync(uri + "/" + newItem.UserID+ "/false").Result;
+				//	var content = response.Content.ReadAsStringAsync();
+				//	if (response.IsSuccessStatusCode)
+				//	{
+				//			var settings = new JsonSerializerSettings
+				//			{
+				//			NullValueHandling = NullValueHandling.Ignore,
+				//			MissingMemberHandling = MissingMemberHandling.Ignore
+				//			};
+				//		itemExists = JsonConvert.DeserializeObject<User>(content.Result,settings);
+				//	}
+
+
+				//	//Insert
+				//	if (itemExists == null)
+				//	{
+				//		newItem.UserPWDHash = Common.PasswordHash.CreateHash("1111");
+				//		newItem.UserName = newItem.Firstname + " " + newItem.Surname;
+				//		StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
+				//		HttpResponseMessage responseAdd = httpClient.PostAsync(uriAdd, content1).Result;
+				//		var resultAdd = responseAdd.Content.ReadAsStringAsync();
+				//		if (responseAdd.IsSuccessStatusCode)
+				//		{
+				//			if(newItem.StpDepartmentID == 2404 && newItem.IsActive) //Ext officer
+				//			{
+				//				Common.Common.SendEmail("", newItem.Email, "Your Buna registration has been approved", "Your login credentials have been created for you " + Environment.NewLine + " Please login using the following Username : " + newItem.UserName + " and Password  1111  " + Environment.NewLine + " You will then be asked to create your own password.");
+				//			}
+				//			return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Added")));
+				//		}
+				//		else
+				//		{
+				//			return Content(CommonHelper.ShowNotification(false, resultAdd.Result));
+				//		}
+				//	}
+				//	else//Update
+				//	{
+				//		newItem.UserPWDHash = itemExists.UserPWDHash;
+				//		StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
+				//		HttpResponseMessage responseOut = httpClient.PostAsync(uriUpdate, content1).Result;
+				//		var resultOut = responseOut.Content.ReadAsStringAsync();
+				//		if (responseOut.IsSuccessStatusCode)
+				//		{
+				//			if (newItem.StpDepartmentID == 2404 && newItem.IsActive && itemExists.IsActive == false) //Ext officer
+				//			{
+				//				Common.Common.SendEmail("", newItem.Email, "Your Buna registration has been approved", "Your login credentials have been created for you " + Environment.NewLine + " Please login using the following Username : " + newItem.UserName + " and Password  1111  " + Environment.NewLine + " You will then be asked to create your own password.");
+				//			}
+				//			return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Updated")));
+				//		}
+				//		else
+				//		{
+				//			return Content(CommonHelper.ShowNotification(false, resultOut.Result));
+				//		}
+				//	}
+				//}
 			}
 			catch (System.Exception ex)
 			{
@@ -280,33 +346,35 @@ namespace CyroTechPortal
 		/// <summary>
 		/// <param name="id">The identifier.</param>
 		/// <returns></returns>
-		public ActionResult DeleteUser(int? id)
+		public ActionResult DeleteUser(int id)
 		{
 			try
 			{
+				UserRepository repo = new UserRepository();
+				repo.Delete(id);
+				return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Deleted")));
+				//string uri = CommonHelper.BaseUri + "UserController/User/Delete";
+				//if (id == null)
+				//{
+				//	return View();
+				//}
+				//using (HttpClient httpClient = new HttpClient())
+				//{
 
-				string uri = CommonHelper.BaseUri + "UserController/User/Delete";
-				if (id == null)
-				{
-					return View();
-				}
-				using (HttpClient httpClient = new HttpClient())
-				{
-
-					StringContent content1 = new StringContent(id.ToString());
-					httpClient.DefaultRequestHeaders.Accept.Clear();
-					httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-					HttpResponseMessage response = httpClient.PostAsync(uri + "/" + id, content1).Result;
-					var content = response.Content.ReadAsStringAsync();
-					if (response.IsSuccessStatusCode)
-					{
-						return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Deleted")));
-					}
-					else
-					{
-						return Content(CommonHelper.ShowNotification(false, content.Result));
-					}
-				}
+				//	StringContent content1 = new StringContent(id.ToString());
+				//	httpClient.DefaultRequestHeaders.Accept.Clear();
+				//	httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				//	HttpResponseMessage response = httpClient.PostAsync(uri + "/" + id, content1).Result;
+				//	var content = response.Content.ReadAsStringAsync();
+				//	if (response.IsSuccessStatusCode)
+				//	{
+				//		return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Deleted")));
+				//	}
+				//	else
+				//	{
+				//		return Content(CommonHelper.ShowNotification(false, content.Result));
+				//	}
+				//}
 			}
 			catch (System.Exception ex)
 			{
@@ -424,7 +492,9 @@ namespace CyroTechPortal
 							StringBuilder usersList = new StringBuilder();
 							foreach (User user in item.usersReset)
 							{
-								usersList.Append(user.FullName + " - Email = " +user.Email + "<br>");
+								usersList.Append(user.Fullname + " - Email = " +user.Email + "<br>");
+								Common.Common.SendEmail("", user.Email, "Buna request response", "Please login using the following pin " + item.defaultPwd + " as your password."+Environment.NewLine+" You will be requested to create a new password.");
+
 							}
 							return Content(CommonHelper.ShowNotification(true,Localizer.Current.GetString("PasswordResetMessage") +"  <b>" +  item.defaultPwd + "</b><br>" + usersList.ToString()));
                         }

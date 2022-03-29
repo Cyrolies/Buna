@@ -76,13 +76,13 @@ namespace Controllers
 		/// <param name="includerelations">The includerelations.</param>
 		/// <returns></returns>
 		[HttpGet]
-		[Route("Login/{name}/{includerelations}")]
-		public HttpResponseMessage Login(string name, string includerelations)
+		[Route("Login/{name}/{active}/{includerelations}")]
+		public HttpResponseMessage Login(string name,string active, string includerelations)
 		{
 			HttpResponseMessage response = new HttpResponseMessage();
 			try
 			{
-				var user = manager.GetUser(name, System.Convert.ToBoolean(includerelations));
+				var user = manager.GetUser(name, System.Convert.ToBoolean(active), System.Convert.ToBoolean(includerelations));
 				if (user == null)
 				{
 					response = Request.CreateResponse(HttpStatusCode.NotFound);
@@ -117,7 +117,7 @@ namespace Controllers
 			}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ErrorDetail);
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 
@@ -144,7 +144,7 @@ namespace Controllers
 			}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "hello id =" + user.UserID.ToString() + ExceptionHandler.Handle(ex).ErrorDetail);
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "hello id =" + user.UserID.ToString() + ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 
@@ -167,7 +167,7 @@ namespace Controllers
 			}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ErrorDetail);
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}

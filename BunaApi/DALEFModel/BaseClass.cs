@@ -16,36 +16,26 @@ namespace DALEFModel
     {
 
 
-        [Display(Name = "IsActive", Order = 33)]
+       
         public bool IsActive { get; set; }
-
-        public string IsActiveCheckBox { get; set; }
-
         public byte[] VersionNo { get; set; }
      
         public User CreatedByUser { get; set; }
+        public User ChangedByUser { get; set; }
 
         public DateTime? CreateDateTime { get; set; } = DateTime.Now;
         public DateTime? ChangeDateTime { get; set; } = DateTime.Now;
 
         public string CreateDateTimeDisplay { get; set; }
         public string ChangeDateTimeDisplay { get; set; }
+
+        # region Grid Html fields
+
+		public string IsActiveCheckBox { get; set; }
         public string EditButton { get; set; }
         public string DeleteButton { get; set; }
 
-        #region HtmlAttribute fields
-
-        public string AddButtonHtmlAttributes { get; set; }
-        public string EditButtonHtmlAttributes { get; set; }
-        public string DeleteButtonHtmlAttributes { get; set; }
-
-        #endregion
-
-        #region Organization
-
-
-        //public int? PlantID { get; set; }
-        //public Plant Plant { get; set; }
+        public int TotalRows { get; set; }
 
         #endregion
 
@@ -58,13 +48,6 @@ namespace DALEFModel
 
         #region Supervision
         public Nullable<int> StcStatusID { get; set; }
-        //public string StcStatus
-        //{
-        //    get
-        //    {
-        //        return this.StcStatus?.a
-        //    }
-        //}
         public bool setToPendingUsable { get; set; }
       
         #endregion

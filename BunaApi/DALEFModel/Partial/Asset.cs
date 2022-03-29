@@ -17,11 +17,10 @@ namespace DALEFModel
 
 			public string AssetCategoryDesc { get; set; }
 			public string ParentAssetDesc { get; set; }
-			public string AssignedToDesc { get; set; }
+			public string PersonDesc { get; set; }
 			public string OrgDesc { get; set; }
 			public string CreatedByDesc { get; set; }
 			public string ChangedByDesc { get; set; }
 			public string StatusDesc { get; set; }
-		
 	}
 }

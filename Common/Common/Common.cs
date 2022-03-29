@@ -11,11 +11,62 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
+using System.Drawing;
+using System.Configuration;
+using System.Net.Mail;
 
 namespace Common
 {
     public static class Common
     {
+        public static void SendEmail(string fromAddress, string emailTo, string subject, string body)
+        {
+            try
+            {
+                //Send Email to User
+
+
+                if (ConfigurationManager.AppSettings["MailSmtp"].ToLower() == "gmail")
+                {
+                    //GMAIL smtp
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress(fromAddress);
+                    mail.To.Add(emailTo);
+                    mail.Subject = subject;
+                    mail.Body = body;
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["GmailAddress"], ConfigurationManager.AppSettings["GmailPassword"]);
+                    smtp.Send(mail);
+                }
+                if (ConfigurationManager.AppSettings["MailSmtp"].ToLower() == "cov")
+                {
+                    //cov mail.cov19screen.com
+                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("info@buna.africa"); 
+                    mail.To.Add(emailTo);
+                    mail.Subject = subject;
+                    mail.Body = body;
+                    SmtpClient smtp = new SmtpClient("mail5013.site4now.net");
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Port = 8889;
+                    smtp.EnableSsl = false;
+                    smtp.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["CovAddress"], ConfigurationManager.AppSettings["CovPassword"]);
+
+                    //smtp.Credentials = new System.Net.NetworkCredential("sdpschool@cov19screen.com", "ThornFarm1!");
+                    smtp.Send(mail);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         public static List<FilterField> GetFilters(ReadOnlyCollection<string> sSearch_, ReadOnlyCollection<string> mDataProp_)
         {
             var filteredColumns = new List<FilterField>();
@@ -58,10 +109,12 @@ namespace Common
                         {
                             filteredColumns.Add(new FilterField { Property = mDataProp_[i], Operator = "=", Value = sSearch_[i] });
                         }
-                        else if (regex.IsMatch(sSearch_[i]))
-                        {
-                            filteredColumns.Add(new FilterField { Property = mDataProp_[i], Operator = ">=", Value = sSearch_[i] });
-                        }
+                        //Took this out number could also be in a string field filter
+                        //Treat all numbers as string fields
+                        //else if (regex.IsMatch(sSearch_[i]))
+                        //{
+                        //    filteredColumns.Add(new FilterField { Property = mDataProp_[i], Operator = ">=", Value = sSearch_[i] });
+                        //}
                         else//If text then like search
                         {
                            filteredColumns.Add(new FilterField { Property = mDataProp_[i], Operator = "like", Value = sSearch_[i] });
@@ -73,7 +126,26 @@ namespace Common
             return filteredColumns;
         }
 
-        
+        public static Bitmap Resize_Image(Stream streamImage, int maxWidth, int maxHeight)
+        {
+            Bitmap originalImage = new Bitmap(streamImage);
+            int newWidth = originalImage.Width;
+            int newHeight = originalImage.Height;
+            double aspectRatio = Convert.ToDouble(originalImage.Width) / Convert.ToDouble(originalImage.Height);
+
+            if (aspectRatio <= 1 && originalImage.Width > maxWidth)
+            {
+                newWidth = maxWidth;
+                newHeight = Convert.ToInt32(Math.Round(newWidth / aspectRatio));
+            }
+            else if (aspectRatio > 1 && originalImage.Height > maxHeight)
+            {
+                newHeight = maxHeight;
+                newWidth = Convert.ToInt32(Math.Round(newHeight * aspectRatio));
+            }
+            return new Bitmap(originalImage, newWidth, newHeight);
+        }
+
         public static byte[] GetBytes(string str)
         {
             byte[] bytes = new byte[str.Length * sizeof(char)];
@@ -185,13 +257,13 @@ namespace Common
                 //TODO generate a list of fields which are isforeignkey=true and suffix ends with ID. to loop through 
                 switch (fieldname)
                 {
-                    case "Org":
-                    returnStr = "Organization";
-                    break;
-                    case"OrgID":
-                    returnStr = "Organization";
-                    break;
-                    case "BugCreatedByContactID":
+				//case "Org":
+				//returnStr = "Organization";
+				//break;
+				case "OrgID":
+					returnStr = "Organization";
+					break;
+				case "BugCreatedByContactID":
                     returnStr = "Contact";
                     break;
                     case "AssignedContactID":
@@ -275,19 +347,23 @@ namespace Common
                     case "WorkOrderID":
                         returnStr = "WorkOrder";
                         break;
-                case "UsedOnAssetID":
-                    returnStr = "Asset";
+                    case "UsedOnAssetID":
+                        returnStr = "Asset";
+                        break;
+                    case "AssetID":
+                        returnStr = "Asset";
+                        break;
+                    case "PersonID":
+                        returnStr = "Person";
+                        break;
+                case "SupplierID":
+                    returnStr = "Supplier";
                     break;
-
-                case "AssetID":
-                    returnStr = "Asset";
-                    break;
-
                 case "ID":
-                    returnStr = "";
-                    break;
-                    default:
-                    break;
+                        returnStr = "";
+                        break;
+                        default:
+                        break;
                 }
 
                 return returnStr;

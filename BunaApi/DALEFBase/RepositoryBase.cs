@@ -322,6 +322,7 @@ namespace DALEFBase
                         dbset.Include(path).Load();
                     }
                 }
+
                 if (whereclause != null)
                 {
                     return dbset.Where(whereclause);

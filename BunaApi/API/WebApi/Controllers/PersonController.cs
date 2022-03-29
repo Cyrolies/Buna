@@ -66,6 +66,7 @@ namespace Controllers
 		}
 
 		/// <summary>
+		/// <param name="newItem"></param>
 		/// Puts the specified Person.
 		/// <param name = "Person" > The Person.</param>
 		/// <returns></returns>
@@ -85,7 +86,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}
@@ -110,7 +111,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}
@@ -132,7 +133,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}

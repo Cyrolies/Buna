@@ -1,14 +1,15 @@
 ﻿@using DALEFModel;
 
-@if (Session["User"] != null)
-{
-    var adminManager = new CyroTechPortal.AdminController();
+@{ 
+    var adminManager = new BunaPortal.AdminController();
 
     User user = null;
     user = (User)Session["User"];
 
-    
+
     var menuItems = adminManager.GetMenuItems(user);
+
+    
 
     var mainMenuItems = menuItems.Where(o => o.EntityMenuParentID == null).OrderBy(o => o.ParentSequence).ToList();
 

@@ -40,12 +40,17 @@ namespace DSDBLL
 
 					//Include child objects
 					List<Expression<Func<Person, object>>> includepaths = new List<Expression<Func<Person, object>>>();
-					includepaths.Add(p => p.StpData);
-					includepaths.Add(p => p.StpData1);
-					includepaths.Add(p => p.StpData2);
 					includepaths.Add(p => p.Organization);
 					includepaths.Add(p => p.User);
 					includepaths.Add(p => p.User1);
+					includepaths.Add(p => p.User2);
+					includepaths.Add(p => p.StpData);
+					includepaths.Add(p => p.StpData1);
+					includepaths.Add(p => p.StpData2);
+					includepaths.Add(p => p.StpData3);
+					includepaths.Add(p => p.StpData4);
+					includepaths.Add(p => p.StpData5);
+
 
 					// Add includepaths into method here if used and not null
 					return Repository.Get<Person>(includepaths, p => p.PersonID == id);
@@ -99,12 +104,17 @@ namespace DSDBLL
 					//Add Includes here example below
 					//Include child objects
 					List<Expression<Func<Person, object>>> includepaths = new List<Expression<Func<Person, object>>>();
-					includepaths.Add(p => p.StpData);
-					includepaths.Add(p => p.StpData1);
-					includepaths.Add(p => p.StpData2);
 					includepaths.Add(p => p.Organization);
 					includepaths.Add(p => p.User);
 					includepaths.Add(p => p.User1);
+					includepaths.Add(p => p.StpData);
+					includepaths.Add(p => p.StpData1);
+					includepaths.Add(p => p.StpData2);
+					includepaths.Add(p => p.StpData3);
+					includepaths.Add(p => p.StpData4);
+					includepaths.Add(p => p.StpData5);
+					//includepaths.Add(p => p.User2);
+
 
 					//APPLY FILTERS
 					if (where != null)

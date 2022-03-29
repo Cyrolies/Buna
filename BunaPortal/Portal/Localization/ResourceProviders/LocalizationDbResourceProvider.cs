@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using DALEFModel;
 using Common;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class LocalizationDbResourceProvider : LocalizationResourceProviderBase
     {
@@ -39,8 +39,8 @@ namespace CyroTechPortal
 			}
 			else
 			{
-				return key + "(NoR)";//Use this to show all display names that need language keys added
-									 // return key;
+				return key;// + "(NoR)";//Use this to show all display names that need language keys added
+						   // return key;
 			}
 
 		}

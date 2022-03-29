@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CyroTechPortal")]
+[assembly: AssemblyTitle("BunaPortal")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CyroTech")]
-[assembly: AssemblyProduct("CyroTechPortal")]
+[assembly: AssemblyProduct("BunaPortal")]
 [assembly: AssemblyCopyright("CyroTech")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

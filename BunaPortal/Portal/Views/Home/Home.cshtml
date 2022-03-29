@@ -1,132 +1,254 @@
-@using CyroTechPortal;
+@using BunaPortal;
 @using DALEFModel;
 @{
-    ViewBag.Title = Localizer.Current.GetString("Home");
+    ViewBag.Title = "Buna Africa";
+}
+
+@{
+    bool canRegister = true;
+    if (Session != null && Session["User"] != null)
+    {
+        User user = (User)Session["User"];
+        if (user.UserRoleID == 5 || user.UserRoleID == 6)//Farmer or Supplier
+        {
+            canRegister = false;
+        }
+    }
+}
+
+<br />
+@if(canRegister)
+{
+<div class="col-md-12">
+    <div>
+        <div class="text-center">
+            <table>
+                <tr>
+                    <td><button class="btn btn-default" id="btnFarmer">@Localizer.Current.GetString("RegisterAsFarmer")</button>&nbsp;&nbsp;</td>
+                    <td><button class="btn btn-default" id="btnSupplier">@Localizer.Current.GetString("RegisterAsSupplier")</button>&nbsp;&nbsp;</td>
+                    <td><button class="btn btn-default" id="btnExtOfficer">@Localizer.Current.GetString("Register As Extension Officer")</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+}
+<br />
+<div class="col-md-12">
+    <div class="row">
+
+
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header no-border">
+                    <div>
+                        <h3 class="box-title">INTRODUCTION</h3>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    The web based app was developed in partnership between the Rural Fisheries Programme of the Department of Ichthyology and Fisheries Science at Rhodes University and the Water Research Commission.  The primary objectives of this App is to provide fish farmer with interactive technical information to increase production, connect farmer to farmer and to connect farmers with government support.  We hope this service will achieve its purpose and aquaculture will play its meaningful role in food production and economic development.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header no-border">
+                    <div>
+                        <h3 class="box-title">UPCOMING EVENTS</h3>
+                    </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <ul>
+                        <li> AFRAQ 2021.  Sustainable Aquaculture – Feeding Africa.  Alexandria Egypt.  March 25-28, 2022</li>
+                        <li>International Conference on Recirculating Aquaculture Systems ICRAS on December 13-14, 2022 in Cairo, Egypt</li>
+                    </ul>
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@if (Session["User"] != null)
+{
+
+    User user = (User)Session["User"];
+    if (user.UserRoleID != 6)//Not suppliers
+    {
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Partial("Charts/MultiBarChartHorizontal")
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-primary">
+
+                        <div class="box-header no-border">
+                            <div>
+                                <h3 class="box-title">WEATHER FORECAST</h3>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <button type="button" id="btnMaximizeWeather" class="btn btn-box-tool">
+                                    <i class="fa fa-window-maximize"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+
+                                @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                            </div>
+
+                        </div>
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <object type="text/html" data="~/Content/leaflet-openweathermap-master/example/index.html" width="100%" height="350px">
+                            </object>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
 }
 
 
-@{
 
-    if (Session["User"] != null)
-    {
-        User user = (User)Session["User"];
-        if (user.OrgID == 3)//Hitec
-        {
-            if (user.UserRoleID == 4 || user.UserRoleID == 6)//Manager or HitecJob Manager
-            {
-            <div class="row">
-                <div id="table" class="table-responsive">
-                    <div class="col-md-12">
-                        @Html.Partial("Charts/GanttChart")
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div id="table" class="table-responsive">
-                    <div class="col-md-12">
-                        @Html.Partial("Charts/MultiBarChart")
-                    </div>
-                </div>
-            </div>
-            }
-            if (user.UserRoleID == 5)//Supervisor
-            {
-            <div class="row">
-                <div id="table" class="table-responsive">
-                    <div class="col-md-12">
-                        @Html.Partial("Charts/GanttChart")
-                    </div>
-                </div>
-            </div>
-            }
-        }
-        if (user.OrgID == 4)//Thornfarm
-        {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=117'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>HIGH PERFORMANCE FEED</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=118'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>LOW PERFORMANCE FEED</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=116'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>DIESEL</h5>
-                            @*<i class='icon fa fa-check'></i>*@
-                        </div>
-                    </div>
-                </a>
-            </div>
-        
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=119'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>FERTILIZER</h5>
-                            @*<i class='icon fa fa-check'></i>*@
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=133'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>WATER READING</h5>
-                            @*<i class='icon fa fa-check'></i>*@
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href='../../Consumable/Consumable?consumableTypeID=134'>
-                    <div class="box box-primary">
-                        <div style="text-align:center;color:darkslategrey">
-                            <h5>SEED</h5>
-                            @*<i class='icon fa fa-check'></i>*@
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        </div>
-        }
 
-    }
-    else
-    {
-    <h2>THIS WEB ADDRESS DOES NOT EXIST</h2>
-    }
-    }
-    <script>
-        $('#btnFeed').on('click', function () {
 
-        });
+
+
+
+
+
+
+
+<div id="viewModalResult"></div>
+
+
+
+
+
+
+
+
+
+
+
+@section Header{
+
+    <h1>
+        WELCOME TO BUNA AFRICA
+    </h1>
+
+
+
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#btnMaximizeWeather').click(function (e) {
+
+                    e.preventDefault();
+                    $('#progressIcon').show();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("WeatherWindow", "Home")',
+                        dataType: "text",
+                        success: function (result) {
+                            $('#progressIcon').hide();
+                            if (result) {
+                                $('#viewModalResult').html(result);
+                            }
+                            else {
+                                ShowNotification(false, data.errorMessage)
+                            }
+                        }
+                    });
+                });
+
+                $('#btnFarmer').click(function (e) {
+
+                    e.preventDefault();
+                    $('#progressIcon').show();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopiMessage", "Home")',
+                        data: { regType:0 },
+                        dataType: "text",
+                        success: function (result) {
+                            $('#progressIcon').hide();
+                            if (result) {
+                                $('#viewModalResult').html(result);
+                            }
+                            else {
+                                ShowNotification(false, data.errorMessage)
+                            }
+                        }
+                    });
+                });
+
+                $('#btnSupplier').click(function (e) {
+
+                    e.preventDefault();
+                    $('#progressIcon').show();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopiMessage", "Home")',
+                        data: { regType:1 },
+                        dataType: "text",
+                        success: function (result) {
+                            $('#progressIcon').hide();
+                            if (result) {
+                                $('#viewModalResult').html(result);
+                            }
+                            else {
+                                ShowNotification(false, data.errorMessage)
+                            }
+                        }
+                    });
+                });
+
+
+                 $('#btnExtOfficer').click(function (e) {
+
+                    e.preventDefault();
+                    $('#progressIcon').show();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopiMessage", "Home")',
+                        data: { regType:2 },
+                        dataType: "text",
+                        success: function (result) {
+                            $('#progressIcon').hide();
+                            if (result) {
+                                $('#viewModalResult').html(result);
+                            }
+                            else {
+                                ShowNotification(false, data.errorMessage)
+                            }
+                        }
+                    });
+                });
+
+
+            });
+
     </script>
-
-    @section Header{
-        <h1>
-            @Localizer.Current.GetString("Home")
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
-
-        </ol>
-    }
+}

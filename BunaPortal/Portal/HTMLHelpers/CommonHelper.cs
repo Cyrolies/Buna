@@ -1,4 +1,5 @@
 ﻿using DALEFModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +9,7 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CyroTechPortal.HTMLHelpers
+namespace BunaPortal.HTMLHelpers
 {
 	public static class CommonHelper
 	{
@@ -73,9 +74,9 @@ namespace CyroTechPortal.HTMLHelpers
 
         #region "Response Message"
 
-        public static string ShowNotification(bool success, string message)
+        public static string ShowNotification(bool success, string message,bool? popupResults = null)
         {
-            if (ConfigurationManager.AppSettings["PopupResults"].ToString() == "1")
+            if (popupResults == null ? Convert.ToBoolean(ConfigurationManager.AppSettings["PopupResults"]) : (bool)popupResults)
             {
                 return PopUpNotification(success, message);
             }
@@ -102,6 +103,7 @@ namespace CyroTechPortal.HTMLHelpers
                 header = "Error";
                 alertClass = "alert-danger";
                 icon = "fa-ban";
+             //   message = JsonConvert.DeserializeObject<object>(message).ToString();
             }
 
             //< div class="alert alert-success alert-dismissible">
@@ -111,13 +113,14 @@ namespace CyroTechPortal.HTMLHelpers
             //        </div>
             var html = "<div class='alert " + alertClass + " alert-dismissible'>" +
                     "<button type=button class=close data-dismiss=alert aria-hidden=true>×</button>" +
-                    "<h4><i class='icon fa " + icon + "'></i> " + header + "</h4>" + message + "</div>" +
-                    "<script>" +
-            "$(document).ready(function() { " +
-            "document.getElementById('btnclose').onclick = function () { " +
-            " window.location.href = window.location.href;" +
-            " };" +
-            "});</script>";
+                    "<h4><i class='icon fa " + icon + "'></i> " + header + "</h4>" + message + "</div>";
+             //       "<script>" +
+            //"$(document).ready(function() { " +
+            //"document.getElementById('btnclose').onclick = function () { " +
+            //" $('#popupResult').modal('hide');" +
+            //" };" +
+            //"});"+
+            //"</script>";
             return html;
 
         }
@@ -128,7 +131,7 @@ namespace CyroTechPortal.HTMLHelpers
             string icon = string.Empty;
             string header = string.Empty;
             string alertClass = string.Empty;
-
+           
             if (success)
             {
                 header = "Success";
@@ -140,6 +143,7 @@ namespace CyroTechPortal.HTMLHelpers
                 header = "Error";
                 alertClass = "box box-danger";
                 icon = "fa-ban";
+             //   message = JsonConvert.DeserializeObject<object>(message).ToString();
             }
 
             var html = "<div class='modal fade' id='popupResult' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
@@ -160,7 +164,8 @@ namespace CyroTechPortal.HTMLHelpers
                       "</div>" +
             "<script>" +
              "document.getElementById('btncloseresult').onclick = function () { " +
-            " window.location.href = window.location.href;" +
+             " $('#popupResult').modal('hide');" +
+            //  " window.location.href = window.location.href;" +
             " };" +
 
             "$(document).ready(function() { " +

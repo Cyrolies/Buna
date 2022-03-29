@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class CustomerSearchModel
     {

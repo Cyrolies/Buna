@@ -9,16 +9,17 @@ using System.Linq;
 using System.Net.Http.Headers;
 using Models;
 using System;
-using CyroTechPortal.HTMLHelpers;
+using BunaPortal.HTMLHelpers;
 using System.Web;
+using BunaPortal.Repository;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
  
     /// <summary>
     /// All web administration functionality Activity/Entity/EntityField/EntityMenu/EntityResource
     /// </summary>
-    /// <seealso cref="CyroTechPortal.BaseController" />
+    /// <seealso cref="BunaPortal.BaseController" />
     public class AdminController : BaseController
     {
         //[HttpGet]
@@ -787,7 +788,7 @@ namespace CyroTechPortal
             {
                 string uri = CommonHelper.BaseUri + "AdminController/GetEntityResourceListByOrg"; 
                 List<EntityResource> fields = new List<EntityResource>();
-                int orgID = 1;
+                int orgID = 3;
                
 
                 if (CommonHelper.CacheGet("EntityResourcesCache") != null)
@@ -801,25 +802,10 @@ namespace CyroTechPortal
                     {
                         orgID = ((User)session["User"]).OrgID ?? 1;
                     }
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        //                  string orgID = "1";// default to Org 1
-                        //                  if (CommonHelper.CacheGet("OrgID") != null)
-                        //{
-                        
-                        //}
-                            
-                        HttpResponseMessage response = httpClient.GetAsync(uri + "/" + orgID).Result;
-                        var content = response.Content.ReadAsStringAsync();
-                        if (response.IsSuccessStatusCode)
-                        {
-                            fields = JsonConvert.DeserializeObject<List<EntityResource>>(content.Result);
-                            CommonHelper.CacheAdd("EntityResourcesCache", fields);
-                        }
-
-                    }
+                    BaseRepository repo = new BaseRepository();
+                    fields = repo.GetEntityResourceList(true, orgID.ToString());
+                    CommonHelper.CacheAdd("EntityResourcesCache", fields);
+                   
                 }
                 return fields.Where(o => o.ResourceKey == key && o.ResourceCulture.Contains(culture)).FirstOrDefault();
             }catch(System.Exception ex)
@@ -1119,104 +1105,70 @@ namespace CyroTechPortal
         /// <returns></returns>
         public List<EntityMenu> GetMenuItems(User user)
         {
-            string uri = CommonHelper.BaseUri + "AdminController/Menu";
-            try {
-                GridResult<EntityMenu> resultList = new GridResult<EntityMenu>();
+            try
+            {
+                List<EntityMenu> resultList = new List<EntityMenu>();
                 List<EntityMenu> menuItems = new List<EntityMenu>();
-                using (HttpClient httpClient = new HttpClient())
+
+                string orgid = "0";
+                if (user != null)
                 {
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    orgid = user.OrgID.ToString();
+                }
+                BaseRepository repo = new BaseRepository();
+                resultList = repo.GetEntityMenuList(true, orgid);
 
-                    GridParam gridParams = new GridParam();
-                    gridParams.PageNo = 0;
-                    gridParams.PageSize = 1000;
-
-                    gridParams.ListFilterBy.Add(new FilterField { Property = "IsActive", Operator = "=", Value = "true" });
-                    gridParams.ListFilterBy.Add(new FilterField { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
-                    
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
-                    if (response.IsSuccessStatusCode)
+                foreach (EntityMenu mnu in resultList)
+                {
+                    if (mnu.Url == null)//If empty then this is a sub menu header
                     {
-                        var jsonString = response.Content.ReadAsStringAsync();
-                        jsonString.Wait();
-                        resultList = JsonConvert.DeserializeObject<GridResult<EntityMenu>>(jsonString.Result);
-
-                        var items = resultList.Items;
-
-                       // User user = (User)Request.Cookies["User"].Value;
-
-                        //if (user.IsAdmin)
-                        //{
-                        //    //Get permissions
-                        //    foreach (EntityMenu mnu in items)
-                        //    {
-                        //        mnu.Param1 = "true";
-                        //        menuItems.Add(mnu);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        foreach (EntityMenu mnu in items)
+                        //Check all menu items under this sub menu header to see if any of them do not have NONE permission if true then show sub menu header
+                        //Get list of menus under this sub menu
+                        List<int?> subMenuEntityIds = resultList.Where(o => o.EntityMenuParentID != null && o.EntityMenuParentID == mnu.EntityMenuID).ToList().Select(o => o.EntityID).ToList();
+                        List<int?> linkedEntitiesToMenu = this.GetEntities().Where(o => subMenuEntityIds.Contains(o.EntityID)).ToList().Select(o => o.ActivityID).ToList();
+                        if (user != null && user.UserRoleActivity != null)
                         {
-							if (mnu.Url == null)//If empty then this is a sub menu header
-							{
-								//Check all menu items under this sub menu header to see if any of them do not have NONE permission if true then show sub menu header
-								//Get list of menus unde rthis sub menu
-								List<int?> subMenuEntityIds = items.Where(o => o.EntityMenuParentID != null && o.EntityMenuParentID == mnu.EntityMenuID).ToList().Select(o => o.EntityID).ToList();
-								List<int?> linkedEntitiesToMenu = this.GetEntities().Where(o => subMenuEntityIds.Contains(o.EntityID)).ToList().Select(o => o.ActivityID).ToList();
-								if (user != null && user.UserRoleActivity != null)
-								{
-									if (user.UserRoleActivity.Count > 0)
-									{
-										if (user.UserRoleActivity.Where(o => o.StcPermissionID < 24 && linkedEntitiesToMenu.Contains(o.ActivityID) ).Count() > 0)
-										{
-											menuItems.Add(mnu);
-										}
-									}
-								}
-							}
-							else
-							{
-								int? ActivityID = null;
-								if (mnu.EntityID != null)
-								{
-									ActivityID = this.GetEntities().Where(o => o.EntityID == mnu.EntityID).FirstOrDefault().ActivityID;
-								}
-								if (ActivityID == null)
-								{
-									mnu.MenuDisplayName = mnu.MenuDisplayName + "-NoActivityOnEntity";
-									menuItems.Add(mnu);
-								}
-								else
-								{
-									if (user != null && user.UserRoleActivity != null)
-									{
-										if (user.UserRoleActivity.Count > 0)
-										{
-											if (user.UserRoleActivity.Where(o => o.ActivityID == ActivityID && o.StcPermissionID < 23).Count() > 0)
-											{
-												menuItems.Add(mnu);
-											}
-										}
-									}
-								}
-							}
-
-						}
-                        //}
-
-                        return menuItems;
+                            if (user.UserRoleActivity.Count > 0)
+                            {
+                                if (user.UserRoleActivity.Where(o => o.StcPermissionID < 24 && linkedEntitiesToMenu.Contains(o.ActivityID)).Count() > 0)
+                                {
+                                    menuItems.Add(mnu);
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        var readAsStringAsync = response.Content.ReadAsStringAsync();
-                        throw new System.Exception(readAsStringAsync.Result);
+                        int? ActivityID = null;
+                        if (mnu.EntityID != null)
+                        {
+                            ActivityID = this.GetEntities().Where(o => o.EntityID == mnu.EntityID).FirstOrDefault().ActivityID;
+                        }
+                        if (ActivityID == null)
+                        {
+                            mnu.MenuDisplayName = mnu.MenuDisplayName;// + "-NoActivityOnEntity";
+                            menuItems.Add(mnu);
+                        }
+                        else
+                        {
+                            if (user != null && user.UserRoleActivity != null)
+                            {
+                                if (user.UserRoleActivity.Count > 0)
+                                {
+                                    if (user.UserRoleActivity.Where(o => o.ActivityID == ActivityID && o.StcPermissionID < 23).Count() > 0)
+                                    {
+                                        menuItems.Add(mnu);
+                                    }
+                                }
+                            }
+                        }
                     }
+
                 }
+                return menuItems;
+
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }

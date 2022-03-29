@@ -85,7 +85,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}
@@ -110,7 +110,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}
@@ -132,7 +132,7 @@ namespace Controllers
 				}
 			catch (System.Exception ex)
 			{
-				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).CreateDetailNoHtml());
+				response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ExceptionHandler.Handle(ex).ExceptionMessage);
 			}
 			return response;
 		}

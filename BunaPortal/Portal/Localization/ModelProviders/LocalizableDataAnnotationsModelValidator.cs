@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class LocalizableDataAnnotationsModelValidator : ModelValidator
     {

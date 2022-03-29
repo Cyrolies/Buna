@@ -598,8 +598,8 @@ namespace DSDBLL
             {
                 List<Expression<Func<Entity, object>>> includepaths = new List<Expression<Func<Entity, object>>>();
                 includepaths.Add(p => p.EntityField);
-                includepaths.Add(p => p.Organization);
-                includepaths.Add(p => p.Activity);
+               // includepaths.Add(p => p.Organization);
+               // includepaths.Add(p => p.Activity);
 
                 Entity data = Repository.Get<Entity>(includepaths, p => p.TableName == tablename);
                 return data;
@@ -1442,30 +1442,6 @@ namespace DSDBLL
                     {
                         return managerdbmng.GetList<Contact>(GetWhereClause<Contact>(filter)).ToList();
                     }
-                case "HitecJob":
-                    {
-                        return managerdbmng.GetList<HitecJob>(GetWhereClause<HitecJob>(filter)).ToList();
-                    }
-                case "Part":
-                    {
-                        return managerdbmng.GetList<Part>(GetWhereClause<Part>(filter)).ToList();
-                    }
-                case "WorkOrder":
-                    {
-                        return managerdbmng.GetList<WorkOrder>(GetWhereClause<WorkOrder>(filter)).ToList();
-                    }
-                case "WorkOrderPart":
-                    {
-                        return managerdbmng.GetList<WorkOrderPart>(GetWhereClause<WorkOrderPart>(filter)).ToList();
-                    }
-                case "StockTake":
-                    {
-                        return managerdbmng.GetList<StockTake>(GetWhereClause<StockTake>(filter)).ToList();
-                    }
-                case "vwStockReport":
-                    {
-                        return managerdbmng.GetList<vwStockReport>(GetWhereClause<vwStockReport>(filter)).ToList();
-                    }
                 case "Asset":
                     {
                         return managerdbmng.GetList<Asset>(GetWhereClause<Asset>(filter)).ToList();
@@ -1473,6 +1449,10 @@ namespace DSDBLL
                 case "Person":
                     {
                         return managerdbmng.GetList<Person>(GetWhereClause<Person>(filter)).ToList();
+                    }
+                case "Supplier":
+                    {
+                        return managerdbmng.GetList<Supplier>(GetWhereClause<Supplier>(filter)).ToList();
                     }
                 case "Consumable":
                     {
@@ -1512,24 +1492,24 @@ namespace DSDBLL
         }
         #endregion
         
-        #region Document
+        //#region Document
 
-        public int AddDocument(DALEFModel.Document newEntity)
-        {
-            return Repository.UoW.Add<DALEFModel.Document>(newEntity);
-        }
+        //public int AddDocument(DALEFModel.Document newEntity)
+        //{
+        //    return Repository.UoW.Add<DALEFModel.Document>(newEntity);
+        //}
 
-        public int UpdateDocument(DALEFModel.Document editEntity)
-        {
-            return Repository.UoW.Update<DALEFModel.Document>(editEntity);
-        }
+        //public int UpdateDocument(DALEFModel.Document editEntity)
+        //{
+        //    return Repository.UoW.Update<DALEFModel.Document>(editEntity);
+        //}
 
-        public int DeleteDocument(DALEFModel.Document deleteEntity)
-        {
-            return Repository.UoW.Delete<DALEFModel.Document>(deleteEntity);
-        }
+        //public int DeleteDocument(DALEFModel.Document deleteEntity)
+        //{
+        //    return Repository.UoW.Delete<DALEFModel.Document>(deleteEntity);
+        //}
 
-        #endregion
+        //#endregion
 
         #region Static Data Methods
 

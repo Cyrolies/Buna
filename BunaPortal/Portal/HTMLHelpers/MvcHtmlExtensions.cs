@@ -9,10 +9,11 @@ using System.Collections;
 using System.Globalization;
 using System.Text;
 using DALEFModel;
-using CyroTechPortal;
+using BunaPortal;
 using System.Web.Mvc.Html;
+using Common;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public static class MvcHtmlExtensions 
     {
@@ -26,7 +27,7 @@ namespace CyroTechPortal
                 string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
                 //   List<EntityField> entityfields = manager.GetEntityFieldList().Where(p => p.EntityFieldName == fieldname).ToList<EntityField>();
                 List<EntityField> entityfields = manager.GetEntityFieldListItems();
-                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
                 int permission = getFieldPermission(field);
                 if (permission == (Int32)Common.Enumerations.Permissions.None)//Permission is set to None
                 {
@@ -39,7 +40,7 @@ namespace CyroTechPortal
 
                 //if (permission < (Int32)Common.Enumerations.Permissions.View)//Permission is set to View
                 //{
-                    return System.Web.Mvc.Html.LabelExtensions.LabelFor(html, expression, Localizer.Current.GetString(field.EntityFieldName), new { @class = "control-label" });
+                    return System.Web.Mvc.Html.LabelExtensions.LabelFor(html, expression, Localizer.Current.GetString(field.DisplayName), new { @class = "control-label" });
                 //}
                 //return null;
             }
@@ -63,14 +64,14 @@ namespace CyroTechPortal
 			{
                 throw new Exception("This EntityField is not specified :" + fieldname +" on Entity : " + entityname);
             }
-            foreach (EntityField fd  in entityfields)
-            {
-                if (fd.Entity == null)
-                {
-                    throw new Exception("Entity child not specified on EntityField add relation in db :" + fieldname + " on Entity : " + entityname);
-                }
-            }
-            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+            //foreach (EntityField fd  in entityfields)
+            //{
+            //    if (fd.Entity == null)
+            //    {
+            //        throw new Exception("Entity child not specified on EntityField add relation in db :" + fieldname + " on Entity : " + entityname);
+            //    }
+            //}
+            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
 
             if (field == null)
             {
@@ -168,7 +169,7 @@ namespace CyroTechPortal
             string entityname = myObj.GetType().Name;
             string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
             List<EntityField> entityfields = manager.GetEntityFieldListItems();
-            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
 
             if (field != null)
             {
@@ -225,7 +226,7 @@ namespace CyroTechPortal
             string entityname = myObj.GetType().Name;
             string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
             List<EntityField> entityfields = manager.GetEntityFieldListItems();
-            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+            EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
 
             if (field != null)
             {
@@ -270,20 +271,38 @@ namespace CyroTechPortal
             }
         }
 
-        public static MvcHtmlString CustomDropDownListFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression) where TModel : new()
+        public static MvcHtmlString CustomDropDownListFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression,List<FilterField> extrafilters = null) where TModel : new()
         {
             try
             { 
+
                 AdminController manager = new AdminController();
                 TModel myObj = new TModel();
                 string entityname = myObj.GetType().Name;
                 string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
                 List<EntityField> entityfields = manager.GetEntityFieldListItems();
-                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
                 if(field == null)
 				{
                     throw new Exception("No entityfield found for : " + fieldname + " for Entity : " + entityname);
 				}
+                //Filter all data by orgid of user logged in and its not organization list
+                if (field.ForeignTable.ToLower() != "organization" && field.ForeignTable.ToLower() != "userrole" && field.ForeignTable.ToLower() != "supplier")
+                {
+                    string orgid = string.Empty;
+                    HttpSessionStateBase session = new HttpSessionStateWrapper(System.Web.HttpContext.Current.Session);
+                    if (session["User"] != null)
+                    {
+                        User user = (User)session["User"];
+                        orgid = user.OrgID.ToString();
+                        if(extrafilters == null)
+						{
+                            extrafilters = new List<FilterField>();
+						}
+                        extrafilters.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = orgid });
+                    }
+					
+                }
                 //Checks users permissions based on there userroles for this field 
                 int permission = getFieldPermission(field);
                 if (permission == (Int32)Common.Enumerations.Permissions.None)//Permission is set to None
@@ -291,7 +310,7 @@ namespace CyroTechPortal
                     return MvcHtmlString.Create(System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString()); // add hidden field if none
                 }
                 
-                IEnumerable<SelectListItem> selectList = manager.GetDataSelectList<TModel>("", field.EntityFieldName, entityname);
+                IEnumerable<SelectListItem> selectList = manager.GetDataSelectList<TModel>("", field.EntityFieldName, entityname, extrafilters);
 
                 if (!field.IsActive || field.IsDisabled)//check if field is disabled this overrides any permissions
                 {
@@ -323,8 +342,8 @@ namespace CyroTechPortal
 
 
                     //return System.Web.Mvc.Html.SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, Localizer.Current.GetString("Select"), routeValues);
-                    MvcHtmlString htm = MvcHtmlString.Create(System.Web.Mvc.Html.SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, Localizer.Current.GetString("Select"), routeValues).ToString() +
-                        System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString()); // add hidden field if its disabled
+                  //  MvcHtmlString htm = MvcHtmlString.Create(System.Web.Mvc.Html.SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, Localizer.Current.GetString("Select"), routeValues).ToString() +
+                  //      System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString()); // add hidden field if its disabled
 
                     return MvcHtmlString.Create(System.Web.Mvc.Html.SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, Localizer.Current.GetString("Select"), routeValues).ToString() +
 						System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString()); // add hidden field if its disabled
@@ -336,6 +355,67 @@ namespace CyroTechPortal
             }
         }
 
+        public static MvcHtmlString CustomUploadTextBoxFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression) where TModel : new()
+        {
+            try
+            {
+                AdminController manager = new AdminController();
+                TModel myObj = new TModel();
+                string entityname = myObj.GetType().Name;
+                string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
+                List<EntityField> entityfields = manager.GetEntityFieldListItems();
+                entityfields = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).ToList();
+                if (entityfields.Count() == 0)
+                {
+                    throw new Exception("This EntityField is not specified :" + fieldname + " on Entity : " + entityname);
+                }
+                foreach (EntityField fd in entityfields)
+                {
+                    if (fd.EntityDesc == null && fd.EntityDesc.Length == 0)
+                    {
+                        throw new Exception("Entity child not specified on EntityField add relation in db :" + fieldname + " on Entity : " + entityname);
+                    }
+                }
+                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
+
+                if (field == null)
+                {
+                    throw new Exception("This EntityField is not specified : " + fieldname + " on Entity : " + entityname);
+                }
+                int permission = getFieldPermission(field);
+                if (permission == (Int32)Common.Enumerations.Permissions.None)//Permission is set to None
+                {
+                    return new MvcHtmlString(System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString());
+                }
+                if (!field.IsActive || field.IsDisabled)//check if field is disabled this overrides any permissions
+                {
+                    permission = 11;
+                }
+
+                if (permission < (Int32)Common.Enumerations.Permissions.View)//Permission is set to View
+                {
+                    if (field.IsToolTip)
+                    {
+                        return System.Web.Mvc.Html.InputExtensions.TextBoxFor(htmlHelper, expression, new { @class = "form-control", @type = "file", style = "height:" + field.ControlHeight + ";\"", title = Localizer.Current.GetString("ToolTip" + field.EntityFieldName.Trim()) });
+                    }
+                    else
+                    {
+                        return System.Web.Mvc.Html.InputExtensions.TextBoxFor(htmlHelper, expression, new { @class = "form-control", @type = "file", style = "height:" + field.ControlHeight + ";\"" });
+                    }
+                }//read only viewable
+                else
+                {
+                    // return System.Web.Mvc.Html.InputExtensions.TextBoxFor(htmlHelper, expression, new { @class = "readOnly", @readonly = "read-only", @disabled = "disabled", style = "height:" + field.ControlHeight + ";\"", title = Localizer.Current.GetString("Disabled") });
+                    return System.Web.Mvc.Html.InputExtensions.TextBoxFor(htmlHelper, expression, new { @class = "readOnly", @readonly = "read-only", @type = "file", @disabled = "disabled", style = "height:" + field.ControlHeight + ";\"", title = Localizer.Current.GetString("Disabled") });
+                    //+
+                    //  System.Web.Mvc.Html.InputExtensions.HiddenFor(htmlHelper, expression).ToString()); // add hidden field if its disabled
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public static MvcHtmlString CustomValidationMessageFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression) where TModel : new()
         {
             try
@@ -345,7 +425,7 @@ namespace CyroTechPortal
                 string entityname = myObj.GetType().Name;
                 string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
                 List<EntityField> entityfields = manager.GetEntityFieldListItems();
-                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname).FirstOrDefault();
+                EntityField field = entityfields.Where(p => p.EntityFieldName == fieldname && p.EntityDesc == entityname).FirstOrDefault();
                 int permission = getFieldPermission(field);
                 if (permission == (Int32)Common.Enumerations.Permissions.None)//Permission is set to None
                 {
@@ -383,7 +463,42 @@ namespace CyroTechPortal
             }
         }
 
-		public static int getFieldPermission(EntityField field)
+        public static MvcHtmlString AjaxPopupWindow(this HtmlHelper html, ModelStateDictionary states)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (HttpContext.Current.Request.HttpMethod == "POST")
+            {
+                sb.Append("<script type=\"text/javascript\">");
+
+                if (!states.IsValid)
+                {
+                    var ul_tag = new TagBuilder("ul");
+
+                    foreach (var state in states.Values)
+                    {
+                        foreach (var e in state.Errors)
+                        {
+                            var li_tag = new TagBuilder("li");
+                            li_tag.SetInnerText(e.ErrorMessage);
+
+                            ul_tag.InnerHtml += li_tag.ToString();
+                        }
+                    }
+
+                    sb.AppendFormat("$.growl.error({{ title: \"{0}\", message: \"{1}\" }});", "Save Error", ul_tag);
+                }
+                //else
+                //{
+                //    sb.AppendFormat("$.growl.notice({{ title: \"{0}\", message: \"{1}\" }});", "Save Changes", "Update Complete");
+                //}
+
+                sb.Append(" </script>");
+            }
+
+            return MvcHtmlString.Create(sb.ToString());
+        }
+        public static int getFieldPermission(EntityField field)
 		{
 			int permission = 8;
 			
@@ -407,27 +522,27 @@ namespace CyroTechPortal
 			return permission;
 		}
 
-		//public static bool enableControl<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression) where TModel : new()
-		//{
-		//    BaseManager manager = new BaseManager();
-		//    TModel myObj = new TModel();
-		//    string entityname = myObj.GetType().Name;
-		//    string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
-		//    EntityField field = manager.Get<EntityField>(p => p.EntityFieldName == fieldname && p.Entity.Name == entityname);
-		//    if (!field.IsActive)//check if field is disabled this overrides any permissions
-		//    {
-		//        return false;
-		//    }
-		//    return getFieldPermission(manager, field.ActivityID, entityname);
+        //public static bool enableControl<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression) where TModel : new()
+        //{
+        //    BaseManager manager = new BaseManager();
+        //    TModel myObj = new TModel();
+        //    string entityname = myObj.GetType().Name;
+        //    string fieldname = expression.Body.ToString().Substring(expression.Body.ToString().IndexOf(".") + 1);
+        //    EntityField field = manager.Get<EntityField>(p => p.EntityFieldName == fieldname && p.EntityDesc== entityname);
+        //    if (!field.IsActive)//check if field is disabled this overrides any permissions
+        //    {
+        //        return false;
+        //    }
+        //    return getFieldPermission(manager, field.ActivityID, entityname);
 
-		//}
+        //}
 
 
 
-		/// <summary>
-		/// Returns a checkbox for each of the provided <paramref name="items"/>.
-		/// </summary>
-		public static MvcHtmlString CheckBoxListFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> items, object htmlAttributes = null)
+        /// <summary>
+        /// Returns a checkbox for each of the provided <paramref name="items"/>.
+        /// </summary>
+        public static MvcHtmlString CheckBoxListFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> items, object htmlAttributes = null)
         {
             try
             { 

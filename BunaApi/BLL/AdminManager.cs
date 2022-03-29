@@ -1130,20 +1130,20 @@ namespace DSDBLL
                 //Get total filtered rows before paging is applied 
                 result.TotalFilteredCount = list.Count();
                 list = list.Skip(filters.PageNo).Take(filters.PageSize);
-                if (filters.Includerelations)// Add includepaths into method 
-                {
-                    List<StpData> returnlist = new List<StpData>();
-                    foreach (StpData stdata in list)
-                    {
-                        stdata.StpDataType = this.Repository.Get<StpDataType>(o => o.StpDataTypeID == stdata.StpDataTypeID);
-                        returnlist.Add(stdata);
-                    }
+				if (filters.Includerelations)// Add includepaths into method 
+				{
+					List<StpData> returnlist = new List<StpData>();
+					foreach (StpData stdata in list.AsEnumerable<StpData>())
+					{
+						stdata.StpDataType = this.Repository.Get<StpDataType>(o => o.StpDataTypeID == stdata.StpDataTypeID);
+						returnlist.Add(stdata);
+					}
 
-                    result.Items = returnlist.AsQueryable();
-                }
-                else
-                {
-                    result.Items = list;
+					result.Items = returnlist.AsQueryable();
+				}
+				else
+				{
+					result.Items = list;
                 }
                 return result;
             }

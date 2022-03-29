@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public class JQueryDataTablesModelBinder : IModelBinder
     {

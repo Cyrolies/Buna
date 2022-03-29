@@ -17,9 +17,10 @@ using Newtonsoft.Json;
 using DALEFModel;
 using Common;
 using Models;
-using CyroTechPortal.HTMLHelpers;
+using BunaPortal.HTMLHelpers;
+using BunaPortal.Repository;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
 
 	public class PersonController : BaseController
@@ -45,61 +46,61 @@ namespace CyroTechPortal
 		/// <returns></returns>
 		public ActionResult GetPersonList(JQueryDataTablesModel jQueryDataTablesModel)
 		{
-			string uri = CommonHelper.BaseUri + "PersonController/Person";
-			jQueryDataTablesModel.uri = uri;
+			User user = null;
 			try
 			{
-
-					HttpResponseMessage response = GetGridData(jQueryDataTablesModel, true);
-					if (response.IsSuccessStatusCode)
+				GridParam gridParams = new GridParam();
+				gridParams.PageNo = jQueryDataTablesModel.iDisplayStart;
+				gridParams.PageSize = jQueryDataTablesModel.iDisplayLength == 0 ? 10 : jQueryDataTablesModel.iDisplayLength;
+				gridParams.ListOrderBy = jQueryDataTablesModel.GetSortedColumns().ToList().Count > 0 ? jQueryDataTablesModel.GetSortedColumns().ToList() : null;
+				gridParams.ListFilterBy = jQueryDataTablesModel.GetColumnsFilters().ToList().Count > 0 ? jQueryDataTablesModel.GetColumnsFilters().ToList() : null;
+				if (Session != null && Session["User"] != null)
+				{
+					if (gridParams.ListFilterBy == null)
 					{
-
-						var jsonString = response.Content.ReadAsStringAsync();
-						jsonString.Wait();
-						GridResult<Person> result = JsonConvert.DeserializeObject<GridResult<Person>>(jsonString.Result);
-						List<Person> retList = new List<Person>();
-						foreach (Person item in result.Items)
-						{
-
-							if (item.StpData != null)
-							{
-							item.TitleDesc = item.StpData.DataDescription;
-							item.StpData = null;
-							}
-							if (item.StpData1 != null)
-							{
-							item.PersonTypeDesc = item.StpData1.DataDescription;
-							item.StpData1 = null;
-							}
-							if (item.StpData2 != null)
-							{
-							item.PersonCategoryDesc = item.StpData2.DataDescription;
-							item.StpData2 = null;
-							}
-							item.Organization = null;
-							item.User = null;
-							item.User1 = null;
-						item.StcData = null;
-						item.Asset = null;
-							item.EditButton = "<div class='btn-group btn-group-xs'><a href='#' class='btn btnEdit'  data-id='" + item.PersonID +"' ><i class='fa fa-pencil' aria-hidden='true'></i></a></div>";
-							item.DeleteButton = "<div class='btn-group btn-group-xs'><a href='#' class='btn btnDelete'  data-id='" + item.PersonID +"' ><i class='fa fa-times - square - o' aria-hidden='true'></i></a></div>";
-						retList.Add(item);
-						}
-
-						return Json(new
-						{
-							sEcho = jQueryDataTablesModel.sEcho,
-							iTotalRecords = result.TotalCount,
-							iTotalDisplayRecords = result.TotalFilteredCount,
-							aaData = retList
-						},
-						JsonRequestBehavior.AllowGet);
+						gridParams.ListFilterBy = new List<FilterField>();
 					}
-					else
+					user = (User)Session["User"];
+
+					if (user.UserRoleID == 5)//Its a Farmer thats logged in then only show his farms
 					{
-						var readAsStringAsync = response.Content.ReadAsStringAsync();
-						return Content(CommonHelper.ShowNotification(false, readAsStringAsync.Result));
+						gridParams.ListFilterBy.Add(new FilterField() { Property = "UserID", Operator = "=", Value = user.UserID.ToString() });
 					}
+					//Always filter by orgid
+					gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+				}
+				else
+				{
+					RedirectToAction("Login", "Account");
+				}
+
+				List<Person> retList = new List<Person>();
+				PersonRepository repo = new PersonRepository();
+				GridResult<Person> result = repo.GetPersonList(gridParams);
+							
+				foreach (Person item in result.Items)
+				{
+											
+					item.EditButton = "<div class='btn-group btn-group-xs'><a href='#' class='btn btnEdit'  data-id='" + item.PersonID + "' ><i class='fa fa-pencil' aria-hidden='true'></i></a></div>";
+
+					if (user.UserRoleID != 5 && user.UserRoleID != 6)
+					{
+						item.IsActiveCheckBox = item.IsActive == true ? " <span class='label label-success'>" + Localizer.Current.GetString("True") + "</span></td>" : "<span class='label label-danger'>" + Localizer.Current.GetString("False") + "</span></td>";
+						item.DeleteButton = "<div class='btn-group btn-group-xs'><a href='#' class='btn btnDelete'  data-id='" + item.PersonID + "' ><i class='fa fa-times - square - o' aria-hidden='true'></i></a></div>";
+					}
+						
+				retList.Add(item);
+				}
+
+				return Json(new
+				{
+					sEcho = jQueryDataTablesModel.sEcho,
+					iTotalRecords = result.TotalCount,
+					iTotalDisplayRecords = result.TotalFilteredCount,
+					aaData = retList
+				},
+				JsonRequestBehavior.AllowGet);
+					
 
 			}
 			catch (System.Exception ex)
@@ -117,45 +118,51 @@ namespace CyroTechPortal
 
 			try
 				{
-
-					DateTime SATime = TimeZoneInfo.ConvertTime(DateTime.Now,
-					TimeZoneInfo.FindSystemTimeZoneById("South Africa Standard Time"));
-					string uri = CommonHelper.BaseUri + "PersonController/Person";
-					if (id == null)
+					User user = null;
+					string viewToUse = "EditPersonMalawi";
+					//int stpPersonType = 122; //Malawi
+					if (Session != null && Session["User"] != null)
 					{
-						return PartialView("EditPerson", new Person() 
-							{
-								CreateDateTime = SATime,
-								CreatedByID = ((User)Session["User"]).UserID,
-								OrgID = ((User)Session["User"]).OrgID,
-								IsActive = true,
-							});
-					}
-					using (HttpClient httpClient = new HttpClient())
-					{
-						httpClient.DefaultRequestHeaders.Accept.Clear();
-						httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-						HttpResponseMessage response = httpClient.GetAsync(uri + "/" + id + "/true").Result;
-						var content = response.Content.ReadAsStringAsync();
-						if (response.IsSuccessStatusCode)
-					{
-							var settings = new JsonSerializerSettings
-							{
-							NullValueHandling = NullValueHandling.Ignore,
-							MissingMemberHandling = MissingMemberHandling.Ignore
-							};
-							Person item = JsonConvert.DeserializeObject<Person>(content.Result,settings);
-							item.ChangeDateTime = SATime;
-							item.CreatedByID = ((User)Session["User"]).UserID;
-							item.OrgID = ((User)Session["User"]).OrgID;
-							return PartialView("EditPerson", item);
+						user = (User)Session["User"];
+						if(user.OrgID == 4)
+						{
+							viewToUse = "EditPersonZambia";
 						}
+					}
 					else
 					{
-							return Content(CommonHelper.ShowNotification(false, content.Result));
-						}
-
+						return RedirectToAction("Home", "Home");
 					}
+					
+					DateTime SATime = TimeZoneInfo.ConvertTime(DateTime.Now,
+					TimeZoneInfo.FindSystemTimeZoneById("South Africa Standard Time"));
+					
+					
+					if (id == null)
+					{
+					if (user.UserRoleID == 5)//Is a farmer
+					{
+						return Content(CommonHelper.ShowNotification(false, "You do not have permission to add farmers"));
+					}
+
+					return PartialView(viewToUse, new Person()
+						{
+							CreateDateTime = SATime,
+							CreatedByID = ((User)Session["User"]).UserID,
+							OrgID = ((User)Session["User"]).OrgID,
+							StpPersonTypeID = 122,
+							IsActive = false,
+						});
+					}
+				
+					PersonRepository repo = new PersonRepository();
+					Person item = repo.GetPerson(id.ToString());
+					item.ChangeDateTime = SATime;
+					item.CreatedByID = ((User)Session["User"]).UserID;
+					
+							
+					return PartialView(viewToUse, item);
+					
 				}
 				catch (System.Exception ex)
 				{
@@ -174,57 +181,24 @@ namespace CyroTechPortal
 
 			try
 				{
-
-				string uri = CommonHelper.BaseUri + "PersonController/Person";
-				string uriAdd = CommonHelper.BaseUri + "PersonController/Person/add";
-				string uriUpdate = CommonHelper.BaseUri + "PersonController/Person/update";
-				Person itemExists = null;
-				using (HttpClient httpClient = new HttpClient())
+				//if (Session == null && Session["User"] == null)
+				//{
+				//	RedirectToAction("Home", "Home");
+				//}
+				//User user = (User)Session["User"];
+				PersonRepository repo = new PersonRepository();
+				if(newItem.PersonID == 0)
 				{
-
-					httpClient.DefaultRequestHeaders.Accept.Clear();
-					httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-					//Check exists
-					HttpResponseMessage response = httpClient.GetAsync(uri + "/" + newItem.PersonID+ "/false").Result;
-					var content = response.Content.ReadAsStringAsync();
-					if (response.IsSuccessStatusCode)
-					{
-							var settings = new JsonSerializerSettings
-							{
-							NullValueHandling = NullValueHandling.Ignore,
-							MissingMemberHandling = MissingMemberHandling.Ignore
-							};
-						itemExists = JsonConvert.DeserializeObject<Person>(content.Result,settings);
-					}
-					StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
-					//Insert
-					if (itemExists == null)
-					{
-						HttpResponseMessage responseAdd = httpClient.PostAsync(uriAdd, content1).Result;
-						var resultAdd = responseAdd.Content.ReadAsStringAsync();
-						if (responseAdd.IsSuccessStatusCode)
-						{
-							return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Added")));
-						}
-						else
-						{
-							return Content(CommonHelper.ShowNotification(false, resultAdd.Result));
-						}
-					}
-					else//Update
-					{
-						HttpResponseMessage responseOut = httpClient.PostAsync(uriUpdate, content1).Result;
-						var resultOut = responseOut.Content.ReadAsStringAsync();
-						if (responseOut.IsSuccessStatusCode)
-						{
-							return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Updated")));
-						}
-						else
-						{
-							return Content(CommonHelper.ShowNotification(false, resultOut.Result));
-						}
-					}
+					repo.Add(newItem);
+					return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Added")));
 				}
+				else
+
+				{
+					repo.Update(newItem);
+					return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Updated")));
+				}
+				
 			}
 			catch (System.Exception ex)
 			{
@@ -237,33 +211,15 @@ namespace CyroTechPortal
 		/// <summary>
 		/// <param name="id">The identifier.</param>
 		/// <returns></returns>
-		public ActionResult DeletePerson(int? id)
+		public ActionResult DeletePerson(int id)
 		{
 			try
 			{
 
-				string uri = CommonHelper.BaseUri + "PersonController/Person/delete";
-				if (id == null)
-				{
-					return View();
-				}
-				using (HttpClient httpClient = new HttpClient())
-				{
-
-					StringContent content1 = new StringContent(id.ToString());
-					httpClient.DefaultRequestHeaders.Accept.Clear();
-					httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-					HttpResponseMessage response = httpClient.PostAsync(uri + "/" + id, content1).Result;
-					var content = response.Content.ReadAsStringAsync();
-					if (response.IsSuccessStatusCode)
-					{
-						return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Deleted")));
-					}
-					else
-					{
-						return Content(CommonHelper.ShowNotification(false, content.Result));
-					}
-				}
+				PersonRepository repo = new PersonRepository();
+				repo.Delete(id);
+				return  Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Successfully Deleted")));
+				
 			}
 			catch (System.Exception ex)
 			{
@@ -318,6 +274,38 @@ namespace CyroTechPortal
 		{
 			throw ex;
 		}
+		}
+		#endregion
+
+		#region Asset- Farm
+		public ActionResult GetFarmAsset(string Farmname,int farmtype)
+		{
+
+			try
+			{
+				Asset newFarm = new Asset()
+				{
+					Name = Farmname,
+					StpAssetCategoryID = farmtype,
+					IsActive = false,
+
+				};
+				DateTime SATime = TimeZoneInfo.ConvertTime(DateTime.Now,
+				TimeZoneInfo.FindSystemTimeZoneById("South Africa Standard Time"));
+				return PartialView("EditAsset", new Asset()
+					{
+						CreateDateTime = SATime,
+						CreatedByID = ((User)Session["User"]).UserID,
+						OrgID = ((User)Session["User"]).OrgID,
+						IsActive = true,
+					});
+				
+			}
+			catch (System.Exception ex)
+			{
+				return Content(CommonHelper.ShowNotification(false, ExceptionHandler.Handle(ex).CreateDetailNoHtml()));
+			}
+
 		}
 		#endregion
 	}

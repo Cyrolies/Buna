@@ -1,4 +1,4 @@
-@using CyroTechPortal;
+@using BunaPortal;
 @model DALEFModel.EntityField
 <script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
 	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -239,7 +239,11 @@
 	<script>
 		$(document).ready(function () {
 		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
-		$('#modal1').modal('show');
+            $('#modal1').modal('show');
+            $("#modal1").on('hide.bs.modal', function () {
+                $('#tblGridEntityField').DataTable().ajax.reload();
+
+            });
 		document.getElementById("btnclose").onclick = function () { $('#tblGridEntityField').DataTable().ajax.reload(); };
 		});
 	</script>

@@ -1,4 +1,4 @@
-@using CyroTechPortal;
+@using BunaPortal;
 
 <div class="row">
     <div class="col-md-12">
@@ -25,7 +25,9 @@
                             <tr>
                                 <th>UserID</th>
                                 <th>@Localizer.Current.GetString("UserName")</th>
-                                <th>@Localizer.Current.GetString("FullName")</th>
+                                <th>@Localizer.Current.GetString("Fullname")</th>
+                                <th>@Localizer.Current.GetString("Email")</th>
+                                <th>@Localizer.Current.GetString("Department")</th>
                                 <th>@Localizer.Current.GetString("UserRole")</th>
                                 <th>@Localizer.Current.GetString("IsActive")</th>
                                 <th></th>
@@ -39,7 +41,7 @@
     </div>
     @section Header{
         <h1>
-            @Localizer.Current.GetString("User")
+            @Localizer.Current.GetString("Users")
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
@@ -53,6 +55,67 @@
         <script type="text/javascript">
 
 		$(document).ready(function() {
+
+			//Filter drop down data
+			var filterList1 = [];
+			$.ajax({
+					type: 'POST',
+					url: '@Url.Action("PrePopulateInput", "Base")',
+					data: {
+						field: 'UserRoleID as ID,RoleName as Description',
+						table: 'UserRole',
+						where: 'UserRoleID != 1 AND IsActive = 1',
+                        orderby: 'RoleName',
+					},
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+
+						for (var i = 0; i < data.result.length; i++) {
+                            filterList1.push(
+								{
+									"value": data.result[i].id,
+									"label": data.result[i].Description
+								}
+							)
+						}
+					}
+					,
+					error: function (data) {
+
+						alert('Error populating filter ' + JSON.stringify(data));
+					}
+			});
+
+			var filterList2 = [];
+			$.ajax({
+					type: 'POST',
+					url: '@Url.Action("PrePopulateInput", "Base")',
+					data: {
+						field: 'StpDataID as ID,DataDescription as Description',
+						table: 'StpData',
+						where: ' StpDataTypeID = 20',
+						orderby: 'DataDescription',
+					},
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+
+						for (var i = 0; i < data.result.length; i++) {
+                            filterList2.push(
+								{
+									"value": data.result[i].id,
+									"label": data.result[i].Description
+								}
+							)
+						}
+					}
+					,
+					error: function (data) {
+
+						alert('Error populating filter ' + JSON.stringify(data));
+					}
+			});
 
 			$('#responseMessageUser').html("");
 
@@ -80,13 +143,17 @@
 		"aoColumns": [
 			 { "mDataProp": "UserID" },
 			 { "mDataProp": "UserName" },
-			 { "mDataProp": "FullName" },
-			 { "mDataProp": "UserRoleName" },
+			{ "mDataProp": "Fullname" },
+			{ "mDataProp": "Email" },
+            { "mDataProp": "StpDepartmentID" },
+			 { "mDataProp": "UserRoleID" },
 			 {"mDataProp": "IsActiveCheckBox" },
 			 {"mDataProp": "EditButton" },
-			 {"mDataProp": "DeleteButton" },
+			{ "mDataProp": "DeleteButton" },
+			{ "mDataProp": "UserRoleDesc" },
+            { "mDataProp": "DepartmentDesc" },
 		],
-		"columnDefs": [{ visible: false, targets: [0] },{ orderable: false, targets: [5,6] } ],
+                "columnDefs": [{ visible: false, targets: [0, 9, 10] }, { orderable: false, targets: [7, 8] }, { "render": function (data, type, row) { return row.UserRoleDesc; }, "targets": [5] }, { "render": function (data, type, row) { return row.DepartmentDesc; }, "targets": [4] }],
 		"buttons": [
             {
                 text: '<i class="fa fa-user-times" aria-hidden="true"></i>',
@@ -208,11 +275,24 @@
 			},
             {
                 column_number: 3,
-                filter_type: "text",
+                filter_type: "select",
+                data: filterList2,
                 filter_delay: 500
 			},
             {
-				column_number: 4,
+                column_number: 4,
+                filter_type: "select",
+                data: filterList1,
+                filter_delay: 500
+            },
+            {
+                column_number: 5,
+                filter_type: "select",
+                data: filterList1,
+                filter_delay: 500
+            },
+            {
+				column_number: 6,
                 select_type: 'select2',
 				data: ["True", "False"]
 			},
@@ -259,7 +339,7 @@
                     $('#progressIcon').hide();
 				$('#viewModalUser').html(result);
 					$('#tblGridUser').DataTable().ajax.reload();
-                    
+
 				},
 			 });
 			 }
@@ -284,7 +364,7 @@
 				dataType: "text",
 				success: function(result)
 				{
-				
+
 				if (result)
 				{
                     $('#viewModalUser').html(result);

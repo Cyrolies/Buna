@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 
-namespace CyroTechPortal.HTMLHelpers
+namespace BunaPortal.HTMLHelpers
 {
     public class SessionTimeoutAttribute : System.Web.Mvc.ActionFilterAttribute
 	{

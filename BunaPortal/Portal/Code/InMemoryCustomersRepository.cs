@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     /// <summary>
     /// Contains sorting helpers for In Memory collections.

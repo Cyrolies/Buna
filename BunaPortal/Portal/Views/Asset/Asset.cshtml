@@ -1,4 +1,4 @@
-@using CyroTechPortal;
+@using BunaPortal;
 @{
  ViewBag.Title = Localizer.Current.GetString("Asset");
 }
@@ -17,17 +17,18 @@
 		<div id="table" class="table-responsive">
 		<table id= "tblGridAsset" class="table no-margin">
 		<thead>
-			<tr>
-		<th>AssetID</th>
-		<th>@Localizer.Current.GetString("Code")</th>
-		<th>@Localizer.Current.GetString("Name")</th>
-		<th>@Localizer.Current.GetString("StpAssetCategoryID")</th>
-		<th>@Localizer.Current.GetString("ParentAssetID")</th>
-		<th>@Localizer.Current.GetString("IsActive")</th>
-		<th>@Localizer.Current.GetString("AssignedToID")</th>
-		<th></th>
-		<th></th>
-			</tr>
+            <tr>
+                <th>AssetID</th>
+                <th>@Localizer.Current.GetString("FarmName")</th>
+                <th>@Localizer.Current.GetString("PersonID")</th>
+                <th>@Localizer.Current.GetString("StpAssetCategoryID")</th> <!--Farm Type-->
+                <th>@Localizer.Current.GetString("Detail")</th>
+                <th>@Localizer.Current.GetString("Size")</th>
+                <th>@Localizer.Current.GetString("IsActive")</th>
+
+                <th></th>
+                <th></th>
+            </tr>
 		</thead>
 		</table>
 		</div>
@@ -36,7 +37,7 @@
 </div>
 	@section Header{
 	<h1>
-	@Localizer.Current.GetString("Asset")
+	@Localizer.Current.GetString("Farms")
 	</h1>
 	<ol class="breadcrumb">
 	<li><a href = "/" ><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
@@ -51,15 +52,16 @@
 
 		$(document).ready(function() {
 
-			//Filter drop down data
-			var filterList1 = [];
+			
+
+			var filterList2 = [];
 			$.ajax({
 					type: 'POST',
 					url: '@Url.Action("PrePopulateInput", "Base")',
 					data: {
 						field: 'StpDataID as ID,DataDescription as Description',
 						table: 'StpData',
-						where: ' StpDataTypeID = 27',
+                        where: ' StpDataTypeID = 27',
 						orderby: 'DataDescription',
 					},
 					dataType: 'json',
@@ -67,7 +69,7 @@
 					success: function (data) {
 
 						for (var i = 0; i < data.result.length; i++) {
-                            filterList1.push(
+                            filterList2.push(
 								{
 									"value": data.result[i].id,
 									"label": data.result[i].Description
@@ -82,34 +84,7 @@
 					}
 				});
 
-			var filterList2 = [];
-			$.ajax({
-					type: 'POST',
-					url: '@Url.Action("PrePopulateInput", "Base")',
-					data: {
-						field: 'AssetID as ID,Name as Description',
-						table: 'Asset',
-						where: 'IsActive = 1',
-						orderby: 'Name',
-					},
-					dataType: 'json',
-					async: false,
-					success: function (data) {
 
-						for (var i = 0; i < data.result.length; i++) {
-                            filterList2.push(
-								{
-									"value": data.result[i].id,
-									"label": data.result[i].Description
-								}
-							)
-						}
-				},
-                error: function (data) {
-
-					alert('Error populating filter ' + JSON.stringify(data));
-                }
-				});
 
 			var filterList3 = [];
 			$.ajax({
@@ -166,20 +141,19 @@
 			"dom": 'T<"clear"><Blp>rtip',
 			"lengthMenu": [[10, 100, 500, 1000, -1], [10, 100, 500, 1000, "All"]],
 		"aoColumns": [
-			 { "mDataProp": "AssetID" },
-			 { "mDataProp": "Code" },
-			 { "mDataProp": "Name" },
+			{ "mDataProp": "AssetID" },
+            { "mDataProp": "Name" },
+			 { "mDataProp": "PersonID" },
 			 { "mDataProp": "StpAssetCategoryID" },
-			 { "mDataProp": "ParentAssetID" },
-			 {"mDataProp": "IsActiveCheckBox" },
-			 { "mDataProp": "AssignedToID" },
-			 {"mDataProp": "EditButton" },
-			 {"mDataProp": "DeleteButton" },
+			 { "mDataProp": "Description" },
+             { "mDataProp": "Size" },
+			 { "mDataProp": "IsActiveCheckBox" },
+             { "mDataProp": "EditButton" },
+			 { "mDataProp": "DeleteButton" },
 			 { "mDataProp": "AssetCategoryDesc" },
-			 { "mDataProp": "ParentAssetDesc" },
-			 { "mDataProp": "AssignedToDesc" },
+             { "mDataProp": "PersonDesc" },
 		],
-		"columnDefs": [{ visible: false, targets: [0,9,10,11] },{ orderable: false, targets: [6,7] },{"render": function(data, type, row) {  return row.AssetCategoryDesc;},"targets": [3]},{"render": function(data, type, row) {  return row.ParentAssetDesc;},"targets": [4]},{"render": function(data, type, row) {  return row.AssignedToDesc;},"targets": [6]} ],
+                "columnDefs": [{ visible: false, targets: [0, 9, 10] }, { orderable: false, targets: [7, 8] }, { "render": function (data, type, row) { return row.AssetCategoryDesc; }, "targets": [3] }, { "render": function (data, type, row) { return row.PersonDesc;},"targets": [2]} ],
 		"buttons": [
 			{
 				text: '<i class="fa fa-plus" aria-hidden="true"></i>',
@@ -262,38 +236,38 @@
 		}
 		}).yadcf([
 			{
-				 column_number: 1,
-				filter_type: "text",
-				filter_delay: 500
+				column_number: 1,
+                filter_type: "text",
+       			filter_delay: 500
 			},
-			{
-				 column_number: 2,
-				filter_type: "text",
-				filter_delay: 500
-			},
+            {
+                column_number: 2,
+                filter_type: "select",
+                data: filterList3,
+                filter_delay: 500
+            },
 			{
 				column_number: 3,
-				filter_type: "select",
-				data: filterList1,
-				filter_delay: 500
-			},
-			{
-				column_number: 4,
 				filter_type: "select",
 				data: filterList2,
 				filter_delay: 500
 			},
+            {
+                column_number: 4,
+                filter_type: "text",
+                filter_delay: 500
+            },
 			{
-				 column_number: 5,
-				filter_type: "select",
-				data: ["True", "False"]
+                column_number: 5,
+                filter_type: "text",
+                filter_delay: 500
 			},
 			{
 				column_number: 6,
 				filter_type: "select",
-				data: filterList3,
-				filter_delay: 500
+				data: ["True", "False"]
 			},
+			
 		], { cumulative_filtering: true });
 
 		$('#tblGridAsset').on('click', '.btnEdit', function(e)

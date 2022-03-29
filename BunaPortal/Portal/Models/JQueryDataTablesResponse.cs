@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     /// <summary>
     /// Represents the required data for a response from a request by DataTables.

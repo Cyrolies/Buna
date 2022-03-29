@@ -241,23 +241,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
-    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\BiometricController.cs" />
     <Compile Include="Controllers\ConsumableController.cs" />
-    <Compile Include="Controllers\HitecJobController.cs" />
-    <Compile Include="Controllers\PartController.cs" />
-    <Compile Include="Controllers\PersonBiometricController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductionController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\StockTakeController.cs" />
-    <Compile Include="Controllers\StudentBiometricController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\StudentMealController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\WorkOrderController.cs" />
-    <Compile Include="Controllers\StockReportController.cs" />
-    <Compile Include="Controllers\WorkOrderPartController.cs" />
     <Compile Include="Filter\ModelStateFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

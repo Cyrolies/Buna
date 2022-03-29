@@ -24,7 +24,39 @@ namespace DALEFModel
     	
     	public string DocumentName { get; set; }
     	
-    	public string Path { get; set; }
+    	public byte[] FileData { get; set; }
+    	
+    	public string ContentType { get; set; }
+    	
+    	public string Description { get; set; }
+    	
+    	public int StpDocumentGroupID { get; set; }
+    	
+    	public Nullable<int> CreatedByID { get; set; }
+    	
+    	public Nullable<int> ChangedByID { get; set; }
     
-    }
+    		// Navigation properties
+    
+    		
+    		
+        
+    		public Organization Organization { get; set; }
+    	
+    		
+    		
+        
+    		public StpData StpData { get; set; }
+    	
+    		
+    		
+        
+    		public User User { get; set; }
+    	
+    		
+    		
+        
+    		public User User1 { get; set; }
+    	
+    	}
 }

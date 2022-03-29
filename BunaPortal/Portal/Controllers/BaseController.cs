@@ -13,12 +13,13 @@ using Common;
 using Newtonsoft.Json;
 using System.Collections;
 using Models;
-using CyroTechPortal.HTMLHelpers;
+using BunaPortal.HTMLHelpers;
 using System.Web;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using BunaPortal.Repository;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
 	[SessionTimeout]
     /// <summary>
@@ -27,7 +28,91 @@ namespace CyroTechPortal
     /// <seealso cref="System.Web.Mvc.Controller" />
     public class BaseController : Controller 
     {
-       
+        public bool SaveUser(User newItem, out string result)
+        {
+            result = string.Empty;
+            bool success = true;
+            try
+            {
+                DateTime SATime = TimeZoneInfo.ConvertTime(DateTime.Now,
+                TimeZoneInfo.FindSystemTimeZoneById("South Africa Standard Time"));
+                string uri = CommonHelper.BaseUri + "UserController/GetUser";//Using this to see if User already exists
+                string uriAdd = CommonHelper.BaseUri + "UserController/User/add";
+                string uriUpdate = CommonHelper.BaseUri + "UserController/User/update";
+                User itemExists = null;
+                using (HttpClient httpClient = new HttpClient())
+                {
+
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //Check exists
+                    HttpResponseMessage response = httpClient.GetAsync(uri + "/" + newItem.UserID + "/false").Result;
+                    var content = response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var settings = new JsonSerializerSettings
+                        {
+                            NullValueHandling = NullValueHandling.Ignore,
+                            MissingMemberHandling = MissingMemberHandling.Ignore
+                        };
+                        itemExists = JsonConvert.DeserializeObject<User>(content.Result, settings);
+                    }
+
+
+                    //Insert
+                    if (itemExists == null)
+                    {
+                        newItem.CreateDateTime = SATime;
+                        
+                        StringContent content1 = new StringContent(JsonConvert.SerializeObject(newItem), Encoding.UTF8, "application/json");
+                        HttpResponseMessage responseAdd = httpClient.PostAsync(uriAdd, content1).Result;
+                        var resultAdd = responseAdd.Content.ReadAsStringAsync();
+                        if (responseAdd.IsSuccessStatusCode)
+                        {
+                            Common.Common.SendEmail("", newItem.Email, "Your Buna registration has been approved", "Your login credentials have been created for you " + Environment.NewLine + " Please login using the following Username : " + newItem.UserName + " and Password  1111  " + Environment.NewLine + " You will then be asked to create your own password.");
+
+                            var settings = new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore,
+                                MissingMemberHandling = MissingMemberHandling.Ignore
+                            };
+                            User newUser = JsonConvert.DeserializeObject<User>(resultAdd.Result, settings);
+                            result = newUser.UserID.ToString();
+                            success = true;
+                        }
+                        else
+                        {
+                            result = resultAdd.Result;
+                            success = false;
+                        }
+                    }
+                    else//Update
+                    {
+                        itemExists.IsActive = newItem.IsActive;
+                        itemExists.ChangeDateTime = SATime;
+                        StringContent content1 = new StringContent(JsonConvert.SerializeObject(itemExists), Encoding.UTF8, "application/json");
+                        HttpResponseMessage responseOut = httpClient.PostAsync(uriUpdate, content1).Result;
+                        var resultOut = responseOut.Content.ReadAsStringAsync();
+                        if (responseOut.IsSuccessStatusCode)
+                        {
+                            success = true;
+                        }
+                        else
+                        {
+                            result = resultOut.Result;
+                            success = false;
+                        }
+                    }
+
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                result = ExceptionHandler.Handle(ex).CreateDetailNoHtml();
+            }
+            return success;
+        }
         #region HTTP calls
 
         public HttpResponseMessage GetGridData(JQueryDataTablesModel jQueryDataTablesModel,bool includeRelation = false)
@@ -56,6 +141,69 @@ namespace CyroTechPortal
                     if (jQueryDataTablesModel.uri.Contains("UserController"))
                     {
                         if (user.UserID != 4)//If Admin and user screen then show all users else filter by org
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+                        }
+                    }
+                    else if (jQueryDataTablesModel.uri.Contains("SupplierController"))
+                    {
+                        if (user.UserRoleID == 6)//Its a Supplier thats logged in then only show his row detail
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "UserID", Operator = "=", Value = user.UserID.ToString() });
+                        }
+                       
+                    }
+                    else if (jQueryDataTablesModel.uri.Contains("ProductController"))
+                    {
+                        if (user.UserRoleID == 6)//Its a supplier thats logged in then only show his row detail
+                        {
+                            if(user.Supplier2 != null) //Linked to supplier entry
+							{
+                               gridParams.ListFilterBy.Add(new FilterField() { Property = "SupplierID", Operator = "=", Value = user.SupplierID.ToString() });
+                            }
+                        }
+                        else //only show farmers in same country as champion logged in
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+                        }
+                    }
+                    else if (jQueryDataTablesModel.uri.Contains("AssetController"))
+                    {
+                        if (user.UserRoleID == 5)//Its a Farmer thats logged in then only show his farms
+                        {
+                            if (user.Person2 != null) //Linked to supplier entry
+                            {
+                                gridParams.ListFilterBy.Add(new FilterField() { Property = "PersonID", Operator = "=", Value = user.Person2.FirstOrDefault().PersonID.ToString() });
+                            }
+                        }
+                        else //only show farms in same country as champion logged in
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+                        }
+                    }
+                    else if (jQueryDataTablesModel.uri.Contains("PersonController"))
+                    {
+                        if (user.UserRoleID == 5)//Its a Farmer thats logged in then only show his row detail
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "UserID", Operator = "=", Value = user.UserID.ToString() });
+                        }
+                        else //only show farmers in same country as champion logged in
+                        {
+                            gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
+                        }
+                    }
+                   
+                    else if (jQueryDataTablesModel.uri.Contains("ProductionController"))
+                    {
+                        if (user.UserRoleID == 5)//If its a Farmer thats logged in then only show his production data
+                        {
+                            if (user.Person2 != null) //Linked to supplier entry
+                            {
+                                gridParams.ListFilterBy.Add(new FilterField() { Property = "UserID", Operator = "=", Value = user.Person2.FirstOrDefault().UserID.ToString() });
+                            }
+                            
+                        }
+                        else //only show farmers in same country as champion or ext office logged in
                         {
                             gridParams.ListFilterBy.Add(new FilterField() { Property = "OrgID", Operator = "=", Value = user.OrgID.ToString() });
                         }
@@ -89,39 +237,122 @@ namespace CyroTechPortal
                     AdminController cont = new AdminController();
 
                     GridParam gridParams = new GridParam();
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //using (HttpClient httpClient = new HttpClient())
+                    //{
+                    //    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         gridParams.EntityName = entityname;
                         gridParams.PageNo = 0;
                         gridParams.PageSize = 100000;
-                        gridParams.Includerelations = false;
+                        
                         if (filters != null)
                         {
                             gridParams.ListFilterBy = filters;
                         }
-                        
-
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = httpClient.PostAsync(CommonHelper.BaseUri + "BaseApiController/DataList", content).Result;
-
-                        if (response.IsSuccessStatusCode)
+                BaseRepository repo = new BaseRepository();
+                switch (entityname.Trim())
+                {
+                    case "StpDataType":
                         {
-                            var jsonString = response.Content.ReadAsStringAsync();
-                            jsonString.Wait();
-                            result = JsonConvert.DeserializeObject<IList>(jsonString.Result);
-
+                            return repo.GetData<StpDataType>("Select * from StpDataType ").ToList();// managerdbmng.GetList<StpDataType>(GetWhereClause<StpDataType>(filter)).ToList();
                         }
-                        else
+                    case "StpData":
                         {
-                            var readAsStringAsync = response.Content.ReadAsStringAsync();
-                            throw new Exception(readAsStringAsync.Result);
+                            return repo.GetData<StpData>("Select * from StpData ", gridParams).ToList();//managerdbmng.GetList<StpData>(GetWhereClause<StpData>(filter)).ToList();
                         }
-                    }
+                    case "StcDataType":
+                        {
+                            return repo.GetData<StcDataType>("Select * from StcDataType ").ToList();//managerdbmng.GetList<StcDataType>(GetWhereClause<StcDataType>(filter)).ToList();
+                        }
+                    case "StcData":
+                        {
+                            return repo.GetData<StcData>("Select * from StcData ", gridParams).ToList();//managerdbmng.GetList<StcData>(GetWhereClause<StcData>(filter)).ToList();
+                        }
+                    case "Entity":
+                        {
+                            return repo.GetData<Entity>("Select * from Entity ", gridParams).ToList();//managerdbmng.GetList<Entity>(GetWhereClause<Entity>(filter)).ToList();
+                        }
+                    case "EntityField":
+                        {
+                            return repo.GetData<EntityField>("Select * from EntityField ", gridParams).ToList();//managerdbmng.GetList<EntityField>(GetWhereClause<EntityField>(filter)).ToList();
+                        }
+                    case "EntityFieldDataType":
+                        {
+                            return repo.GetData<EntityFieldDataType>("Select * from EntityFieldDataType ", gridParams).ToList();// managerdbmng.GetList<EntityFieldDataType>(GetWhereClause<EntityFieldDataType>(filter)).ToList();
+                        }
+                    case "EntityMenu":
+                        {
+                            return repo.GetData<EntityMenu>("Select * from EntityMenu ", gridParams).ToList();//managerdbmng.GetList<EntityMenu>(GetWhereClause<EntityMenu>(filter)).ToList();
+                        }
+                    case "EntityResource":
+                        {
+                            return repo.GetData<EntityResource>("Select * from EntityResource ", gridParams).ToList();//managerdbmng.GetList<EntityResource>(GetWhereClause<EntityResource>(filter)).ToList();
+                        }
+                    case "Organization":
+                        {
+                            return repo.GetData<Organization>("Select * from Organization ", gridParams).ToList();//managerdbmng.GetList<Organization>(GetWhereClause<Organization>(filter)).ToList();
+                        }
+                    case "User":
+                        {
+                            return repo.GetData<User>("Select * from [User] ", gridParams).ToList();//managerdbmng.ExecuteLinqQuery<User>("select * from [user]").Where(GetWhereClause<User>(filter)).ToList();
+                        }
+                    case "UserRole":
+                        {
+                            return repo.GetData<UserRole>("Select * from UserRole ", gridParams).ToList();//managerdbmng.GetList<UserRole>(GetWhereClause<UserRole>(filter)).ToList();
+                        }
+                    case "UserRoleActivity":
+                        {
+                            return repo.GetData<UserRoleActivity>("Select * from UserRoleActivity ", gridParams).ToList();//managerdbmng.GetList<UserRoleActivity>(GetWhereClause<UserRoleActivity>(filter)).ToList();
+                        }
+                    case "Activity":
+                        {
+                            return repo.GetData<Activity>("Select * from Activity ", gridParams).ToList();//managerdbmng.GetList<Activity>(GetWhereClause<Activity>(filter)).ToList();
+                        }
 
-                
+                    case "Application":
+                        {
+                            return repo.GetData<Application>("Select * from Application ", gridParams).ToList();//managerdbmng.GetList<Application>(GetWhereClause<Application>(filter)).ToList();
+                        }
+                    case "Contact":
+                        {
+                            return repo.GetData<Contact>("Select * from Contact ", gridParams).ToList();//managerdbmng.GetList<Contact>(GetWhereClause<Contact>(filter)).ToList();
+                        }
+                    case "Asset":
+                        {
+                            return repo.GetData<Asset>("Select * from Asset ", gridParams).ToList();//managerdbmng.GetList<Asset>(GetWhereClause<Asset>(filter)).ToList();
+                        }
+                    case "Person":
+                        {
+                            return repo.GetData<Person>("Select * from Person ", gridParams).ToList();//managerdbmng.GetList<Person>(GetWhereClause<Person>(filter)).ToList();
+                        }
+                    case "Supplier":
+                        {
+                            return repo.GetData<Supplier>("Select * from Supplier ", gridParams).ToList();//managerdbmng.GetList<Supplier>(GetWhereClause<Supplier>(filter)).ToList();
+                        }
+                    case "Consumable":
+                        {
+                            return repo.GetData<Consumable>("Select * from Consumable ", gridParams).ToList();//return managerdbmng.GetList<Consumable>(GetWhereClause<Consumable>(filter)).ToList();
+                        }
+                }
+                //    StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
+                //    HttpResponseMessage response = httpClient.PostAsync(CommonHelper.BaseUri + "BaseApiController/DataList", content).Result;
+
+                //    if (response.IsSuccessStatusCode)
+                //    {
+                //        var jsonString = response.Content.ReadAsStringAsync();
+                //        jsonString.Wait();
+                //        result = JsonConvert.DeserializeObject<IList>(jsonString.Result);
+
+                //    }
+                //    else
+                //    {
+                //        var readAsStringAsync = response.Content.ReadAsStringAsync();
+                //        throw new Exception(readAsStringAsync.Result);
+                //    }
+                //}
+
+
                 return result;
             }
             catch (Exception ex)
@@ -130,6 +361,7 @@ namespace CyroTechPortal
             }
         }
 		#endregion
+
 		#region "SelectList"
 		public ActionResult PrePopulateInput(string field, string table, string where = "", string orderby = "", string direction = "ASC", bool returnList = false)
         {
@@ -147,38 +379,68 @@ namespace CyroTechPortal
             try
             {
                
-                GridResult<SelectResult> dataList = null;
+                GridResult<SelectResult> dataList = new GridResult<SelectResult>();
 				HttpSessionStateBase session = new HttpSessionStateWrapper(System.Web.HttpContext.Current.Session);
-				//if (session["User"] != null)
-				//{
-				//	User user = (User)session["User"];
-				//}
+                User user = null;
+                if (session["User"] != null)
+				{
+					user = (User)session["User"];
+				}
+				
 				if (field.Length > 0 && table.Length > 0)
+                {
+                   // string uri = CommonHelper.BaseUri + "AdminController/GetSelectList";
+                    if (table.ToLower() != "userrole")//do not filter userroles by org same across all countries
                     {
-                        string uri = CommonHelper.BaseUri + "AdminController/GetSelectList";
-                    ////Filter by users org Note only display data with in users organization
-                    where = where + " and OrgID = " + ((User)session["User"]).OrgID.ToString();
-                    SelectQuery qry = new SelectQuery() { fields = field, table = table, where = where, orderby = orderby, direction = direction };
-                        using (HttpClient httpClient = new HttpClient())
+                        //Filter by users org Note only display data with in users organization
+                        if (where.Length > 0)
                         {
-                            httpClient.DefaultRequestHeaders.Accept.Clear();
-                            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                            StringContent content = new StringContent(JsonConvert.SerializeObject(qry), Encoding.UTF8, "application/json");
-                            HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
-                            var result = response.Content.ReadAsStringAsync();
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var settings = new JsonSerializerSettings
-                                {
-                                    NullValueHandling = NullValueHandling.Ignore,
-                                    MissingMemberHandling = MissingMemberHandling.Ignore
-                                };
-                                dataList = JsonConvert.DeserializeObject<GridResult<SelectResult>>(result.Result, settings);
-                            }
-
+                            where = where + " and OrgID = " + ((User)session["User"]).OrgID.ToString();
                         }
-
+                        else
+						{
+                            where = "  OrgID = " + ((User)session["User"]).OrgID.ToString();
+                        }
                     }
+                    if (table.ToLower() == "asset" && user != null)//check if farmer or not
+                    {
+                        //Filter by users org Note only display data with in users organization
+                        if (user.UserRoleID == 5)
+                        {
+                            if (where.Length > 0)
+                            {
+                                where = where + " and PersonID = " + user.FarmerID;
+                            }
+                            else
+                            {
+                                where = "  PersonID = " + user.FarmerID;
+                            }
+                        }
+                    }
+
+                    SelectQuery qry = new SelectQuery() { fields = field, table = table, where = where, orderby = orderby, direction = direction };
+                    BaseRepository repo = new BaseRepository();
+                    dataList.Items = repo.GetData(qry.GetQuery());
+                        //using (HttpClient httpClient = new HttpClient())
+                        //{
+                        //    httpClient.DefaultRequestHeaders.Accept.Clear();
+                        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        //    StringContent content = new StringContent(JsonConvert.SerializeObject(qry), Encoding.UTF8, "application/json");
+                        //    HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
+                        //    var result = response.Content.ReadAsStringAsync();
+                        //    if (response.IsSuccessStatusCode)
+                        //    {
+                        //        var settings = new JsonSerializerSettings
+                        //        {
+                        //            NullValueHandling = NullValueHandling.Ignore,
+                        //            MissingMemberHandling = MissingMemberHandling.Ignore
+                        //        };
+                        //        dataList = JsonConvert.DeserializeObject<GridResult<SelectResult>>(result.Result, settings);
+                        //    }
+
+                    //}
+
+                }
                 return dataList;
 
 
@@ -190,8 +452,7 @@ namespace CyroTechPortal
         }
         #endregion
         
-
-      	#region Get Foreign Key filter data list
+        #region Get Foreign Key filter data list
 
 		public ActionResult PopulateSelect2Filter(string searchTerm, string entityfield,string entityname)
         {
@@ -212,13 +473,13 @@ namespace CyroTechPortal
             
         }
 
-        public List<SelectListItem> GetDataSelectList<T>(string searchTerm, string entityfield,string entityname) where T : new()
+        public List<SelectListItem> GetDataSelectList<T>(string searchTerm, string entityfield,string entityname, List<FilterField> extrafilters = null) where T : new()
         {
             try
             {
                 List<FilterField> filtersList = new List<FilterField>();
 
-                EntityField entityField = GetEntityFieldListItems().Where(p => p.EntityFieldName == entityfield && p.Entity.Name == entityname).FirstOrDefault();
+                EntityField entityField = GetEntityFieldListItems().Where(p => p.EntityFieldName == entityfield && p.EntityDesc == entityname).FirstOrDefault();
                 if(entityField.FilterBy == null)
                 {
                     throw new Exception("Filter not specified for foreign key on entity field = "+ entityField.EntityFieldName);
@@ -247,17 +508,20 @@ namespace CyroTechPortal
                         }
 
                     }
-                        FilterField fil = new FilterField() { Property = property.Replace("\"", ""), Operator = oper.Replace("\"", ""), Value = value.Replace("\"", "") };
-
-                        //TODO add this in when session user exists
-                        //if(fil.Property.ToLower() != ("IsSystem").ToLower() && User != "Admin")
-                        //{
-
-                        //}
-
-                        filtersList.Add(fil);
+                       
+                    if(value.ToLower() == "true" || value.ToLower() == "false")
+					{
+                        value = "'" + value + "'";
+					}
+                    FilterField fil = new FilterField() { Property = property.Replace("\"", ""), Operator = oper.Replace("\"", ""), Value = value.Replace("\"", "") };
+                    filtersList.Add(fil);
                     
                 }
+                if(extrafilters != null)
+				{
+                    filtersList.AddRange(extrafilters);
+				}
+               
                 List<SelectListItem> datareturned = new List<SelectListItem>();
                 
                 if (filtersList.Count > 0)
@@ -288,7 +552,7 @@ namespace CyroTechPortal
             {
                 AdminController manager = new AdminController();
                 //var statuslist = new[] { (int)Enumerations.SupervisionStatus.Approved, (int)Enumerations.SupervisionStatus.PendingUsable };
-
+              
                 //All setup data drop downs
                 if (field.EntityFieldName.Substring(0, 3) == "Stp" || field.EntityFieldName.Substring(0, 3) == "STP")
                 {
@@ -341,14 +605,14 @@ namespace CyroTechPortal
                 else
                 {
                     //string name = field.EntityFieldName.Replace("OrgID", "Organization").Replace("OrgId", "Organization").Replace("BugCreatedByContactID", "Contact").Replace("AssignedContactID", "Contact").Replace("CreatedByID", "User").Replace("SupervisorID", "User").Replace("ParentID", "").Replace("ID", "");
-                    string name = Common.Common.ClearEntityFieldName(field.EntityFieldName);
+                 //   string name = Common.Common.ClearEntityFieldName(field.EntityFieldName);
                     //HELL knoes why this method above doesnt return organization back : Robin
-                    name = name.Replace("Org", "Organization");
+                 //   name = name.Replace("Org", "Organization");
 
-                    Entity entity = manager.GetEntityName(name);
+                    Entity entity = manager.GetEntityName(field.ForeignTable);
                     if (entity == null)
                     {
-                        SelectListItem itemo = new SelectListItem() { Text = "Entity not found for Name = " + name, Value = "0" };
+                        SelectListItem itemo = new SelectListItem() { Text = "Entity not found for Name = " + field.ForeignTable, Value = "0" };
                         List<SelectListItem> selectListo = new List<SelectListItem>() { itemo };
                         return new SelectList(selectListo, "Value", "Text");
 
@@ -361,7 +625,7 @@ namespace CyroTechPortal
 
                     }
                     List<EntityField> allentityfields = manager.GetEntityFieldListItems();
-                    List<EntityField> entityfields = allentityfields.Where(p => p.Entity.Name == entity.Name).ToList();
+                    List<EntityField> entityfields = allentityfields.Where(p => p.EntityDesc == entity.Name).ToList();
                     EntityField primaryField = entityfields.Find(o => o.IsPrimaryKey == true);
                     if (primaryField == null)
                     {
@@ -380,21 +644,22 @@ namespace CyroTechPortal
                     }
                     int selected = 0;
                     //get data for drop down list
+                    
                     //Build where clause
-                    StringBuilder whereCause = new StringBuilder();
-                    int count = 0;
-                    foreach (FilterField fd in filters)
-                    {
-                        if (count == 0)
-                        {
-                            whereCause.Append(fd.Property + " " + fd.Operator + " '" + fd.Value + "'");
-                        }
-                        else // add and
-                        {
-                            whereCause.Append(" and " + fd.Property + " " + fd.Operator + " '" + fd.Value +"'");
-                        }
-                        count++;
-                    }
+                    //StringBuilder whereCause = new StringBuilder();
+                    //int count = 0;
+                    //foreach (FilterField fd in filters)
+                    //{
+                    //    if (count == 0)
+                    //    {
+                    //        whereCause.Append(fd.Property + " " + fd.Operator + " '" + fd.Value + "'");
+                    //    }
+                    //    else // add and
+                    //    {
+                    //        whereCause.Append(" and " + fd.Property + " " + fd.Operator + " '" + fd.Value +"'");
+                    //    }
+                    //    count++;
+                    //}
 
                     //var list = manager.PrePopulateInputList(primaryField.EntityFieldName + " as id," + displayField.EntityFieldName + " as description", entity.TableName, whereCause.ToString(), primaryField.EntityFieldName);
                     var list = manager.GetDataList<T>(entity.Name,filters);
@@ -463,32 +728,40 @@ namespace CyroTechPortal
 			}
 			else
 			{
-				using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //using (HttpClient httpClient = new HttpClient())
+                //            {
+                //                httpClient.DefaultRequestHeaders.Accept.Clear();
+                //                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    GridParam gridParams = new GridParam();
-                    gridParams.PageNo = 1;
-                    gridParams.PageSize = 100000; //fetch all of them
-                    gridParams.Includerelations = true;
+                //                GridParam gridParams = new GridParam();
+                //                gridParams.PageNo = 1;
+                //                gridParams.PageSize = 100000; //fetch all of them
+                //                gridParams.Includerelations = true;
 
-                     StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var jsonString = response.Content.ReadAsStringAsync();
-                        jsonString.Wait();
-                        fields = JsonConvert.DeserializeObject<List<EntityField>>(jsonString.Result);
-                        CommonHelper.CacheAdd("EntityFieldsCache",fields);
-                    }
-                }
+                //                StringContent content = new StringContent(JsonConvert.SerializeObject(gridParams), Encoding.UTF8, "application/json");
+                //                HttpResponseMessage response = httpClient.PostAsync(uri, content).Result;
+                //                if (response.IsSuccessStatusCode)
+                //                {
+                //                    var jsonString = response.Content.ReadAsStringAsync();
+                //                    jsonString.Wait();
+                //fields = JsonConvert.DeserializeObject<List<EntityField>>(jsonString.Result);
+                BaseRepository repo = new BaseRepository();
+                fields = repo.GetEntityFieldList();
+                CommonHelper.CacheAdd("EntityFieldsCache",fields);
+     //               }
+     //               else
+					//{
+     //                   var jsonString = response.Content.ReadAsStringAsync();
+     //                   jsonString.Wait();
+     //                   throw new Exception(jsonString.Result);
+     //               }
+      //          }
             }
             return fields;
 
         }
         #endregion
-      
+
         #region Get Entities
         /// <summary>
         /// Gets the entity field list.
@@ -505,23 +778,14 @@ namespace CyroTechPortal
             }
             if (CommonHelper.CacheGet("EntitiesCache") != null)
             {
-               entities = (List<Entity>)CommonHelper.CacheGet("EntitiesCache");
+                entities = (List<Entity>)CommonHelper.CacheGet("EntitiesCache");
             }
             else
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = httpClient.GetAsync(uri).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var jsonString = response.Content.ReadAsStringAsync();
-                        jsonString.Wait();
-                        entities = JsonConvert.DeserializeObject<List<Entity>>(jsonString.Result);
-                        CommonHelper.CacheAdd("EntitiesCache",entities);
-                    }
-                }
+                BaseRepository repo = new BaseRepository();
+                entities = repo.GetEntitiesList();
+                CommonHelper.CacheAdd("EntitiesCache", entities);
+
             }
             return entities;
 
@@ -699,7 +963,7 @@ namespace CyroTechPortal
 
                 AdminController adminmng = new AdminController();
                 List<EntityField> entityfields = adminmng.GetEntityFieldListItems();
-                List<EntityField> fields = entityfields.Where<EntityField>(p => p.IsActive == true && p.Entity.Name == typeof(T).Name.Trim()).ToList();
+                List<EntityField> fields = entityfields.Where<EntityField>(p => p.IsActive == true && p.EntityDesc == typeof(T).Name.Trim()).ToList();
 
                 int numOfColumns = fields.Count();
                 //iTextSharp.text.pdf.PdfPTable dataTable = new iTextSharp.text.pdf.PdfPTable(numOfColumns);
@@ -791,7 +1055,7 @@ namespace CyroTechPortal
                 //Get EntityField details
                 AdminController adminmng = new AdminController();
                 List<EntityField> entityfields = adminmng.GetEntityFieldListItems();
-                List<EntityField> fields = entityfields.Where(f => f.Entity.Name == typeof(T).Name.Trim() &&  f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
+                List<EntityField> fields = entityfields.Where(f => f.EntityDesc == typeof(T).Name.Trim() &&  f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
 
                 int numOfColumns = fields.Count();
                 //iTextSharp.text.pdf.PdfPTable dataTable = new iTextSharp.text.pdf.PdfPTable(numOfColumns);
@@ -967,7 +1231,7 @@ namespace CyroTechPortal
                 //Get EntityField details
                 AdminController adminmng = new AdminController();
                 List<EntityField> entityfields = adminmng.GetEntityFieldListItems();
-                List<EntityField> fields = entityfields.Where(f => f.Entity.Name == typeof(T).Name.Trim() && f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
+                List<EntityField> fields = entityfields.Where(f => f.EntityDesc == typeof(T).Name.Trim() && f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
 
                 int numOfColumns = fields.Count();
                 iTextSharp.text.pdf.PdfPTable dataTable = new iTextSharp.text.pdf.PdfPTable(numOfColumns);
@@ -1098,7 +1362,7 @@ namespace CyroTechPortal
                 //Get EntityField details
                 AdminController adminmng = new AdminController();
                 List<EntityField> entityfields = adminmng.GetEntityFieldListItems();
-                List<EntityField> fields = entityfields.Where(f => f.Entity.Name == typeof(T).Name.Trim() && f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
+                List<EntityField> fields = entityfields.Where(f => f.EntityDesc == typeof(T).Name.Trim() && f.EntityFieldName != "CreatedByID" && f.EntityFieldName != "StcStatusID" && f.EntityFieldName != "VersionNo").ToList();
 
                 int numOfColumns = fields.Count();
                 string title = string.Empty;

@@ -1,4 +1,6 @@
-@using CyroTechPortal;
+@using BunaPortal;
+@using DALEFModel;
+
 @model DALEFModel.Asset
 <script src = "@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" ></script>
 	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -11,210 +13,191 @@
 
 				<div id = "result" ></div>
 				@using(Ajax.BeginForm("EditAsset", "Asset", new AjaxOptions
-					{
-						HttpMethod = "POST",
-						InsertionMode = InsertionMode.Replace,
-						UpdateTargetId = "result"
-					}))
-					{
-						try {
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "result"
+                }))
+                {
+                    try {
+                        User user = new User();
+                        if (Session["User"] != null)
+                        {
+                            user = (User)Session["User"];
+                        }
 							@* @Html.AntiForgeryToken()*@
 							@Html.ValidationSummary(true)
 
-								<div is="Tabs" role="tabpanel">
-								<ul class="nav nav-tabs" role="tablist">
-									<li class="active" ><a href = "#General" aria-controls = "#General" role="tab" data-toggle="tab">General</a></li>
-									<li><a href = "#Costs" aria-controls = "#Costs" role="tab" data-toggle="tab">Costs</a></li>
-								</ul>
-									<div class="tab-content">
-										<div class="tab-pane active" role="tabpanel" id="General">
+								
+									
 										<div class="col-md-12"> 
 												<div class="row">
 													<div class="box-default">
-														<div class="box-header with-border">
-															<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxAsset Details"))</h3>
+                                                        
+                                                            @*<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxAsset Details"))</h3>*@
 
-															<div class="box-body">
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.Code)
-																		@Html.CustomTextBoxFor(o => o.Code)
-																		@Html.CustomValidationMessageFor(o => o.Code)
-																	</div>
-																</div>
+                                                            <div class="box-body">
+                                                                @*@if (user.StpDepartmentID == 96)//Manager 
+                                                                {*@
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.CustomLabelFor(o => o.Name)
+                                                                            @Html.CustomTextBoxFor(o => o.Name)
+                                                                            @Html.CustomValidationMessageFor(o => o.Name)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Farm Owner</label>
+                                                                            @Html.CustomDropDownListFor(o => o.PersonID)
+                                                                            @Html.CustomValidationMessageFor(o => o.PersonID)
+                                                                        </div>
+                                                                    </div>
+                                                                @*}
+                                                                @if (user.StpDepartmentID == 97)//Farmer
+                                                                {
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.CustomLabelFor(o => o.Name)
+                                                                            @Html.CustomTextBoxFor(o => o.Name)
+                                                                            @Html.CustomValidationMessageFor(o => o.Name)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Farm Owner : User = @user.UserName</label>
+                                                                            
+                                                                            @Html.CustomDropDownListFor(o => o.PersonID)
+                                                                            @Html.CustomValidationMessageFor(o => o.PersonID)
+                                                                        </div>
+                                                                    </div>
+                                                                }*@
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        @Html.CustomLabelFor(o => o.StpAssetCategoryID)
+                                                                        @Html.CustomDropDownListFor(st => st.StpAssetCategoryID)
+                                                                        @Html.CustomValidationMessageFor(o => o.StpAssetCategoryID)
+                                                                    </div>
+                                                                </div>
+                                                                <div id="areaFarmQuantity" style="display:none">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label id="lblQty"></label>
+                                                                            @Html.CustomTextBoxFor(o => o.Description)
+                                                                            @Html.CustomValidationMessageFor(o => o.Description)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label id="lblVol"></label>
+                                                                            @Html.CustomTextBoxFor(o => o.Size)
+                                                                            @Html.CustomValidationMessageFor(o => o.Size)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        @Html.CustomLabelFor(o => o.Longitude)
+                                                                        @Html.CustomTextBoxFor(o => o.Longitude)
+                                                                        @Html.CustomValidationMessageFor(o => o.Longitude)
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        @Html.CustomLabelFor(o => o.Latitude)
+                                                                        @Html.CustomTextBoxFor(o => o.Latitude)
+                                                                        @Html.CustomValidationMessageFor(o => o.Latitude)
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        @Html.CustomLabelFor(o => o.IsActive)
+                                                                        @Html.CustomCheckBoxFor(o => o.IsActive)
+                                                                    </div>
+                                                                </div>
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.Name)
-																		@Html.CustomTextBoxFor(o => o.Name)
-																		@Html.CustomValidationMessageFor(o => o.Name)
-																	</div>
-																</div>
+                                                                @Html.HiddenFor(o => o.CreatedByID)
+                                                                @Html.HiddenFor(o => o.ChangedByID)
+                                                                @Html.HiddenFor(o => o.ChangeDateTime)
+                                                                @Html.HiddenFor(o => o.PersonID)
+                                                                @Html.HiddenFor(o => o.Barcode)
+                                                                @Html.HiddenFor(o => o.OrgID)
+                                                                @Html.HiddenFor(o => o.StcStatusID)
+                                                                @Html.HiddenFor(o => o.VersionNo)
+                                                                @Html.HiddenFor(o => o.AssetID)
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.StpAssetCategoryID)
-																		@Html.CustomDropDownListFor(st => st.StpAssetCategoryID)
-																		@Html.CustomValidationMessageFor(o => o.StpAssetCategoryID)
-																	</div>
-																</div>
+                                                           
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.Description)
-																		@Html.CustomTextBoxAreaFor(o => o.Description)
-																		@Html.CustomValidationMessageFor(o => o.Description)
-																	</div>
-																</div>
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.ParentAssetID)
-																		@Html.CustomDropDownListFor(st => st.ParentAssetID)
-																		@Html.CustomValidationMessageFor(o => o.ParentAssetID)
-																	</div>
-																</div>
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.IsActive)
-																		@Html.CustomCheckBoxFor(o => o.IsActive)
-																	</div>
-																</div>
+                                                                <div id='myMap' style='height: 400px;' class="col-md-12"></div>
+                                                                <script type='text/javascript'>
+                                                                    function loadMapScenario() {
+                                                                        var pushpin;
+                                                                        var map = new Microsoft.Maps.Map(document.getElementById('myMap'),
+                                                                            {
+                                                                                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.AssignedToID)
-																		@Html.CustomDropDownListFor(st => st.AssignedToID)
-																		@Html.CustomValidationMessageFor(o => o.AssignedToID)
-																	</div>
-																</div>
+                                                                                //center: new Microsoft.Maps.Location(-13.976222872768155, 28.36009024732129),//Zambia
+                                                                                center: new Microsoft.Maps.Location(-13.956114157467292, 33.9456680666787),//Malawi
+                                                                                zoom: 6,
+                                                                            });
+                                                                       
+                                                                        if ($('#Latitude').val().length > 0 && $('#Longitude').val().length > 0) {
+                                                                           
+                                                                            var location = new Microsoft.Maps.Location($('#Latitude').val(), $('#Longitude').val());
+                                                                            pushpin = new Microsoft.Maps.Pushpin(location, {
+                                                                                title: $('#Name').val(),
+                                                                                subTitle: $('#PersonID option:selected').text()
+                                                                                , color: '#78c8c0'
+                                                                            });
+                                                                            map.entities.push(pushpin);
+                                                                        }
+                                                                       
+                                                                        // Binding the events
+                                                                        Microsoft.Maps.Events.addHandler(map, 'click', function (e) { handleArgs('mapClick', e); });
 
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.DateAssigned)
-																		@Html.CustomTextBoxFor(o => o.DateAssigned)
-																		@Html.CustomValidationMessageFor(o => o.DateAssigned)
-																	</div>
-																</div>
+                                                                        function handleArgs(id, e) {
+                                                                           
+                                                                            if (pushpin != null) {
+                                                                                map.entities.remove(pushpin);
+                                                                            }
+                                                                            var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+                                                                            var loc = e.target.tryPixelToLocation(point);
+                                                                            var location = new Microsoft.Maps.Location(loc.latitude, loc.longitude);
+                                                                            pushpin = new Microsoft.Maps.Pushpin(location, {
+                                                                                title: $('#Name').val(),
+                                                                                subTitle: $('#PersonID option:selected').text()
+                                                                                , color: '#78c8c0'
+                                                                            });
+                                                                            map.entities.push(pushpin);
+                                                                            var lat = loc.latitude;
+                                                                            var lon = loc.longitude;
+                                                                            $('#Latitude').val(lat.toString().substr(0,9));
+                                                                            $('#Longitude').val(lon.toString().substr(0,9));
+                                                                        }
 
-																@Html.HiddenFor(o => o.CreatedByID)
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.CreatedByID)
-																		@Html.CustomDropDownListFor(st => st.CreatedByID)
-																		@Html.CustomValidationMessageFor(o => o.CreatedByID)
-																	</div>
-																</div>
+                                                                    }
+                                                                </script>
+                                                                <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Av_ZYW1QE7oZPoRV_0Lgdmc93z6Km8TYzRRQI3RaoB5aRkT91oOsn7KTLo2TIcWQ&callback=loadMapScenario' async defer></script>
 
-																@Html.HiddenFor(o => o.CreateDateTime)
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.CreateDateTime)
-																		@Html.CustomTextBoxFor(o => o.CreateDateTime)
-																		@Html.CustomValidationMessageFor(o => o.CreateDateTime)
-																	</div>
-																</div>
 
-																@Html.HiddenFor(o => o.ChangedByID)
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.ChangedByID)
-																		@Html.CustomDropDownListFor(st => st.ChangedByID)
-																		@Html.CustomValidationMessageFor(o => o.ChangedByID)
-																	</div>
-																</div>
-
-																@Html.HiddenFor(o => o.ChangeDateTime)
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.ChangeDateTime)
-																		@Html.CustomTextBoxFor(o => o.ChangeDateTime)
-																		@Html.CustomValidationMessageFor(o => o.ChangeDateTime)
-																	</div>
-																</div>
-
-																@Html.HiddenFor(o => o.Barcode)
-
-																@Html.HiddenFor(o => o.OrgID)
-
-																@Html.HiddenFor(o => o.StcStatusID)
-
-																@Html.HiddenFor(o => o.VersionNo)
-
-																@Html.HiddenFor(o => o.AssetID)
-
-															</div>
-														</div>
+                                                                @Html.HiddenFor(o => o.CreateDateTime)
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        @Html.CustomLabelFor(o => o.CreateDateTime)
+                                                                        @Html.CustomTextBoxFor(o => o.CreateDateTime)
+                                                                        @Html.CustomValidationMessageFor(o => o.CreateDateTime)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 													</div>
 												</div>
 										</div>
 
-										</div>
-										<div class="tab-pane" role="tabpanel" id="Costs">
-										<div class="col-md-12"> 
-												<div class="row">
-													<div class="box-default">
-														<div class="box-header with-border">
-															<h3 class="box-title">@Html.Encode(Localizer.Current.GetString("GroupBoxAsset Costs"))</h3>
-
-															<div class="box-body">
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.PurchasePrice)
-																		@Html.CustomTextBoxFor(o => o.PurchasePrice)
-																		@Html.CustomValidationMessageFor(o => o.PurchasePrice)
-																	</div>
-																</div>
-
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.PurchaseTax)
-																		@Html.CustomTextBoxFor(o => o.PurchaseTax)
-																		@Html.CustomValidationMessageFor(o => o.PurchaseTax)
-																	</div>
-																</div>
-
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.PurchaseCosts)
-																		@Html.CustomTextBoxFor(o => o.PurchaseCosts)
-																		@Html.CustomValidationMessageFor(o => o.PurchaseCosts)
-																	</div>
-																</div>
-
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.PurchaseDate)
-																		@Html.CustomTextBoxFor(o => o.PurchaseDate)
-																		@Html.CustomValidationMessageFor(o => o.PurchaseDate)
-																	</div>
-																</div>
-
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.IsSold)
-																		@Html.CustomCheckBoxFor(o => o.IsSold)
-																	</div>
-																</div>
-
-																<div class="">
-																	<div class="form-group">
-																		@Html.CustomLabelFor(o => o.SellPrice)
-																		@Html.CustomTextBoxFor(o => o.SellPrice)
-																		@Html.CustomValidationMessageFor(o => o.SellPrice)
-																	</div>
-																</div>
-
-															</div>
-														</div>
-													</div>
-												</div>
-										</div>
-
-										</div>
-									</div>
-								</div>
+										
+										
+								
 						<div class="modal-footer">
 						<button type = "submit" class="btn btn-default">@Localizer.Current.GetString("Save")</button>
 						</div>
@@ -229,15 +212,62 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
+           // alert($('#StpAssetCategoryID option:selected').text());
+            if ($('#StpAssetCategoryID option:selected').text() != "Select") {
+                setFarmType($('#StpAssetCategoryID option:selected').text());
+                var farmQty = document.getElementById("areaFarmQuantity");
+                farmQty.style.display = "block";
+            }
+           
+
 		$('#modal1').attr('class', 'modal fade').attr('aria-labelledby', 'myModalLabel');
-		$('#modal1').modal('show');
-		document.getElementById("btnclose").onclick = function () { $('#tblGridAsset').DataTable().ajax.reload(); };
-		$('input[type="datetime"]').datepicker({
-		autoclose: true,
-        dateFormat: 'yy/mm/dd'
-    });
-    
-		});
-	</script>
+            $('#modal1').modal('show');
+
+            $("#modal1").on('hide.bs.modal', function () {
+                $('#tblGridAsset').DataTable().ajax.reload();
+
+            });
+            document.getElementById("btnclose").onclick = function () {
+                 $('#tblGridAsset').DataTable().ajax.reload();
+            };
+		          
+        $('#StpAssetCategoryID').on('change', function () {
+               
+                if (this.selectedOptions[0].text != "Select") {
+                    setFarmType(this.selectedOptions[0].text);
+                    var farmQty = document.getElementById("areaFarmQuantity");
+                    farmQty.style.display = "block";
+                }
+               
+            });
+
+            $('input[type="datetime"]').datepicker({
+                autoclose: true,
+                dateFormat: 'yy/mm/dd'
+            });
+        });
+
+        function setFarmType(farmType) {
+
+
+            if (farmType == 'Production using ponds') {
+                $('#lblVol').text('Total surface area in meters square');
+                $('#lblQty').text('How many ponds');
+            }
+            if (farmType == 'Production using cages') {
+                $('#lblVol').text('Total Cubic Meters');
+                $('#lblQty').text('How many cages');
+            }
+            if (farmType == 'Ras') {
+                $('#lblVol').text('Total Cubic Meters');
+                $('#lblQty').text('How many ras');
+            }
+            if (farmType == 'Hatchery') {
+                $('#lblVol').text('Total');
+                $('#lblQty').text('Quantity');
+            }
+        }
+
+    </script>

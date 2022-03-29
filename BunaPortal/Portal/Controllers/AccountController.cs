@@ -12,21 +12,35 @@ using System.Net.Http.Headers;
 using System.Web.Security;
 using Models;
 using System.Text.RegularExpressions;
-using CyroTechPortal.HTMLHelpers;
+using BunaPortal.HTMLHelpers;
+using System;
+using System.Configuration;
+using BunaPortal.Repository;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     [AllowAnonymous]
     public class AccountController : Controller 
     {
         
         #region "User"
-        public ActionResult Login(string title = "Login")
+        public ActionResult Login(string title = " Buna Login")
         {
             ViewBag.Title = title;
             return View();
         }
 
+        public ActionResult RequestReset()
+		{
+            return View("RequestPasswordReset");
+		}
+        public ActionResult RequestPasswordReset(User user)
+        {
+            //Email request or SMS request based on User's correspondence choice
+            Common.Common.SendEmail("", ConfigurationManager.AppSettings["AdminEmail"], "Buna password reset request", "Password reset request from " + user.Email + " Please verify this user and reset thier password in the BUNA user administration screen.");
+            return JavaScript("OnSuccess();");
+            // return Content(CommonHelper.ShowNotification(false, "Your password reset request has been emailed to our Buna administrator. " + Environment.NewLine + " You will recieve an email as soon as the administrator has validated and reset your password." ));
+        }
         [HttpPost]
         [AllowAnonymous]
         public ActionResult LogOn(User model, bool saveSettings)
@@ -43,32 +57,16 @@ namespace CyroTechPortal
                 //UserController manager = new UserController();
                 User user = null;
                 string uri = CommonHelper.BaseUri + "UserController/Login";
+                UserRepository repo = new UserRepository();
+                user = repo.GetUserByUsername(model.UserName.Trim());
                 
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = httpClient.GetAsync(uri + "/" + model.UserName.Trim() + "/true").Result;
-                    var content = response.Content.ReadAsStringAsync();
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var settings = new JsonSerializerSettings
-                        {
-                            NullValueHandling = NullValueHandling.Ignore,
-                            MissingMemberHandling = MissingMemberHandling.Ignore
-                        };
-                        user = JsonConvert.DeserializeObject<User>(content.Result, settings);
-                       
-                    }
-                    else
-                    {
-                    return Content(CommonHelper.ShowNotification(false, Localizer.Current.GetString("FailedLoginMessage")));
-                   
-                    }
-                }
                 if (user != null)
                 {
-                    if (model.UserPWD == "1111")//New user gets created with 1111
+					if (user.IsActive == false)
+					{
+						return Content(CommonHelper.ShowNotification(false, Localizer.Current.GetString("Your profile is not enabled. Please contact the administrator.")));
+					}
+					if (model.UserPWD == "1111")//New user gets created with 1111
                     {
                         try
                         {
@@ -315,7 +313,7 @@ namespace CyroTechPortal
                     httpClient.DefaultRequestHeaders.Accept.Clear();
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     //Check exists
-                    HttpResponseMessage response = httpClient.GetAsync(uri + "/" + model.UserName + "/false").Result;
+                    HttpResponseMessage response = httpClient.GetAsync(uri + "/" + model.UserName + "/true/false").Result;
                     var content = response.Content.ReadAsStringAsync();
                     if (response.IsSuccessStatusCode)
                     {
@@ -343,11 +341,13 @@ namespace CyroTechPortal
                         var resultAdd = responseAdd.Content.ReadAsStringAsync();
                         if (responseAdd.IsSuccessStatusCode)
                         {
+                            Common.Common.SendEmail("", user.Email, "Buna password reset successfull", "You have created a new password for Buna " + Environment.NewLine + " If this was not done by yourself then please notify our Administrator " +Environment.NewLine + " Email administrator : " + ConfigurationManager.AppSettings["AdminEmail"]);
                             return JavaScript("OnSuccess();");
+                           // return Content(CommonHelper.ShowNotification(true, Localizer.Current.GetString("Password Saved Successfully"),true));
                         }
                         else
                         {
-                            return Content( resultAdd.Result);
+                            return Content(CommonHelper.ShowNotification(false,resultAdd.Result));
                         }
                     }
                     else//Update

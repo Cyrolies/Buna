@@ -1,10 +1,14 @@
-﻿using System.Web.Http;
+﻿using BunaPortal.HTMLHelpers;
+using System;
+using System.Globalization;
+using System.Threading;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -24,19 +28,9 @@ namespace CyroTechPortal
             //	"Default", // Route name
             //	"{controller}/{action}/{id}", // URL with parameters
             //	new { controller = "Home", action = "Home", id = UrlParameter.Optional } // Parameter defaults
-            //																			 // new string[] { "CyroTechPortal" }//Namesapce
+            //																			 // new string[] { "BunaPortal" }//Namesapce
             //);
-            routes.MapRoute(
-               "Hitec",
-               "Hitec",
-               new { controller = "Home", action = "Hitec" }
-               ); 
-
-            routes.MapRoute(
-                "ThornFarm",
-                "ThornFarm",
-                new { controller = "Home", action = "ThornFarm" }
-                );
+           
 
             routes.MapRoute(
             "Default",                                              // Route name
@@ -63,7 +57,8 @@ namespace CyroTechPortal
             // Lets MVC know that anytime there is a JQueryDataTablesModel as a parameter in an action to use the
             // JQueryDataTablesModelBinder when binding the model.
             ModelBinders.Binders.Add(typeof(JQueryDataTablesModel), new JQueryDataTablesModelBinder());
-                       
+            ModelBinders.Binders.Add(typeof(decimal), new ModelBinder.DecimalModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal?), new ModelBinder.DecimalModelBinder());
             // register the localization routes
             // specify the localiztion resource provider (and culture name resolver)
             LocalizationConfig.RegisterResourceProvider(() => new LocalizationDbResourceProvider());
@@ -72,7 +67,12 @@ namespace CyroTechPortal
 
            
         }
-
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            CultureInfo culture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+        }
         protected void Application_End()
         {
             FormsAuthentication.SignOut();

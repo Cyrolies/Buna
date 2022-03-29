@@ -1,6 +1,6 @@
-@using CyroTechPortal;
+@using BunaPortal;
 @{
- ViewBag.Title = Localizer.Current.GetString("Person");
+ ViewBag.Title = Localizer.Current.GetString("Farmers");
 }
 
 <div class="row">
@@ -16,19 +16,20 @@
 		</div>
 		<div id="table" class="table-responsive">
 		<table id= "tblGridPerson" class="table no-margin">
-		<thead>
-			<tr>
-		<th>PersonID</th>
-		<th>@Localizer.Current.GetString("StpTitleID")</th>
-		<th>@Localizer.Current.GetString("Firstnames")</th>
-		<th>@Localizer.Current.GetString("Surname")</th>
-		<th>@Localizer.Current.GetString("StpPersonTypeID")</th>
-		<th>@Localizer.Current.GetString("StpPersonCategoryID")</th>
-		<th>@Localizer.Current.GetString("MobilePhone")</th>
-		<th></th>
-		<th></th>
-			</tr>
-		</thead>
+            <thead>
+                <tr>
+                    <th>PersonID</th>
+                    <th>@Localizer.Current.GetString("Title")</th>
+                    <th>@Localizer.Current.GetString("Fullname")</th>
+                    <th>@Localizer.Current.GetString("Email")</th>
+                    <th>@Localizer.Current.GetString("Physical Address")</th>
+                    <th>@Localizer.Current.GetString("Mobile Phone")</th>
+                    <th>@Localizer.Current.GetString("Is Active")</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                
+            </thead>
 		</table>
 		</div>
 	</div>
@@ -36,24 +37,24 @@
 </div>
 	@section Header{
 	<h1>
-	@Localizer.Current.GetString("Person")
+	@Localizer.Current.GetString("Farmers")
 	</h1>
 	<ol class="breadcrumb">
 	<li><a href = "/" ><i class="fa fa-home"></i>@Localizer.Current.GetString("Home")</a></li>
-	<li><a href = "#" class="active">@Localizer.Current.GetString("Person")</a></li>
+	<li><a href = "#" class="active">@Localizer.Current.GetString("Farmers")</a></li>
 	</ol>
 }
 
 @section scripts
 {
 
-	<script type="text/javascript">
+    <script type="text/javascript">
 
 		$(document).ready(function() {
 
 			//Filter drop down data
-			var filterList1 = [];
-			$.ajax({
+			var filterListTitles = [];
+				$.ajax({
 					type: 'POST',
 					url: '@Url.Action("PrePopulateInput", "Base")',
 					data: {
@@ -67,7 +68,7 @@
 					success: function (data) {
 
 						for (var i = 0; i < data.result.length; i++) {
-                            filterList1.push(
+                            filterListTitles.push(
 								{
 									"value": data.result[i].id,
 									"label": data.result[i].Description
@@ -89,7 +90,7 @@
 					data: {
 						field: 'StpDataID as ID,DataDescription as Description',
 						table: 'StpData',
-						where: ' StpDataTypeID = 29',
+						where: ' StpDataTypeID = 35',
 						orderby: 'DataDescription',
 					},
 					dataType: 'json',
@@ -119,7 +120,7 @@
 					data: {
 						field: 'StpDataID as ID,DataDescription as Description',
 						table: 'StpData',
-						where: ' StpDataTypeID = 28',
+						where: ' StpDataTypeID = 31',
 						orderby: 'DataDescription',
 					},
 					dataType: 'json',
@@ -142,7 +143,67 @@
 					}
 				});
 
-			
+			var filterList4 = [];
+			$.ajax({
+					type: 'POST',
+					url: '@Url.Action("PrePopulateInput", "Base")',
+					data: {
+						field: 'StpDataID as ID,DataDescription as Description',
+						table: 'StpData',
+						where: ' StpDataTypeID = 29',
+						orderby: 'DataDescription',
+					},
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+
+						for (var i = 0; i < data.result.length; i++) {
+                            filterList4.push(
+								{
+									"value": data.result[i].id,
+									"label": data.result[i].Description
+								}
+							)
+						}
+					}
+					,
+					error: function (data) {
+
+						alert('Error populating filter ' + JSON.stringify(data));
+					}
+				});
+
+			var filterList5 = [];
+			$.ajax({
+					type: 'POST',
+					url: '@Url.Action("PrePopulateInput", "Base")',
+					data: {
+						field: 'StpDataID as ID,DataDescription as Description',
+						table: 'StpData',
+						where: ' StpDataTypeID = 28',
+						orderby: 'DataDescription',
+					},
+					dataType: 'json',
+					async: false,
+					success: function (data) {
+
+						for (var i = 0; i < data.result.length; i++) {
+                            filterList5.push(
+								{
+									"value": data.result[i].id,
+									"label": data.result[i].Description
+								}
+							)
+						}
+					}
+					,
+					error: function (data) {
+
+						alert('Error populating filter ' + JSON.stringify(data));
+					}
+				});
+
+
 
 			$('#responseMessagePerson').html("");
 
@@ -170,22 +231,23 @@
 		"aoColumns": [
 			 { "mDataProp": "PersonID" },
 			 { "mDataProp": "StpTitleID" },
-			 { "mDataProp": "Firstnames" },
-			 { "mDataProp": "Surname" },
-			 { "mDataProp": "StpPersonTypeID" },
-			 { "mDataProp": "StpPersonCategoryID" },
+             { "mDataProp": "Fullname" },
+			 { "mDataProp": "Email" },
+			 { "mDataProp": "PhysicalAddress" },
 			 { "mDataProp": "MobilePhone" },
+			 {"mDataProp": "IsActiveCheckBox" },
 			 {"mDataProp": "EditButton" },
 			 {"mDataProp": "DeleteButton" },
 			 { "mDataProp": "TitleDesc" },
-			 { "mDataProp": "PersonTypeDesc" },
-			 { "mDataProp": "PersonCategoryDesc" },
+			// { "mDataProp": "FarmTypeDesc" },
+			// { "mDataProp": "ProvinceDesc" },
 		],
-		"columnDefs": [{ visible: false, targets: [0,9,10,11] },{ orderable: false, targets: [7,8] },{"render": function(data, type, row) {  return row.TitleDesc;},"targets": [1]},{"render": function(data, type, row) {  return row.PersonTypeDesc;},"targets": [4]},{"render": function(data, type, row) {  return row.PersonCategoryDesc;},"targets": [5]} ],
+		"columnDefs": [{ visible: false, targets: [0,9] },{ orderable: false, targets: [7,8] },{"render": function(data, type, row) {  return row.TitleDesc;},"targets": [1]} ],
 		"buttons": [
 			{
 				text: '<i class="fa fa-plus" aria-hidden="true"></i>',
 				action: function(e, dt, node, config) {
+				$('#progressIcon').show();
 				$.ajax({
 					type: 'POST',
 					url: '@Url.Action("GetPerson", "Person")',
@@ -199,6 +261,7 @@
 					else {
 						ShowNotification(false, data.errorMessage)
 					}
+				$('#progressIcon').hide();
 					}
 				});
 				},
@@ -250,51 +313,55 @@
 		"language": {
 			"lengthMenu":"  " + display.value + " _MENU_ " + records.value,
 			"zeroRecords": zeroRecords.value,
-			"info":  showing.value + " _PAGE_ " + " of _PAGES_ from _TOTAL_ entries", 
-			"infoEmpty": infoEmpty.value, 
-			"infoFiltered":  "(" + filtered.value + " _MAX_ " + totalrecords.value + ")", 
-			"loadingRecords": loadingRecords.value, 
-			"processing": '<div class="loader"> <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div> ', 
+			"info":  showing.value + " _PAGE_ " + " of _PAGES_ from _TOTAL_ entries",
+			"infoEmpty": infoEmpty.value,
+			"infoFiltered":  "(" + filtered.value + " _MAX_ " + totalrecords.value + ")",
+			"loadingRecords": loadingRecords.value,
+			"processing": '<div class="loader"> <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div> ',
 			"paginate": {
-				"first": first.value, 
-				"last": last.value, 
-				"next": next.vaue, 
-				"previous": previous.value 
+				"first": first.value,
+				"last": last.value,
+				"next": next.vaue,
+				"previous": previous.value
 			},
 		}
 		}).yadcf([
 			{
 				column_number: 1,
 				filter_type: "select",
-				data: filterList1,
-				filter_delay: 500
+                data: filterListTitles,
+                filter_delay: 500
 			},
 			{
-				 column_number: 2,
+				column_number: 2,
 				filter_type: "text",
 				filter_delay: 500
 			},
 			{
-				 column_number: 3,
+				column_number: 3,
 				filter_type: "text",
 				filter_delay: 500
 			},
 			{
 				column_number: 4,
-				filter_type: "select",
-				data: filterList2,
-				filter_delay: 500
+                filter_type: "text",
+                filter_delay: 500
 			},
 			{
 				column_number: 5,
+				filter_type: "text",
+				filter_delay: 500
+			},
+			{
+				column_number: 6,
 				filter_type: "select",
 				data: filterList3,
 				filter_delay: 500
 			},
 			{
-				 column_number: 6,
-				filter_type: "text",
-				filter_delay: 500
+				column_number: 6,
+				filter_type: "select",
+				data: ["True", "False"]
 			},
 		], { cumulative_filtering: true });
 
@@ -377,7 +444,11 @@
 		 });
 
 
+
+
+
+
 		 });
 
-	</script>
+    </script>
 	}

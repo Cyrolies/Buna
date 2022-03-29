@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.Threading;
 using DALEFModel;
 
-namespace CyroTechPortal
+namespace BunaPortal
 {
     public static class LocalizationConfig
     {

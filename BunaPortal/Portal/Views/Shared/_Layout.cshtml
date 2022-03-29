@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @using CyroTechPortal;
+    @using BunaPortal;
     @using DALEFModel;
     @using System.Threading;
     @using System.Globalization;
-    @using CyroTechPortal.HTMLHelpers;
+    @using BunaPortal.HTMLHelpers;
 
-    @model DALEFModel.User
 
     <title>@ViewBag.Title</title>
     @{
-        string theme = "~/Content/css/skin-cyrotech.css";
+       // string theme = "~/Content/css/Buna.css";
+        string theme = "~/Content/css/BunaGrey.css";
         string CurrentURL = Request.Url.AbsoluteUri;
 
         if (CurrentURL.ToUpper().Contains("HITEC"))
@@ -30,11 +30,12 @@
         if (Session["User"] != null)
         {
             user = (User)Session["User"];
-            theme = "~/Content/css/" + user.StpData2.DataDescription + ".css";
+            // theme = "~/Content/css/" + user.StpData2.DataDescription + ".css";
+            theme = "~/Content/css/BunaGrey.css";
 
             //  AdminController adm = new AdminController();
             //  string lang = adm.GetStpDataByID(user.StpLanguageID).DataCode;
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(user.StpData.DataCode);
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(user.LanguageDesc);
             // LocalizationConfig.RegisterResourceProvider(() => new LocalizationDbResourceProvider());
             //// register the localizable model providers
             // LocalizationConfig.RegisterModelProviders();
@@ -154,10 +155,119 @@
     @*<script src="@Url.Content("~/Scripts/AddOn/MultiSelect/jquery.multiselect.js")"></script>
         <script src="@Url.Content("~/Scripts/AddOn/MultiSelect/jquery.multiselect.filter.js")"></script>*@
 
-    <script>
+<script>
         $(document).ready(function () {
             $('#progressIcon').hide();
+
+             $('#btnRefresh').click(function (e) {
+
+                    e.preventDefault();
+                     loadIcons();
              });
+            //Initial load
+            //loadFarmersRegCount();
+            //loadSuppliersRegCount();
+            //loadExtOfficersRegCount()
+            ////Refresh every 10 seconds
+            setInterval(function () {
+                loadFarmersRegCount();
+                loadSuppliersRegCount();
+                loadExtOfficersRegCount()
+            }, 15000);
+
+
+
+
+        });
+
+
+    function loadFarmersRegCount() {
+
+            var newFarmerRegistrations = 0;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetIconData", "Home")',
+                data: {
+                    iconType: 'farmers',
+                },
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                      //  alert(data.result[0].id);
+                        var farmersCount = document.getElementById("farmersRegCount");
+                      //  var farmersCountMessage = document.getElementById("farmersRegCountMessage");
+                        farmersCount.innerHTML = data.result[0].id + ' New Registered Farmers';
+                      //  farmersCountMessage.innerHTML = data.result[0].id + ' farmers have registered';
+
+                    }
+                }
+                ,
+                error: function (data) {
+
+                    alert('Error populating new farmer registrations count' + JSON.stringify(data));
+                }
+            });
+    }
+
+    function loadSuppliersRegCount() {
+
+        //alert('Getting suppliers count');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetIconData", "Home")',
+                data: {
+                    iconType: 'suppliers',
+                },
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                      //  alert(data.result[0].id);
+                        var farmersCount = document.getElementById("suppliersRegCount");
+                     //   var farmersCountMessage = document.getElementById("suppliersRegCountMessage");
+                        farmersCount.innerHTML = data.result[0].id + ' New Registered Suppliers';
+                       // farmersCountMessage.innerHTML = data.result[0].id + ' suppliers have registered';
+
+                    }
+                }
+                ,
+                error: function (data) {
+
+                    alert('Error populating new supplier registrations count' + JSON.stringify(data));
+                }
+            });
+    }
+
+    function loadExtOfficersRegCount() {
+
+        //alert('Getting suppliers count');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetIconData", "Home")',
+                data: {
+                    iconType: 'officers',
+                },
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                      //  alert(data.result[0].id);
+                        var farmersCount = document.getElementById("officersRegCount");
+                      //  var farmersCountMessage = document.getElementById("officersRegCountMessage");
+                        farmersCount.innerHTML = data.result[0].id + ' New Registered Officers';
+                      //  farmersCountMessage.innerHTML = data.result[0].id + ' officers have registered';
+
+                    }
+                }
+                ,
+                error: function (data) {
+
+                    alert('Error populating new officers registrations count' + JSON.stringify(data));
+                }
+            });
+        }
+
         //$('input[type="datetime"]').daterangepicker({
         //    singleDatePicker: true,
         //    showDropdowns: true,
@@ -180,8 +290,6 @@
 
         };
 
-
-
         //$('input[name="time"]').daterangepicker({
         //    timePicker: true,
         //    locale: {
@@ -189,7 +297,6 @@
         //    }
         //});
 
-        
 
         function formatDate(date) {
             var d = new Date(date),
@@ -203,11 +310,11 @@
                 day = '0' + day;
 
             return [year, month, day].join('-');
-        }
+    }
 
-       
 
-    </script>
+
+</script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -215,50 +322,124 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            
-                <div class="logo">
-                    <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini">
-                       
-                    </span>
-                    <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg">
-                       
-                    </span>
-                </div>
-          
+            <div class="logo">
+                <span class="logo-mini"></span>
+                <span class="logo-lg"></span>
+            </div>
+
             <!-- Header Navbar: style can be found in header.less - -->
             <nav class="navbar navbar-static-top" role="navigation">
 
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar" data-toggle="offcanvas" role="button">
                     <span class="glyphicon glyphicon-align-justify"></span>
-                    @*<i class="fas fa-bars"></i>*@
                 </a>
+             
+
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-user"></i>
+                        @if (Session["User"] == null)
+                        {
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    @Html.ActionLink("Login", "Login", "Account", new { currentTheme = "~/Content/css/Buna.css" }, null)
+                                </a>
+                            </li>
 
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <span class="hidden-xs">@User.Identity.Name</span>
-                                }
-                            </a>
 
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
+                        }
+                        @if (User.Identity.IsAuthenticated && Session["User"] != null)
+                        {
+                            @*if (user.OrgID == 3)//Malawi
+            {
+                <li class="dropdown messages-menu">
+                    <img style="height:40px; " src="~/Content/images/Buna/malawi.png" />
+                </li>
+            }
+            if (user.OrgID == 4)//Zambia
+            {
+                <li class="dropdown messages-menu">
+                    <img style="height:40px; " src="~/Content/images/Buna/zambia.png" />
+                </li>
+            }*@
 
-                                <li>
-                                    <p>
-                                        @if (User.Identity.IsAuthenticated && Session["User"] != null)
-                                        {
+                            @*@if (User.Identity.IsAuthenticated && Session["User"] != null)
+            {*@
+                            if (user.UserRoleID == 4)
+                            {
+                                <li class="dropdown messages-menu">
+                                    <div class="info-box small">
+                                        <span class="info-box-icon"><i class="fa fa-address-book-o"></i></span>
+                                        <div class="info-box-content">
+                                           @* <span class="info-box-text">New Registered Farmers</span>*@
+                                            <a href="../Person/Person">
+                                                <span class="info-box-number" id="farmersRegCount"></span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                <li class="dropdown messages-menu"> <span>&nbsp;</span></li>
+
+                                <li class="dropdown messages-menu">
+                                    <div class="info-box small">
+                                        <span class="info-box-icon"><i class="fa fa-tools"></i></span>
+                                        <div class="info-box-content">
+                                            @*<span class="info-box-text">New Registered Suppliers</span>*@
+                                            <a href="../Supplier/Supplier">
+                                                <span class="info-box-number" id="suppliersRegCount"></span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <li class="dropdown messages-menu"> <span>&nbsp;</span></li>
+
+                                <li class="dropdown messages-menu">
+                                    <div class="info-box small">
+                                        <span class="info-box-icon"><i class="fa fa-street-view"></i></span>
+                                        <div class="info-box-content">
+                                            @*<span class="info-box-text">New Registered Officers</span>*@
+                                            <a href="../User/User">
+                                                <span class="info-box-number" id="officersRegCount"></span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+                            //    }
+
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <span class="hidden-xs">@User.Identity.Name</span>
+                                        @*if (user.OrgID == 3)//Malawi
+                        {
+                            <br /> <span class="hidden-xs">MALAWI</span>
+                        }
+                        if (user.OrgID == 4)//Zambia
+                        {
+                            <br /> <span class="hidden-xs">ZAMBIA</span>
+                        }*@
+                                    }
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+
+                                    <li>
+                                        <p>
+
                                             <div class="form-group">
                                                 @Html.Label(@Html.Encode(Localizer.Current.GetString("Fullname"))):
-                                                @Html.DisplayName(user.FullName != null ? user.FullName : "")
+                                                @Html.DisplayName(user.Fullname != null ? user.Fullname : "")
                                             </div>
                                             <div class="form-group">
                                                 @Html.Label(@Html.Encode(Localizer.Current.GetString("Email"))):
@@ -283,23 +464,30 @@
                                                 @Html.Label(@Html.Encode(Localizer.Current.GetString("StpDepartmentID"))):
                                                 @Html.DisplayName(user.StpData1 != null ? user.StpData1.DataDescription : "")
                                             </div>
-                                        }
+                                            <div class="text-center">
+                                                @Html.ActionLink("LogOff", "LogOff", "Account", new { currentTheme = @theme }, null)
+                                                @*<a href="/Account/LogOff" class="btn btn-default btn-flat">Sign out</a>*@
+                                            </div>
 
-                                    </p>
-                                    <!-- Menu Footer-->
 
-                                    <div class="text-center">
-                                        @Html.ActionLink("LogOff", "LogOff", "Account", new { currentTheme = @theme }, null)
-                                        @*<a href="/Account/LogOff" class="btn btn-default btn-flat">Sign out</a>*@
-                                    </div>
+                                        </p>
+                                        <!-- Menu Footer-->
 
-                                </li>
-                            </ul>
 
-                        </li>
+
+                                    </li>
+                                </ul>
+
+                            </li>
+                        }
+
                     </ul>
                 </div>
+
+
             </nav>
+
+         
         </header>
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
@@ -315,7 +503,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <div id="progressIcon" class="loader" > <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+                <div id="progressIcon" class="loader"> <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
                 @RenderSection("Header")
             </section>
 
@@ -323,12 +511,43 @@
             <section class="content">
                 @RenderBody()
             </section><!-- /.content -->
+            <!-- /.content -
+            </div>
+            <!-- /.content-wrapper -->
+
         </div>
-    <!-- /.content-wrapper -->
-        @*<footer class="main-footer">
-            <strong><p>&copy; @DateTime.Now.Year - Admin Dashboard</p></strong>
-        </footer>*@
+
+        <footer class="main-footer">
+            <div >
+                <div>
+                    <table align="center">
+                     <tr>
+                        <td>
+                            <img style="height:60px; " src="~/Content/images/Buna/logos/RU-logo323.png" />
+                        </td>
+                        <td>
+                            <img style="height: 60px;" src="~/Content/images/Buna/logos/WRC-logo323.png" />
+                        </td>
+                        <td>
+                            <img style="height: 60px;" src="~/Content/images/Buna/logos/RFP-logo323.png" />
+                        </td>
+                     </tr>
+                    </table>
+                
+                </div>
+            </div>
+            
+   
+            @*<div class="col-md-6">
+                    <div class="row">
+                        <strong> @DateTime.Now.Year - Buna Africa</strong>
+                    </div>
+                </div>*@
+        </footer>
     </div>
+
+
+
     <input id="display" type="hidden" value="@Localizer.Current.GetString("Display")" />
     <input id="records" type="hidden" value="@Localizer.Current.GetString("RecordsPerPage")" />
 
@@ -345,5 +564,9 @@
     <input id="last" type="hidden" value="@Localizer.Current.GetString("Last")" />
 
     @RenderSection("scripts", required: false)
+
+
+
+
 </body>
 </html>

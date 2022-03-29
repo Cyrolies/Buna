@@ -1,122 +1,327 @@
-﻿@using CyroTechPortal;
+﻿@using BunaPortal;
+@using DALEFModel;
 
-       <div class="col-md-12">
-        
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">@Localizer.Current.GetString("MultiBarHeader")</h3>
-                    <div class="box-tools pull-right">
-                        <!-- Collapse Button -->
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-               
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div id="multibarechart" style="min-height:600px"></div>
-                </div>
-                <!-- /.box-body -->
-                @*<div class="box-footer">
-                    The footer of the box
-                </div>*@
-                <!-- box-footer -->
-            </div>
-            <!-- /.box -->
-        
+@*<div class="col-md-6">*@
+
+<div class="box">
+    <div class="box-header no-border">
+        <h3 class="box-title">@Localizer.Current.GetString("PRODUCTION CHART")</h3>
+        <div class="box-tools pull-right">
+            <a class="btn-xs" id="btnDashboard"><i class="fas fa-chart-line"></i>&nbsp;View Dashboard</a>
+            @*<button type="button" id="btnDashboard" class="btn btn-box-tool" >
+                    <i class="fa fa-window-maximize"></i>
+                </button>*@
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+
     </div>
-        <script src="@Url.Content("~/Scripts/ECharts/echarts.js")"></script>
-        <script>
-        $(document).ready(function () {
+    <div>
+        <label>Year:</label>
+        <select name="ddlYear" id="ddlYear" style="width:50px;height:25px">
+            <option value="0" selected>All</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+        </select>
+        <label>Period:</label>
+        <select name="ddlPeriod" id="ddlPeriod" style="width:70px;height:25px">
+            <option value="1">Monthly</option>
+            <option value="2">Yearly</option>
+        </select>
+        <label>Species:</label>
+        <select name="ddlFishType" id="ddlFishType" style="width:200px;height:25px">
+        </select>
+        @*<label>Enterprise Type:</label>
+            <select name="ddlEnterpriseType" id="ddlEnterpriseType" style="width:80px;height:25px">
+                <option value="0">All</option>
+                <option value="1">Table size</option>
+                <option value="2">Fingerlings</option>
+            </select>*@
+    </div>
 
-       var dataItems;
-            $('#progressIcon').show();
+    <div class="box-body" style="overflow-y: auto;max-height: 350px;overflow-x:auto;max-width:650px">
+        <div id="multibarechart" style="width:650px;height: 350px"></div>
+    </div>
+
+</div>
+
+@*</div>*@
+
+<div id="viewDashModal"></div>
+
+<script src="@Url.Content("~/Scripts/ECharts/echarts.js")"></script>
+<script>
+    $(document).ready(function () {
+
+        @{
+            var countryID = "";
+            User user = null;
+            if (Session["User"] != null)
+            {
+                user = (User)Session["User"];
+                countryID = user.OrgID.ToString();
+            }
+        }
+
+        
+
+            if(@countryID === 3)//Malawi
+            {
+                species = ['Tilapia - Makumba', 'Mozambique Tilapia', 'Tilapia - Chambo', 'Redbreasted Tilapia', 'Catfish - Mlamba', 'Matemba', 'Makwale','Carp'];
+            }
+            if (@countryID === 4)//Zambia
+            {
+                species = ['Nile Bream', 'Three Spotted Bream', 'Green Headed bream', 'Tanganyika Bream', 'Red Breasted Bream', 'Cat Fish'];
+            }
+
+     $.ajax({
+                type: 'POST',
+                    url: '@Url.Action("GetStpDataList", "Home")',
+                    data: {
+                    orgID: 3,
+                        dataCode: '',
+                        stpdatatype: '38',
+
+                    },
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+
+                    var s = '<option value="0">All</option>';
+                    for (var i = 0; i < data.result.length; i++) {
+                        s += '<option value="' + data.result[i].StpDataID + '">' + data.result[i].DataDescription + '</option>';
+                    }
+                        $('#ddlFishType').html(s)
+                    }
+                    ,
+                    error: function (data) {
+
+                    alert('Error populating fish filter ' + JSON.stringify(data));
+                }
+            });
+
+            loadData();
+
+     $('#btnDashboard').click(function (e) {
+         $('#progressIcon').show();
+                e.preventDefault();
+
         $.ajax({
-            //type: 'Get',
-            url: '@Url.Action("GetHitecJobMultiBarData", "Report")',
+                    type: 'GET',
+            url: '@Url.Action("Dashboard", "Home")',
+            dataType: "text",
+            success: function (result) {
+                $('#progressIcon').hide();
+                        if (result) {
+                    $('#viewDashModal').html(result);
+                        }
+                        else {
+                            ShowNotification(false, data.errorMessage)
+                        }
+                    }
+                });
+            });
+
+     $('#ddlFishType').on('change', function () {
+                loadData();
+            });
+
+     $('#ddlPeriod').on('change', function () {
+                if ($("select#ddlPeriod option").filter(":selected").val() == '2') //Yearly
+         {
+             $("select#ddlYear option").filter(":selected").val('0');
+                }
+                loadData();
+            });
+     $('#ddlYear').on('change', function () {
+                loadData();
+            });
+ });
+
+
+    function loadData() {
+       // alert($("select#ddlPeriod option").filter(":selected").val());
+        var dataItems;
+        $('#progressIcon').show();
+        $.ajax({
+            type: 'Post',
+            url: '@Url.Action("GetProductionData", "Home")',
             dataType: 'json',
+            data: {
+                period: $("select#ddlPeriod option").filter(":selected").val(),
+                prodtype: '0',
+                fishtype: $("select#ddlFishType option").filter(":selected").val(),
+                farmid: '0',
+                year: $("select#ddlYear option").filter(":selected").val(),
+            },
             async: false,
             success: function (data) {
-                
-                 dataItems = data.result;
+
+                dataItems = data.result;
             },
             error: function (data) {
                 alert("SomethingWrong" + data.result);
 
             }
-            
+
         });
-            $('#progressIcon').hide();
-            
-        //var earliestDate = dataItems.reduce((a, b) => (a.startdate < b.startdate ? a : b));//Get earliest startdate from list
-        //var oldestDate = dataItems.reduce((a, b) => (a.enddate > b.enddate ? a : b));//Get highest enddate from list
-        //var startDt = new Date(new Date(earliestDate.startdate).getTime() - (3 * 24 * 60 * 60 * 1000)); //add 3 day buffer before earliest startdate
-        //var endDt = new Date(new Date(oldestDate.enddate).getTime() + (3 * 24 * 60 * 60 * 1000));//add 3 day buffer after highest enddate
-
-     //   alert('Start : ' + JSON.stringify(startDt) + ' End : ' + oldestDate.enddate);
+        $('#progressIcon').hide();
 
 
-            var app = {};
 
-            var chartDom = document.getElementById('multibarechart');
-            var myChart = echarts.init(chartDom);
-            var option;
+                //var earliestDate = dataItems.reduce((a, b) => (a.startdate < b.startdate ? a : b));//Get earliest startdate from list
+                //var oldestDate = dataItems.reduce((a, b) => (a.enddate > b.enddate ? a : b));//Get highest enddate from list
+                //var startDt = new Date(new Date(earliestDate.startdate).getTime() - (3 * 24 * 60 * 60 * 1000)); //add 3 day buffer before earliest startdate
+                //var endDt = new Date(new Date(oldestDate.enddate).getTime() + (3 * 24 * 60 * 60 * 1000));//add 3 day buffer after highest enddate
 
-            option = {
-                //legend: {
-                //    x: 'right',
-                //    data: ['Open', 'Completed', 'Invoiced']
-                //},
-                tooltip: {},
-                dataset: {
-                    source: dataItems
+                //   alert('Start : ' + JSON.stringify(startDt) + ' End : ' + oldestDate.enddate);
+
+
+                var app = {};
+
+        var chartDom = document.getElementById('multibarechart');
+        var myChart = echarts.init(chartDom);
+        var option;
+         app.config = {
+            rotate: 90,
+            align: 'left',
+            verticalAlign: 'middle',
+            position: 'insideBottom',
+            distance: 15,
+            onChange: function () {
+                const labelOption = {
+                    rotate: app.config.rotate,
+                    align: app.config.align,
+                    verticalAlign: app.config.verticalAlign,
+                    position: app.config.position,
+                    distance: app.config.distance
+                };
+                //myChart.setOption({
+                //    series: [
+                //        {
+                //            label: labelOption
+                //        },
+                //        {
+                //            label: labelOption
+                //        },
+                //        {
+                //            label: labelOption
+                //        },
+                //        {
+                //            label: labelOption
+                //        }
+                //    ]
+                //});
+            }
+        };
+        const labelOption = {
+            show: true,
+            position: app.config.position,
+            distance: app.config.distance,
+            align: app.config.align,
+            verticalAlign: app.config.verticalAlign,
+            rotate: app.config.rotate,
+            formatter: '{name|{a}}',
+            fontSize: 16,
+            rich: {
+                name: {}
+            }
+        };
+        option = {
+            legend: {},
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            //legend: {
+            //  //  x: 'right',
+            //    data: species
+            //},
+            //tooltip: {},
+            //dataset: {
+            //    source: dataItems
+
+            //    //source: [
+
+            //    //    ['Jan', 43.3, 85.8, 93.7],
+            //    //    ['Feb', 83.1, 73.4, 55.1],
+            //    //    ['Mar', 86.4, 65.2, 82.5],
+            //    //    ['Apr', 72.4, 53.9, 39.1],
+            //    //    ['May', 72.4, 53.9, 39.1],
+            //    //    ['Jun', 72.4, 53.9, 39.1],
+            //    //    ['Jul', 72.4, 53.9, 39.1],
+            //    //    ['Aug', 12.4, 3.9, 1],
+            //    //]
+            //},
+            xAxis: { type: 'category' },
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
+
+            series: [
+                {
+                    type: 'bar', name: "Tilapia", stack: 'total',
+                    label: {
+                        show: true
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },itemStyle: { color: "green" }, label: labelOption, data: [3, 2, 1, 4, 9, 3, 2], label: {
+                        show: true
+                    },
                 },
-                xAxis: { type: 'category' },
-                yAxis: {},
-                // Declare several bar series, each will be mapped
-                // to a column of dataset.source by default.
-                series: [
-                    {
-                        type: 'bar', name: "Open",
-                        itemStyle: { color: "green" }
+                {
+                    type: 'bar', name: "carp", stack: 'total',
+                    label: {
+                        show: true
                     },
-                    {
-                        type: 'bar', name: "Completed", itemStyle: { color: "red" }
+                    emphasis: {
+                        focus: 'series'
+                    }, itemStyle: { color: "red" }, label: labelOption, data: [3, 2, 1, 4, 9, 3, 2], label: {
+                        show: true
                     },
-                    {
-                        type: 'bar', name: "Invoiced", itemStyle: { color: "yellow" }
+                },
+                {
+                    type: 'bar', name: "breem", stack: 'total',
+                    label: {
+                        show: true
                     },
-                    {
-                        type: 'bar', name: "NotStarted", itemStyle: { color: "blue" }
-                    }
-                ]
-            };
+                    emphasis: {
+                        focus: 'series'
+                    }, itemStyle: { color: "yellow" }, label: labelOption, data: [3, 2, 1, 4, 9, 3, 2], label: {
+                        show: true
+                    },
+                },
+                {
+                    type: 'bar', name: "cat", stack: 'total',
+                    label: {
+                        show: true
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    }, itemStyle: { color: "blue" }, label: labelOption, data: [3, 2, 1, 4, 9, 3, 2], label: {
+                        show: true
+                    },
+                }
+            ]
+        };
 
-            option && myChart.setOption(option);
+        option && myChart.setOption(option);
 
         //  click
-        @*$('#gantt').on('dblclick', function () {
-            $.ajax({
-					type: 'POST',
-					url: '@Url.Action("GetHitecJob", "HitecJob")',
-					data: { id: '' },
-					dataType: "text",
-					success: function(result) {
-					if (result)
-					{
-						$('#viewModal').html(result);
-					}
-					else {
-                        ShowNotification(false, data.errorMessage);
+    }
 
-					}
-					}
-				});
-        });*@
-
-
-    });
-
-        </script>
+</script>
